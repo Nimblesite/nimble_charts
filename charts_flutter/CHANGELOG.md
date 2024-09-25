@@ -1,3 +1,10 @@
+# 0.4.0-beta
+* Fix readme image
+
+# 0.3.0-beta
+* Improved documentation
+* Improved examples
+
 # 0.2.0-beta
 * Overhaul the nimble_charts package with austerity for type safety etc.
 * Add tests

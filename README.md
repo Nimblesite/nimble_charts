@@ -1,16 +1,23 @@
 # nimble_charts: charts_flutter Resurrected
 
-This project is a resurrection of the discontinued [Google Charts Flutter library](https://github.com/google/charts). It aims to provide a maintained and updated version of the popular charting package for Flutter developers.
+![Charts Sample](https://raw.githubusercontent.com/Nimblesite/nimble_charts/main/charts.gif)
 
-nimble_charts is a fork of the original [charts_flutter](https://pub.dev/packages/charts_flutter) library. It has been renamed, and [Nimblesite](https://www.nimblesite.co/) now maintains it. While the package name has changed, we continue to honor the original Apache 2.0 license and attribute the original work to the original Google team.
+This project is a resurrection of the discontinued [charts_flutter](https://pub.dev/packages/charts_flutter). It aims to provide a robust and flexible charting package for Flutter developers.
+[Nimblesite](https://www.nimblesite.co/) now maintains this library. While the package name has changed, we are working towards making this fork as compatible as possible with the original.
+
+**🚀 Live Demo**: check out the [live WASM web app demo](https://nimblesite.github.io/nimble_charts/) to see the charts in action!
 
 [![build_and_test](https://github.com/Nimblesite/nimble_charts/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/Nimblesite/nimble_charts/actions/workflows/build_and_test.yml)
 
-## 🚀 Live Demo
+## ❓ Why This Fork?
 
-Check out the [live WASM web app demo](https://nimblesite.github.io/nimble_charts/) to see the charts in action!
+### Dart 3, Type Safety, Tests, and Bug Fixes
 
-This is the original example app, running in a browser with WASM.
+Type safety and rigourous tests ensure that this package is reliable and maintainable. We applied thousands of automatic and manual fixes to the code to bring type safety up, and ensure that it's harder to break this library. There are also many new widget tests with goldens, which means that changes should not affect the UI behavior.
+
+This fork provides the most solid foundation for future development, and we will continue to maintain this library.
+
+Please compare the `pubspec.yaml` file, `analysis_options.yaml` file and the test folder with other forks of this library. The difference is clear. This fork only works with Dart 3 and above, which has far better type safety and null safety. 
 
 ## 📊 Features
 
@@ -18,54 +25,72 @@ This is the original example app, running in a browser with WASM.
 - Customizable appearance and behavior
 - Flutter-native implementation
 - Supports both mobile and web platforms
+- Improved documentation and extensive samples
 
 ## 🛠️ Installation
 
 Add the following to your `pubspec.yaml`:
 
-nimble_charts: ^0.1.0-beta
+nimble_charts: ^0.4.0-beta
 
 ## 📝 Usage
 
-Here's a quick example of how to create a simple line chart:
+This is a full app with a basic line chart.
 
 ```dart
-import 'package:nimble_charts/flutter.dart' as charts;
+import 'package:flutter/material.dart';
+import 'package:nimble_charts/flutter.dart';
 
-// ... in your widget build method:
-charts.LineChart(
- [
- charts.Series<LinearSales, int>(
- id: 'Sales',
- colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
- domainFn: (LinearSales sales, _) => sales.year,
- measureFn: (LinearSales sales, _) => sales.sales,
- data: [
-        LinearSales(0, 5),
-        LinearSales(1, 25),
-        LinearSales(2, 100),
-        LinearSales(3, 75),
- ],
- )
- ],
-)
+typedef LinearSales = ({int year, int sales});
+
+void main() => runApp(
+      MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          body: Padding(
+            padding: const EdgeInsets.all(24),
+            child: ColoredBox(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: LineChart(
+                  [
+                    Series<LinearSales, int>(
+                      id: 'Sales',
+                      colorFn: (_, __) => MaterialPalette.purple.shadeDefault,
+                      domainFn: (sales, _) => sales.year,
+                      measureFn: (sales, _) => sales.sales,
+                      data: [
+                        (year: 0, sales: 5),
+                        (year: 1, sales: 25),
+                        (year: 2, sales: 100),
+                        (year: 3, sales: 75),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
 ```
 
-For more examples and detailed documentation, please refer to the package documentation.
+For more examples and detailed documentation, please refer to the example app and documentation.
 
 ## ⚖️ License
-This project is a continuation of the original Google Charts library and maintains the same Apache 2.0 license. We are committed to honoring the original licenses and attributions. For full license details, please see the LICENSE file.
+This project continues the original Google Charts library under the Apache 2.0 license. We honor the original licenses and attributions. See the [LICENSE](LICENSE) and [AUTHORS](AUTHORS) files for details. We are grateful to the Google team for their valuable work on this library.
 
 ## Running the Tests
 
-There are a heap of widget tests. Each of the widget tests create golden files. These golden files are generated with GitHub actions on Linux so they will always be slightly different to your local machine. If you want to run the tests locally, you can run the following command:
+There are many widget tests for the example app. Each of the widget tests create golden files. These golden files are generated with GitHub actions on Linux so they will always be slightly different to your local machine. If you want to run the tests locally, you need to run the following command:
 
 ```bash
 flutter test --update-goldens
 ```
 
-Please don't commit goldens in PRs. We will merge your branch to a temporary branch and then run the `generate_goldens.yaml` action to generate the goldens. If there
-are changes in the goldens, they will show up in the PR.
+Please don't commit goldens in PRs. We will merge your branch to a temporary branch and then run the `generate_goldens.yaml` action to generate the goldens. If there are changes in the goldens, they will show up in the PR.
 
 ## What Has Changed?
 
@@ -78,10 +103,10 @@ The Fork occurred at 0.12.0 of the original charts_flutter
 - We had to disable many existing tests, but we are working on new widget and integration tests to fill the gap. We will also resurrect many of the old tests when time permits. Until there is sufficient test coverage, the package will remain in beta.
 
 ## 🤝 Contributing
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! 
 
-## 📣 Acknowledgements
-This project would not be possible without the original work done by the Google Charts team. We express our gratitude for their efforts in creating such a valuable library for the Flutter community.
+We won't accept new features at this time, but we will accept tests, warning fixes, documentation updates, and bug fixes.
 
-All chart packages are licensed under the Apache 2 license, see the
-[LICENSE](LICENSE) and [AUTHORS](AUTHORS) files for details.
+Please pay attention to existing issues and branches before starting work. 
+
+Otherwise, please feel free to submit a Pull Request.

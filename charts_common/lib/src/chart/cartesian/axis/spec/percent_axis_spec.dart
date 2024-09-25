@@ -18,7 +18,7 @@ import 'package:meta/meta.dart' show immutable;
 import 'package:nimble_charts_common/src/chart/cartesian/axis/numeric_extents.dart'
     show NumericExtents;
 import 'package:nimble_charts_common/src/chart/cartesian/axis/spec/axis_spec.dart'
-    show AxisSpec, RenderSpec;
+    show AxisSpec;
 import 'package:nimble_charts_common/src/chart/cartesian/axis/spec/numeric_axis_spec.dart'
     show
         BasicNumericTickFormatterSpec,
@@ -51,9 +51,5 @@ class PercentAxisSpec extends NumericAxisSpec {
   bool operator ==(Object other) => other is PercentAxisSpec && super == other;
 
   @override
-  int get hashCode {
-    var hashcode = super.hashCode;
-    hashcode = (hashcode * 37) + runtimeType.hashCode;
-    return hashcode;
-  }
+  int get hashCode => (super.hashCode * 37) + runtimeType.hashCode;
 }

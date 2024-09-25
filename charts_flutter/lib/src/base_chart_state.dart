@@ -34,6 +34,7 @@ import 'package:nimble_charts/src/chart_state.dart' show ChartState;
 import 'package:nimble_charts/src/widget_layout_delegate.dart';
 import 'package:nimble_charts_common/common.dart' as common;
 
+/// The state for a [BaseChart] widget.
 class BaseChartState<D> extends State<BaseChart<D>>
     with TickerProviderStateMixin
     implements ChartState {
@@ -47,18 +48,28 @@ class BaseChartState<D> extends State<BaseChart<D>>
 
   bool _configurationChanged = false;
 
+  /// A list of behaviors that are automatically built.
   final autoBehaviorWidgets = <ChartBehavior<D>>[];
+
+  /// A list of behaviors that are added by the user.
   final addedBehaviorWidgets = <ChartBehavior<D>>[];
+
+  /// A map of behaviors by role.
   final addedCommonBehaviorsByRole = <String, common.ChartBehavior>{};
 
+  /// A map of selection changed listeners by type.
   final addedSelectionChangedListenersByType =
       <common.SelectionModelType, common.SelectionModelListener<D>>{};
+
+  /// A map of selection updated listeners by type.
   final addedSelectionUpdatedListenersByType =
       <common.SelectionModelType, common.SelectionModelListener<D>>{};
 
+  /// A map of behavior animation controllers by behavior.
   final _behaviorAnimationControllers =
       <ChartStateBehavior, AnimationController>{};
 
+  /// The layout ID for the chart container.
   static const chartContainerLayoutID = 'chartContainer';
 
   @override

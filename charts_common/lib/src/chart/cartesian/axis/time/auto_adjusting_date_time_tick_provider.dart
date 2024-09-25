@@ -60,7 +60,7 @@ import 'package:nimble_charts_common/src/common/graphics_factory.dart'
 class AutoAdjustingDateTimeTickProvider implements TickProvider<DateTime> {
   AutoAdjustingDateTimeTickProvider._internal(
     List<TimeRangeTickProvider> tickProviders,
-  )   : assert(tickProviders.isNotEmpty),
+  )   : assert(tickProviders.isNotEmpty, 'At least one tick provider required'),
         _potentialTickProviders = tickProviders;
 
   /// Creates a default [AutoAdjustingDateTimeTickProvider] for day and time.

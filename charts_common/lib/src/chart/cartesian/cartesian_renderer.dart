@@ -172,7 +172,7 @@ abstract class BaseCartesianRenderer<D> extends BaseSeriesRenderer<D>
     AccessorFn<D> domainFn,
     List<Object?> data,
   ) {
-    assert(data.isNotEmpty);
+    assert(data.isNotEmpty, 'Data must not be empty.');
 
     // Quick optimization for full viewport (likely).
     if (domainAxis.compareDomainValueToViewport(domainFn(0)) == 0) {

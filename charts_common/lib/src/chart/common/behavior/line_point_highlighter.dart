@@ -134,7 +134,10 @@ class LinePointHighlighter<D> implements ChartBehavior<D> {
 
     if (chart is CartesianChart) {
       // Only vertical rendering is supported by this behavior.
-      assert((chart as CartesianChart).vertical);
+      assert(
+        (chart as CartesianChart).vertical,
+        'Only vertical charts are supported for LinePointHighlighter.',
+      );
     }
 
     chart

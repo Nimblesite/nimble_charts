@@ -37,6 +37,7 @@ import 'package:nimble_charts_common/src/common/line_style.dart' as _i3;
 import 'package:nimble_charts_common/src/common/text_element.dart' as _i5;
 import 'package:nimble_charts_common/src/common/text_measurement.dart' as _i6;
 import 'package:nimble_charts_common/src/common/text_style.dart' as _i4;
+import 'package:nimble_charts_common/src/data/series.dart' as _i23;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -1525,6 +1526,444 @@ class MockAxis extends _i1.Mock implements _i16.Axis<String> {
             canvas,
             animationPercent,
           ],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [ChartCanvas].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockCanvas extends _i1.Mock implements _i17.ChartCanvas {
+  @override
+  _i8.GraphicsFactory get graphicsFactory => (super.noSuchMethod(
+        Invocation.getter(#graphicsFactory),
+        returnValue: _FakeGraphicsFactory_6(
+          this,
+          Invocation.getter(#graphicsFactory),
+        ),
+        returnValueForMissingStub: _FakeGraphicsFactory_6(
+          this,
+          Invocation.getter(#graphicsFactory),
+        ),
+      ) as _i8.GraphicsFactory);
+
+  @override
+  set drawingView(String? viewName) => super.noSuchMethod(
+        Invocation.setter(
+          #drawingView,
+          viewName,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void drawCircleSector(
+    _i18.Point<num>? center,
+    double? radius,
+    double? innerRadius,
+    double? startAngle,
+    double? endAngle, {
+    _i13.Color? fill,
+    _i13.Color? stroke,
+    double? strokeWidthPx,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #drawCircleSector,
+          [
+            center,
+            radius,
+            innerRadius,
+            startAngle,
+            endAngle,
+          ],
+          {
+            #fill: fill,
+            #stroke: stroke,
+            #strokeWidthPx: strokeWidthPx,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void drawLink(
+    _i17.Link? link,
+    _i17.LinkOrientation? orientation,
+    _i13.Color? fill,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #drawLink,
+          [
+            link,
+            orientation,
+            fill,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void drawLine({
+    required List<_i18.Point<num>>? points,
+    _i18.Rectangle<num>? clipBounds,
+    _i13.Color? fill,
+    _i13.Color? stroke,
+    bool? roundEndCaps,
+    double? strokeWidthPx,
+    List<int>? dashPattern,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #drawLine,
+          [],
+          {
+            #points: points,
+            #clipBounds: clipBounds,
+            #fill: fill,
+            #stroke: stroke,
+            #roundEndCaps: roundEndCaps,
+            #strokeWidthPx: strokeWidthPx,
+            #dashPattern: dashPattern,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void drawPie(_i13.CanvasPie? canvasPie) => super.noSuchMethod(
+        Invocation.method(
+          #drawPie,
+          [canvasPie],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void drawPoint({
+    required _i18.Point<num>? point,
+    required double? radius,
+    _i13.Color? fill,
+    _i13.Color? stroke,
+    double? strokeWidthPx,
+    _i17.BlendMode? blendMode,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #drawPoint,
+          [],
+          {
+            #point: point,
+            #radius: radius,
+            #fill: fill,
+            #stroke: stroke,
+            #strokeWidthPx: strokeWidthPx,
+            #blendMode: blendMode,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void drawPolygon({
+    required List<_i18.Point<num>>? points,
+    _i18.Rectangle<num>? clipBounds,
+    _i13.Color? fill,
+    _i13.Color? stroke,
+    double? strokeWidthPx,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #drawPolygon,
+          [],
+          {
+            #points: points,
+            #clipBounds: clipBounds,
+            #fill: fill,
+            #stroke: stroke,
+            #strokeWidthPx: strokeWidthPx,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void drawRect(
+    _i18.Rectangle<num>? bounds, {
+    _i13.Color? fill,
+    _i13.Color? stroke,
+    double? strokeWidthPx,
+    _i18.Rectangle<num>? drawAreaBounds,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #drawRect,
+          [bounds],
+          {
+            #fill: fill,
+            #stroke: stroke,
+            #strokeWidthPx: strokeWidthPx,
+            #drawAreaBounds: drawAreaBounds,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void drawRRect(
+    _i18.Rectangle<num>? bounds, {
+    _i13.Color? fill,
+    _i13.Color? stroke,
+    _i13.Color? patternColor,
+    _i17.FillPatternType? fillPattern,
+    double? patternStrokeWidthPx,
+    double? strokeWidthPx,
+    num? radius,
+    bool? roundTopLeft = false,
+    bool? roundTopRight = false,
+    bool? roundBottomLeft = false,
+    bool? roundBottomRight = false,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #drawRRect,
+          [bounds],
+          {
+            #fill: fill,
+            #stroke: stroke,
+            #patternColor: patternColor,
+            #fillPattern: fillPattern,
+            #patternStrokeWidthPx: patternStrokeWidthPx,
+            #strokeWidthPx: strokeWidthPx,
+            #radius: radius,
+            #roundTopLeft: roundTopLeft,
+            #roundTopRight: roundTopRight,
+            #roundBottomLeft: roundBottomLeft,
+            #roundBottomRight: roundBottomRight,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void drawBarStack(
+    _i13.CanvasBarStack? canvasBarStack, {
+    _i18.Rectangle<num>? drawAreaBounds,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #drawBarStack,
+          [canvasBarStack],
+          {#drawAreaBounds: drawAreaBounds},
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void drawText(
+    _i5.TextElement? textElement,
+    int? offsetX,
+    int? offsetY, {
+    double? rotation = 0.0,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #drawText,
+          [
+            textElement,
+            offsetX,
+            offsetY,
+          ],
+          {#rotation: rotation},
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void setClipBounds(_i18.Rectangle<int>? clipBounds) => super.noSuchMethod(
+        Invocation.method(
+          #setClipBounds,
+          [clipBounds],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void resetClipBounds() => super.noSuchMethod(
+        Invocation.method(
+          #resetClipBounds,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [ImmutableSeries].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockImmutableSeries<D> extends _i1.Mock
+    implements _i13.ImmutableSeries<D> {
+  @override
+  set keyFn(_i23.AccessorFn<String>? _keyFn) => super.noSuchMethod(
+        Invocation.setter(
+          #keyFn,
+          _keyFn,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set insideLabelStyleAccessorFn(
+          _i23.AccessorFn<_i14.TextStyleSpec>? _insideLabelStyleAccessorFn) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #insideLabelStyleAccessorFn,
+          _insideLabelStyleAccessorFn,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set outsideLabelStyleAccessorFn(
+          _i23.AccessorFn<_i14.TextStyleSpec>? _outsideLabelStyleAccessorFn) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #outsideLabelStyleAccessorFn,
+          _outsideLabelStyleAccessorFn,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  String get id => (super.noSuchMethod(
+        Invocation.getter(#id),
+        returnValue: _i12.dummyValue<String>(
+          this,
+          Invocation.getter(#id),
+        ),
+        returnValueForMissingStub: _i12.dummyValue<String>(
+          this,
+          Invocation.getter(#id),
+        ),
+      ) as String);
+
+  @override
+  bool get overlaySeries => (super.noSuchMethod(
+        Invocation.getter(#overlaySeries),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  int get seriesIndex => (super.noSuchMethod(
+        Invocation.getter(#seriesIndex),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  num get seriesMeasureTotal => (super.noSuchMethod(
+        Invocation.getter(#seriesMeasureTotal),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as num);
+
+  @override
+  List<dynamic> get data => (super.noSuchMethod(
+        Invocation.getter(#data),
+        returnValue: <dynamic>[],
+        returnValueForMissingStub: <dynamic>[],
+      ) as List<dynamic>);
+
+  @override
+  _i23.AccessorFn<D> get domainFn => (super.noSuchMethod(
+        Invocation.getter(#domainFn),
+        returnValue: (int? index) => _i12.dummyValue<D>(
+          this,
+          Invocation.getter(#domainFn),
+        ),
+        returnValueForMissingStub: (int? index) => _i12.dummyValue<D>(
+          this,
+          Invocation.getter(#domainFn),
+        ),
+      ) as _i23.AccessorFn<D>);
+
+  @override
+  _i23.AccessorFn<num?> get measureFn => (super.noSuchMethod(
+        Invocation.getter(#measureFn),
+        returnValue: (int? index) => null,
+        returnValueForMissingStub: (int? index) => null,
+      ) as _i23.AccessorFn<num?>);
+
+  @override
+  _i23.AccessorFn<num?> get rawMeasureFn => (super.noSuchMethod(
+        Invocation.getter(#rawMeasureFn),
+        returnValue: (int? index) => null,
+        returnValueForMissingStub: (int? index) => null,
+      ) as _i23.AccessorFn<num?>);
+
+  @override
+  void setAttr<R>(
+    _i13.AttributeKey<R>? key,
+    R? value,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #setAttr,
+          [
+            key,
+            value,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  R? getAttr<R>(_i13.AttributeKey<R>? key) => (super.noSuchMethod(
+        Invocation.method(
+          #getAttr,
+          [key],
+        ),
+        returnValueForMissingStub: null,
+      ) as R?);
+}
+
+/// A class which mocks [LineStyle].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockLinePaint extends _i1.Mock implements _i3.LineStyle {
+  @override
+  set dashPattern(List<int>? dashPattern) => super.noSuchMethod(
+        Invocation.setter(
+          #dashPattern,
+          dashPattern,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  int get strokeWidth => (super.noSuchMethod(
+        Invocation.getter(#strokeWidth),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  set strokeWidth(int? strokeWidth) => super.noSuchMethod(
+        Invocation.setter(
+          #strokeWidth,
+          strokeWidth,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set color(_i13.Color? value) => super.noSuchMethod(
+        Invocation.setter(
+          #color,
+          value,
         ),
         returnValueForMissingStub: null,
       );

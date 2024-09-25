@@ -59,7 +59,7 @@ class TimeRangeTickProviderImpl extends TimeRangeTickProvider {
     int? minDifference;
     late int closestIncrement;
 
-    assert(timeStepper.allowedTickIncrements.isNotEmpty);
+    assert(timeStepper.allowedTickIncrements.isNotEmpty, 'No increments set.');
     for (final increment in timeStepper.allowedTickIncrements) {
       final difference =
           (stepSize - (timeStepper.typicalStepSizeMs * increment)).abs();

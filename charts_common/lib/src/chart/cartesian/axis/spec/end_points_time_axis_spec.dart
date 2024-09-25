@@ -52,9 +52,5 @@ class EndPointsTimeAxisSpec extends DateTimeAxisSpec {
       (other is EndPointsTimeAxisSpec && super == other);
 
   @override
-  int get hashCode {
-    var hashcode = super.hashCode;
-    hashcode = (hashcode * 37) + runtimeType.hashCode;
-    return hashcode;
-  }
+  int get hashCode => (super.hashCode * 37) + runtimeType.hashCode;
 }

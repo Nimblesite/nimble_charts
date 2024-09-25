@@ -21,8 +21,6 @@ import 'package:nimble_charts_common/src/chart/cartesian/axis/ordinal_scale.dart
 
 /// A domain processor for [OrdinalScale].
 ///
-/// [D] domain class type of the values being tracked.
-///
 /// Unique domain values are kept, so duplicates will not increase the extent.
 class OrdinalScaleDomainInfo {
   OrdinalScaleDomainInfo();

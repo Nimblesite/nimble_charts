@@ -16,7 +16,7 @@
 import 'package:nimble_charts_common/src/chart/bar/bar_target_line_renderer.dart'
     show BarTargetLineRenderer;
 import 'package:nimble_charts_common/src/chart/bar/base_bar_renderer_config.dart'
-    show BarGroupingType, BaseBarRendererConfig;
+    show BaseBarRendererConfig;
 import 'package:nimble_charts_common/src/chart/layout/layout_view.dart'
     show LayoutViewPaintOrder;
 import 'package:nimble_charts_common/src/common/symbol_renderer.dart'

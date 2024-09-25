@@ -14,6 +14,7 @@
 // limitations under the License.
 
 import 'dart:collection' show HashSet;
+
 import 'package:nimble_charts_common/src/chart/cartesian/axis/scale.dart'
     show Extents;
 
@@ -22,8 +23,6 @@ class OrdinalExtents extends Extents<String> {
   /// The extents representing the ordinal values in [range].
   ///
   /// The elements of [range] must all be unique.
-  ///
-  /// [D] is the domain class type for the elements in the extents.
   OrdinalExtents(List<String> range) : _range = range {
     // This asserts that all elements in [range] are unique.
     assert(() {

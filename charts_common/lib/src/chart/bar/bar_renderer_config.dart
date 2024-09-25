@@ -65,9 +65,8 @@ class BarRendererConfig<D> extends BaseBarRendererConfig<D> {
 
   @override
   int get hashCode {
-    var hash = super.hashCode;
-    hash = hash * 31 + cornerStrategy.hashCode;
-    return hash;
+    final hash = super.hashCode;
+    return hash * 31 + cornerStrategy.hashCode;
   }
 }
 

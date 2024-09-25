@@ -13,7 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:nimble_charts/flutter.dart';
 import 'package:nimble_charts/src/base_chart_state.dart';
 import 'package:nimble_charts/src/cartesian_chart.dart' as cart;
 import 'package:nimble_charts_common/common.dart' as common;
@@ -25,6 +24,25 @@ import 'package:nimble_charts_common/common.dart' as common;
 /// . We do not expose a separate DateTimeComboChart because it would just be
 /// a copy of that chart.
 class NumericComboChart extends cart.CartesianChart<num> {
+  /// Creates a numeric combo chart with the given series of data.
+  ///
+  /// [seriesList] The list of series to be plotted on the chart.
+  /// [animate] Whether to animate the chart when data changes.
+  /// [animationDuration] The duration of the animation when data changes.
+  /// [domainAxis] The domain axis to use for the chart. If not provided, a
+  /// default numeric axis will be used.
+  /// [primaryMeasureAxis] The primary measure axis to use for the chart. If
+  /// not provided, a default numeric axis will be used.
+  /// [secondaryMeasureAxis] The secondary measure axis to use for the chart,
+  /// if needed.
+  /// [defaultRenderer] The default renderer to use for the series.
+  /// [customSeriesRenderers] Custom renderers for specific series, if needed.
+  /// [behaviors] A list of chart behaviors to attach to the chart.
+  /// [selectionModels] A list of selection models to attach to the chart.
+  /// [rtlSpec] Configures the chart for right-to-left languages.
+  /// [layoutConfig] Configuration for chart layout.
+  /// [defaultInteractions] Whether to add the default interactions to the
+  /// chart.
   const NumericComboChart(
     super.seriesList, {
     super.key,
@@ -47,7 +65,7 @@ class NumericComboChart extends cart.CartesianChart<num> {
       // Optionally create primary and secondary measure axes if the chart was
       // configured with them. If no axes were configured, then the chart will
       // use its default types (usually a numeric axis).
-      NumericCartesianChart(
+      common.NumericCartesianChart(
         layoutConfig: layoutConfig?.commonLayoutConfig,
         primaryMeasureAxis: primaryMeasureAxis?.createAxis(),
         secondaryMeasureAxis: secondaryMeasureAxis?.createAxis(),
@@ -57,37 +75,41 @@ class NumericComboChart extends cart.CartesianChart<num> {
 /// An ordinal combo chart supports rendering each series of data with different
 /// series renderers.
 class OrdinalComboChart extends cart.CartesianChart<String> {
-  // ignore: use_super_parameters
+  /// Creates an ordinal combo chart with the given series of data.
+  ///
+  /// [seriesList] The list of series to be plotted on the chart.
+  /// [animate] Whether to animate the chart when data changes.
+  /// [animationDuration] The duration of the animation when data changes.
+  /// [domainAxis] The domain axis to use for the chart. If not provided, a
+  /// default ordinal axis will be used.
+  /// [primaryMeasureAxis] The primary measure axis to use for the chart. If
+  /// not provided, a default numeric axis will be used.
+  /// [secondaryMeasureAxis] The secondary measure axis to use for the chart,
+  /// if needed.
+  /// [defaultRenderer] The default renderer to use for the series.
+  /// [customSeriesRenderers] Custom renderers for specific series, if needed.
+  /// [behaviors] A list of chart behaviors to attach to the chart.
+  /// [selectionModels] A list of selection models to attach to the chart.
+  /// [rtlSpec] Configures the chart for right-to-left languages.
+  /// [layoutConfig] Configuration for chart layout.
+  /// [defaultInteractions] Whether to add the default interactions to the
+  /// chart.
   const OrdinalComboChart(
-    List<common.Series<dynamic, String>> seriesList, {
+    super.seriesList, {
     super.key,
-    bool? animate,
-    Duration? animationDuration,
-    common.AxisSpec? domainAxis,
-    common.NumericAxisSpec? primaryMeasureAxis,
-    common.NumericAxisSpec? secondaryMeasureAxis,
-    common.SeriesRendererConfig<String>? defaultRenderer,
-    List<common.SeriesRendererConfig<String>>? customSeriesRenderers,
-    List<ChartBehavior<String>>? behaviors,
-    List<SelectionModelConfig<String>>? selectionModels,
-    common.RTLSpec? rtlSpec,
-    LayoutConfig? layoutConfig,
-    bool defaultInteractions = true,
-  }) : super(
-          seriesList,
-          animate: animate,
-          animationDuration: animationDuration,
-          domainAxis: domainAxis,
-          primaryMeasureAxis: primaryMeasureAxis,
-          secondaryMeasureAxis: secondaryMeasureAxis,
-          defaultRenderer: defaultRenderer,
-          customSeriesRenderers: customSeriesRenderers,
-          behaviors: behaviors,
-          selectionModels: selectionModels,
-          rtlSpec: rtlSpec,
-          layoutConfig: layoutConfig,
-          defaultInteractions: defaultInteractions,
-        );
+    super.animate,
+    super.animationDuration,
+    super.domainAxis,
+    super.primaryMeasureAxis,
+    super.secondaryMeasureAxis,
+    super.defaultRenderer,
+    super.customSeriesRenderers,
+    super.behaviors,
+    super.selectionModels,
+    super.rtlSpec,
+    super.layoutConfig,
+    super.defaultInteractions,
+  });
 
   @override
   common.BaseChart<String> createCommonChart(

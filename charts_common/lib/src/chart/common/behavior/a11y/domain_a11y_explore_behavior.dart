@@ -22,7 +22,7 @@ import 'package:nimble_charts_common/src/chart/cartesian/cartesian_chart.dart'
 import 'package:nimble_charts_common/src/chart/common/base_chart.dart'
     show BaseChart, LifecycleListener;
 import 'package:nimble_charts_common/src/chart/common/behavior/a11y/a11y_explore_behavior.dart'
-    show A11yExploreBehavior, ExploreModeTrigger;
+    show A11yExploreBehavior;
 import 'package:nimble_charts_common/src/chart/common/behavior/a11y/a11y_node.dart'
     show A11yNode, OnFocus;
 import 'package:nimble_charts_common/src/chart/common/processed_series.dart'

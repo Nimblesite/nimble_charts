@@ -18,7 +18,23 @@ import 'package:nimble_charts/src/base_chart_state.dart' show BaseChartState;
 import 'package:nimble_charts_common/common.dart' as common
     show ArcRendererConfig, PieChart;
 
+/// A pie chart that displays data as a circle divided into sectors, each
+/// representing a proportion of the whole.
 class PieChart<D> extends BaseChart<D> {
+  /// Creates a pie chart with the given series of data.
+  ///
+  /// [seriesList] The list of series to be plotted on the chart. A pie chart
+  /// typically expects a single series.
+  /// [animate] Whether to animate the chart when data changes.
+  /// [animationDuration] The duration of the animation when data changes.
+  /// [defaultRenderer] The default renderer to use for the series. If not
+  /// provided, a default ArcRendererConfig will be used.
+  /// [behaviors] A list of chart behaviors to attach to the chart.
+  /// [selectionModels] A list of selection models to attach to the chart.
+  /// [rtlSpec] Configures the chart for right-to-left languages.
+  /// [layoutConfig] Configuration for chart layout.
+  /// [defaultInteractions] Whether to add the default interactions to the
+  /// chart.
   const PieChart(
     super.seriesList, {
     super.key,

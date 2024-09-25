@@ -39,7 +39,7 @@ abstract class A11yExploreBehavior<D> implements ChartBehavior<D> {
     this.exploreModeDisabledAnnouncement,
   })  : exploreModeTrigger = exploreModeTrigger ?? ExploreModeTrigger.pressHold,
         minimumWidth = minimumWidth ?? 1.0 {
-    assert(this.minimumWidth >= 1.0);
+    assert(this.minimumWidth >= 1.0, 'minimumWidth must be 1 or greater.');
 
     switch (this.exploreModeTrigger) {
       case ExploreModeTrigger.pressHold:

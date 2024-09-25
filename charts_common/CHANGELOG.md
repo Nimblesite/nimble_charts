@@ -1,3 +1,12 @@
+# 0.4.0-beta
+* Fix readme image
+
+# 0.3.0-beta
+* Improved documentation
+* Improved examples
+  
+[...]
+
 # 0.1.0-beta
 * Fork from flutter_charts
 * Rename packages and overhaul some code for Flutter 3+

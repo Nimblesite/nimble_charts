@@ -36,6 +36,10 @@ import 'package:nimble_charts_common/common.dart' as common
         Series,
         SeriesRendererConfig;
 
+/// Base class for all charts.
+///
+/// This class provides the foundation for building various types of charts
+/// with different configurations and behaviors.
 @immutable
 abstract class BaseChart<D> extends StatefulWidget {
   const BaseChart(
@@ -60,6 +64,8 @@ abstract class BaseChart<D> extends StatefulWidget {
 
   /// Animation transitions.
   final bool animate;
+
+  /// The duration of the animation when data changes.
   final Duration animationDuration;
 
   /// Used to configure the margin sizes around the drawArea that the axis and
@@ -72,8 +78,10 @@ abstract class BaseChart<D> extends StatefulWidget {
   /// Include the default interactions or not.
   final bool defaultInteractions;
 
+  /// List of chart behaviors to apply to the chart.
   final List<ChartBehavior<D>>? behaviors;
 
+  /// List of selection models to add to the chart.
   final List<SelectionModelConfig<D>>? selectionModels;
 
   // List of custom series renderers used to draw series data on the chart.
@@ -93,9 +101,19 @@ abstract class BaseChart<D> extends StatefulWidget {
   BaseChartState<D> createState() => BaseChartState<D>();
 
   /// Creates and returns a [common.BaseChart].
+  ///
+  /// Subclasses should override this method to create and configure the
+  /// appropriate [common.BaseChart] instance.
   common.BaseChart<D> createCommonChart(BaseChartState<D> chartState);
 
-  /// Updates the [common.BaseChart].
+  /// Updates the [common.BaseChart] based on changes in the widget properties.
+  ///
+  /// This method is called when the chart widget is updated, allowing the chart
+  /// to be reconfigured based on the new widget properties.
+  ///
+  /// [chart] The [common.BaseChart] instance to update.
+  /// [oldWidget] The previous [BaseChart] widget, if any.
+  /// [chartState] The current [BaseChartState] instance.
   void updateCommonChart(
     common.BaseChart<D> chart,
     BaseChart<D>? oldWidget,
@@ -184,6 +202,12 @@ abstract class BaseChart<D> extends StatefulWidget {
   }
 
   /// Create the list of default interaction behaviors.
+  ///
+  /// Subclasses can override this method to customize the default interactions
+  /// that are added to the chart.
+  ///
+  /// [behaviors] The list of [ChartBehavior] to add the default interactions
+  /// to.
   void addDefaultInteractions(List<ChartBehavior> behaviors) {
     // Update selection model
     behaviors.add(
@@ -269,6 +293,7 @@ abstract class BaseChart<D> extends StatefulWidget {
   }
 }
 
+/// Configuration for the chart layout.
 @immutable
 class LayoutConfig {
   const LayoutConfig({
@@ -277,11 +302,20 @@ class LayoutConfig {
     required this.rightMarginSpec,
     required this.bottomMarginSpec,
   });
+
+  /// Margin specification for the left side of the chart.
   final common.MarginSpec leftMarginSpec;
+
+  /// Margin specification for the top side of the chart.
   final common.MarginSpec topMarginSpec;
+
+  /// Margin specification for the right side of the chart.
   final common.MarginSpec rightMarginSpec;
+
+  /// Margin specification for the bottom side of the chart.
   final common.MarginSpec bottomMarginSpec;
 
+  /// Converts the layout configuration to the common [common.LayoutConfig].
   common.LayoutConfig get commonLayoutConfig => common.LayoutConfig(
         leftSpec: leftMarginSpec,
         topSpec: topMarginSpec,

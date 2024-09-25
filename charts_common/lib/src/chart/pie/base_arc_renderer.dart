@@ -35,11 +35,7 @@ import 'package:nimble_charts_common/src/chart/pie/arc_renderer_config.dart'
 import 'package:nimble_charts_common/src/chart/pie/arc_renderer_decorator.dart'
     show ArcRendererDecorator;
 import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart'
-    show
-        AnimatedArc,
-        AnimatedArcList,
-        ArcRendererElement,
-        ArcRendererElementList;
+    show AnimatedArcList, ArcRendererElement, ArcRendererElementList;
 import 'package:nimble_charts_common/src/chart/pie/base_arc_renderer_config.dart'
     show BaseArcRendererConfig;
 import 'package:nimble_charts_common/src/common/math.dart' show NullablePoint;

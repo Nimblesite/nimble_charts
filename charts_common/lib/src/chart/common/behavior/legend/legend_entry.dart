@@ -87,7 +87,6 @@ class LegendCategory<D> extends LegendEntryBase {
 
 /// Holder for the information used for a legend row.
 ///
-/// [T] the datum class type for the series passed in.
 /// [D] the domain class type for the datum.
 class LegendEntry<D> extends LegendEntryBase {
   // TODO: Forward the default formatters from series and allow for

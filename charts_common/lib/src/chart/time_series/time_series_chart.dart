@@ -14,7 +14,7 @@
 // limitations under the License.
 
 import 'package:nimble_charts_common/src/chart/cartesian/axis/axis.dart'
-    show Axis, NumericAxis;
+    show Axis;
 import 'package:nimble_charts_common/src/chart/cartesian/axis/draw_strategy/small_tick_draw_strategy.dart'
     show SmallTickRendererSpec;
 import 'package:nimble_charts_common/src/chart/cartesian/axis/spec/axis_spec.dart'

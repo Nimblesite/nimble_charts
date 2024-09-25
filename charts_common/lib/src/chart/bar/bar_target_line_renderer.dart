@@ -378,7 +378,7 @@ class BarTargetLineRenderer<D> extends BaseBarRenderer<D,
   @override
   Rectangle<int> getBoundsForBar(BarTargetLineRendererElement bar) {
     final points = bar.points;
-    assert(points.isNotEmpty);
+    assert(points.isNotEmpty, 'Bar must have at least one point.');
     var top = points.first.y;
     var bottom = points.first.y;
     var left = points.first.x;

@@ -27,7 +27,10 @@ class MonthTimeStepper extends BaseTimeStepper {
     // Set the default increments if null.
     allowedTickIncrements ??= _defaultIncrements;
 
-    assert(allowedTickIncrements.every((increment) => increment > 0));
+    assert(
+      allowedTickIncrements.every((increment) => increment > 0),
+      'Tick increments must be greater than 0.',
+    );
 
     return MonthTimeStepper._internal(dateTimeFactory, allowedTickIncrements);
   }

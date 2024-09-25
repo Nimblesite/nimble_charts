@@ -29,6 +29,7 @@ class MinuteTimeStepper extends BaseTimeStepper {
     assert(
       allowedTickIncrements
           .every((increment) => increment >= 1 && increment <= 60),
+      'Tick increments must be between 1 and 60.',
     );
 
     return MinuteTimeStepper._internal(dateTimeFactory, allowedTickIncrements);

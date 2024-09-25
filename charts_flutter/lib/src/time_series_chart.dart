@@ -18,11 +18,34 @@ import 'package:nimble_charts/src/base_chart_state.dart';
 import 'package:nimble_charts/src/cartesian_chart.dart' as cart;
 import 'package:nimble_charts_common/common.dart' as common;
 
+/// A time series chart that displays data as a series of points connected by
+/// line segments.
 class TimeSeriesChart extends cart.CartesianChart<DateTime> {
-  /// Create a [TimeSeriesChart].
+  /// Creates a time series chart with the given series of data.
   ///
-  /// [dateTimeFactory] allows specifying a factory that creates [DateTime] to
-  /// be used for the time axis. If none specified, local date time is used.
+  /// [seriesList] The list of series to be plotted on the chart.
+  /// [animate] Whether to animate the chart when data changes.
+  /// [animationDuration] The duration of the animation when data changes.
+  /// [domainAxis] The domain axis to use for the chart. If not provided, a
+  /// default DateTimeAxis will be used.
+  /// [primaryMeasureAxis] The primary measure axis to use for the chart. If
+  /// not provided, a default numeric axis will be used.
+  /// [secondaryMeasureAxis] The secondary measure axis to use for the chart,
+  /// if needed.
+  /// [disjointMeasureAxes] A map of measure axes for disjoint domains,
+  /// if needed.
+  /// [defaultRenderer] The default renderer to use for the series. If not
+  /// provided, a default LineRendererConfig will be used.
+  /// [customSeriesRenderers] Custom renderers for specific series, if needed.
+  /// [behaviors] A list of chart behaviors to attach to the chart.
+  /// [selectionModels] A list of selection models to attach to the chart.
+  /// [layoutConfig] Configuration for chart layout.
+  /// [dateTimeFactory] Factory for creating DateTime instances for the time
+  /// axis. If not provided, local date time will be used.
+  /// [defaultInteractions] Whether to add the default interactions to the
+  /// chart.
+  /// [flipVerticalAxis] Whether to flip the vertical axis of the chart.
+  /// [userManagedState] Allows external management of chart state.
   const TimeSeriesChart(
     super.seriesList, {
     super.key,
@@ -42,6 +65,8 @@ class TimeSeriesChart extends cart.CartesianChart<DateTime> {
     super.flipVerticalAxis,
     super.userManagedState,
   });
+
+  /// Factory for creating DateTime instances for the time axis.
   final common.DateTimeFactory? dateTimeFactory;
 
   @override

@@ -94,11 +94,7 @@ class NumericAxisSpec extends AxisSpec<num> {
       other is NumericAxisSpec && viewport == other.viewport && super == other;
 
   @override
-  int get hashCode {
-    var hashcode = super.hashCode;
-    hashcode = (hashcode * 37) + viewport.hashCode;
-    return hashcode;
-  }
+  int get hashCode => (super.hashCode * 37) + viewport.hashCode;
 }
 
 abstract class NumericTickProviderSpec extends TickProviderSpec<num> {}
@@ -239,9 +235,5 @@ class BasicNumericTickFormatterSpec implements NumericTickFormatterSpec {
           numberFormat == other.numberFormat);
 
   @override
-  int get hashCode {
-    var hashcode = formatter.hashCode;
-    hashcode = (hashcode * 37) + numberFormat.hashCode;
-    return hashcode;
-  }
+  int get hashCode => (formatter.hashCode * 37) + numberFormat.hashCode;
 }

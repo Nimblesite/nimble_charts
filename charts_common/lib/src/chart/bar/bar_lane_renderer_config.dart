@@ -18,7 +18,7 @@ import 'package:nimble_charts_common/src/chart/bar/bar_label_decorator.dart'
 import 'package:nimble_charts_common/src/chart/bar/bar_lane_renderer.dart'
     show BarLaneRenderer;
 import 'package:nimble_charts_common/src/chart/bar/bar_renderer_config.dart'
-    show BarRendererConfig, CornerStrategy;
+    show BarRendererConfig;
 import 'package:nimble_charts_common/src/chart/bar/base_bar_renderer_config.dart'
     show BarGroupingType;
 import 'package:nimble_charts_common/src/common/color.dart' show Color;

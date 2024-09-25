@@ -36,7 +36,7 @@ Ensure that your contributions include appropriate tests and that all existing t
 
 Unit tests are not enough. All UI changes require widget tests, and even better if those widget tests double as integration tests.
 
-It's sually a good idea to capture at least one golden of the charts, and there are plenty of examples of that in the existing tests.
+It's usually a good idea to capture at least one golden of the charts, and there are plenty of examples of that in the existing tests.
 
 ## Community
 

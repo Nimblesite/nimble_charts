@@ -11,5 +11,8 @@ import 'package:nimble_charts_common/common.dart';
   MockSpec<BaseTickDrawStrategy>(as: #MockDrawStrategy),
   MockSpec<TickDrawStrategy<num>>(as: #MockTickDrawStrategy),
   MockSpec<Axis<String>>(),
+  MockSpec<ChartCanvas>(as: #MockCanvas),
+  MockSpec<ImmutableSeries>(),
+  MockSpec<LineStyle>(as: #MockLinePaint),
 ])
 void main() {}
