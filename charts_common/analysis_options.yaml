@@ -25,7 +25,7 @@ analyzer:
     avoid_classes_with_only_static_members: warning
     prefer_function_declarations_over_variables: warning
     overridden_fields: warning
-    public_member_api_docs: ignore
+    public_member_api_docs: warning
     avoid_setters_without_getters: warning
     constant_identifier_names: warning
     use_if_null_to_convert_nulls_to_bools: warning
