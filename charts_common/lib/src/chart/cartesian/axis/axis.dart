@@ -668,10 +668,7 @@ class OrdinalViewport {
       dataSize == other.dataSize;
 
   @override
-  int get hashCode {
-    final hashcode = startingDomain.hashCode;
-    return (hashcode * 37) + dataSize;
-  }
+  int get hashCode => (startingDomain.hashCode * 37) + dataSize;
 }
 
 @visibleForTesting
