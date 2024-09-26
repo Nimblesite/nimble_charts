@@ -103,7 +103,7 @@ class SunburstArcLabelDecorator<D> extends ArcLabelDecorator<D> {
     if (innerRingArcLabelPosition == ArcLabelPosition.outside) {
       for (final arcElements in arcElementsList) {
         arcElements.arcs.retainWhere(
-          (e) => (e as SunburstArcRendererElement).isLeaf == true,
+          (e) => (e as SunburstArcRendererElement).isLeaf ?? false,
         );
       }
     }
@@ -172,8 +172,8 @@ class SunburstArcLabelDecorator<D> extends ArcLabelDecorator<D> {
   ) {
     assert(arcRendererElement is SunburstArcRendererElement);
 
-    if ((arcRendererElement as SunburstArcRendererElement).isOuterMostRing ==
-        true) {
+    if ((arcRendererElement as SunburstArcRendererElement).isOuterMostRing ??
+        false) {
       return super.calculateLabelPosition(
         labelElement,
         labelStyle,
@@ -182,7 +182,7 @@ class SunburstArcLabelDecorator<D> extends ArcLabelDecorator<D> {
         arcRendererElement,
         outerRingArcLabelPosition,
       );
-    } else if (arcRendererElement.isLeaf == true) {
+    } else if (arcRendererElement.isLeaf ?? false) {
       return super.calculateLabelPosition(
         labelElement,
         labelStyle,

@@ -669,9 +669,8 @@ class OrdinalViewport {
 
   @override
   int get hashCode {
-    var hashcode = startingDomain.hashCode;
-    hashcode = (hashcode * 37) + dataSize;
-    return hashcode;
+    final hashcode = startingDomain.hashCode;
+    return (hashcode * 37) + dataSize;
   }
 }
 

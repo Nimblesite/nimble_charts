@@ -88,11 +88,7 @@ class DateTimeAxisSpec extends AxisSpec<DateTime> {
       other is DateTimeAxisSpec && viewport == other.viewport && super == other;
 
   @override
-  int get hashCode {
-    var hashcode = super.hashCode;
-    hashcode = (hashcode * 37) + viewport.hashCode;
-    return hashcode;
-  }
+  int get hashCode => (super.hashCode * 37) + viewport.hashCode;
 }
 
 abstract class DateTimeTickProviderSpec extends TickProviderSpec<DateTime> {}
@@ -271,11 +267,7 @@ class BasicDateTimeTickFormatterSpec implements DateTimeTickFormatterSpec {
           dateFormat == other.dateFormat);
 
   @override
-  int get hashCode {
-    var hash = formatter.hashCode;
-    hash = (hash * 37) * dateFormat.hashCode;
-    return hash;
-  }
+  int get hashCode => (formatter.hashCode * 37) * dateFormat.hashCode;
 }
 
 /// [TickFormatterSpec] that automatically chooses the appropriate level of

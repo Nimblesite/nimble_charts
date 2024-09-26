@@ -147,5 +147,5 @@ class _TimeStepIteratorFactoryImpl extends TimeStepIteratorFactory {
 
 void checkTickIncrement(int tickIncrement) {
   /// tickIncrement must be greater than 0
-  assert(tickIncrement > 0);
+  assert(tickIncrement > 0, 'tickIncrement must be greater than 0');
 }

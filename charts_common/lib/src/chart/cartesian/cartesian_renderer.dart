@@ -229,7 +229,7 @@ abstract class BaseCartesianRenderer<D> extends BaseSeriesRenderer<D>
     AccessorFn<D> domainFn,
     List<Object?> data,
   ) {
-    assert(data.isNotEmpty);
+    assert(data.isNotEmpty, 'Data must not be empty');
 
     var start = 1;
     var end = data.length - 1;

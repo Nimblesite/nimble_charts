@@ -221,7 +221,10 @@ class LinearScale implements NumericScale {
   void _configureScale() {
     if (_scaleReady) return;
 
-    assert(_viewportSettings.range != null);
+    assert(
+      _viewportSettings.range != null,
+      'LinearScaleViewportSettings range should not be null',
+    );
 
     // If the viewport's domainExtent are set, then we can calculate the
     // viewport's scaleFactor now that the domainInfo has been loaded.

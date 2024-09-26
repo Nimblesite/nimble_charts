@@ -60,7 +60,10 @@ class SlidingViewport<D> implements ChartBehavior<D> {
 
   @override
   void attachTo(BaseChart<D> chart) {
-    assert(chart is CartesianChart);
+    assert(
+      chart is CartesianChart,
+      'Sliding viewport can only be attached to a cartesian chart.',
+    );
     _chart = chart as CartesianChart<D>;
     chart
         .getSelectionModel(selectionModelType)

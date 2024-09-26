@@ -25,7 +25,7 @@ import 'package:nimble_charts_common/src/chart/cartesian/axis/draw_strategy/smal
 import 'package:nimble_charts_common/src/chart/cartesian/axis/draw_strategy/tick_draw_strategy.dart'
     show TickDrawStrategy;
 import 'package:nimble_charts_common/src/chart/cartesian/axis/spec/axis_spec.dart'
-    show LineStyleSpec, TextStyleSpec, TickLabelAnchor, TickLabelJustification;
+    show LineStyleSpec, TickLabelAnchor;
 import 'package:nimble_charts_common/src/chart/cartesian/axis/tick.dart'
     show Tick;
 import 'package:nimble_charts_common/src/chart/common/chart_canvas.dart'

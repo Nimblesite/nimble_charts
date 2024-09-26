@@ -144,10 +144,9 @@ class SelectionModel<D> {
 
   @override
   int get hashCode {
-    var hashcode = ListEquality<SeriesDatum<D>>().hash(_selectedDatum);
-    hashcode = hashcode * 37 +
+    final hashcode = ListEquality<SeriesDatum<D>>().hash(_selectedDatum);
+    return hashcode * 37 +
         ListEquality<ImmutableSeries<D>>().hash(_selectedSeries);
-    return hashcode;
   }
 }
 

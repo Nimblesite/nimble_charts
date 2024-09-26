@@ -248,11 +248,7 @@ class CircleSymbolRenderer extends SymbolRenderer {
       other is CircleSymbolRenderer && super == other;
 
   @override
-  int get hashCode {
-    var hashcode = super.hashCode;
-    hashcode = (hashcode * 37) + runtimeType.hashCode;
-    return hashcode;
-  }
+  int get hashCode => (super.hashCode * 37) + runtimeType.hashCode;
 }
 
 /// Rectangle symbol renderer.
@@ -285,11 +281,7 @@ class RectSymbolRenderer extends SymbolRenderer {
       other is RectSymbolRenderer && super == other;
 
   @override
-  int get hashCode {
-    var hashcode = super.hashCode;
-    hashcode = (hashcode * 37) + runtimeType.hashCode;
-    return hashcode;
-  }
+  int get hashCode => (super.hashCode * 37) + runtimeType.hashCode;
 }
 
 /// This [SymbolRenderer] renders an upward pointing equilateral triangle.

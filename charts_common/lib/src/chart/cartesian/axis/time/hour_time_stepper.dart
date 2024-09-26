@@ -30,6 +30,7 @@ class HourTimeStepper extends BaseTimeStepper {
     assert(
       allowedTickIncrements
           .every((increment) => increment >= 1 && increment <= 24),
+      'Tick increments must be between 1 and 24 inclusive',
     );
 
     return HourTimeStepper._internal(dateTimeFactory, allowedTickIncrements);

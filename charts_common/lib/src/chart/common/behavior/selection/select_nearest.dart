@@ -89,7 +89,6 @@ class SelectNearest<D> implements ChartBehavior<D> {
           onDragEnd: _onDeselectAll,
         );
       case SelectionTrigger.hover:
-      default:
         _listener = GestureListener(
           onHover: hoverEventDelay == null
               ? _onSelect
@@ -99,7 +98,6 @@ class SelectNearest<D> implements ChartBehavior<D> {
                   defaultReturn: false,
                 ),
         );
-        break;
     }
   }
   late GestureListener _listener;
@@ -306,9 +304,7 @@ class SelectNearest<D> implements ChartBehavior<D> {
       case SelectionTrigger.longPressHold:
         chart.registerTappable(this);
       case SelectionTrigger.hover:
-      default:
         chart.unregisterTappable(this);
-        break;
     }
   }
 

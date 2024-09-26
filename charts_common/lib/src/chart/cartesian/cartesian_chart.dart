@@ -319,9 +319,7 @@ abstract class CartesianChart<D> extends BaseChart<D> {
     }
 
     // If no valid axisId was provided, fall back to primary axis.
-    axis ??= _primaryMeasureAxis;
-
-    return axis;
+    return axis ?? _primaryMeasureAxis;
   }
 
   /// Sets the primary measure axis for the chart, rendered on the start side of

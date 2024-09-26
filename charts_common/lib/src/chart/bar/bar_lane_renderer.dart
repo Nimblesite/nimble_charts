@@ -152,7 +152,7 @@ class BarLaneRenderer<D> extends BarRenderer<D> {
       for (final domainValue in domainValues) {
         // Skip adding any background bars if they will be covered up by the
         // domain-spanning null bar.
-        if (_allMeasuresForDomainNullMap[domainValue] == true) {
+        if (_allMeasuresForDomainNullMap[domainValue] ?? false) {
           continue;
         }
 

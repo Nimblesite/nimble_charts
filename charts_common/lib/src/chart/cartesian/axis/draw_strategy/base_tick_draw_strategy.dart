@@ -514,9 +514,7 @@ abstract class BaseTickDrawStrategy<D> implements TickDrawStrategy<D> {
                     labelOffsetPx)
                 .toInt();
           case TextDirection.center:
-          default:
             x = (locationPx - labelOffsetPx).toInt();
-            break;
         }
       } else {
         if (orientation == AxisOrientation.left) {
@@ -555,9 +553,7 @@ abstract class BaseTickDrawStrategy<D> implements TickDrawStrategy<D> {
                     labelOffsetPx)
                 .toInt();
           case PixelVerticalDirection.center:
-          default:
             y = (locationPx - labelHeight / 2 + labelOffsetPx).toInt();
-            break;
         }
       }
       canvas.drawText(
@@ -576,50 +572,31 @@ abstract class BaseTickDrawStrategy<D> implements TickDrawStrategy<D> {
     bool isRtl,
     bool isFirst,
     bool isLast,
-  ) {
-    switch (anchor) {
-      case TickLabelAnchor.before:
-        return isRtl ? TextDirection.ltr : TextDirection.rtl;
-      case TickLabelAnchor.after:
-        return isRtl ? TextDirection.rtl : TextDirection.ltr;
-      case TickLabelAnchor.inside:
-        if (isFirst) {
-          return TextDirection.ltr;
-        }
-        if (isLast) {
-          return TextDirection.rtl;
-        }
-        return TextDirection.center;
-      case TickLabelAnchor.centered:
-      default:
-        return TextDirection.center;
-    }
-  }
+  ) =>
+      switch (anchor) {
+        TickLabelAnchor.before => isRtl ? TextDirection.ltr : TextDirection.rtl,
+        TickLabelAnchor.after => isRtl ? TextDirection.rtl : TextDirection.ltr,
+        TickLabelAnchor.inside when isFirst => TextDirection.ltr,
+        TickLabelAnchor.inside when isLast => TextDirection.rtl,
+        TickLabelAnchor.inside => TextDirection.center,
+        TickLabelAnchor.centered => TextDirection.center
+      };
 
   @protected
   PixelVerticalDirection normalizeVerticalAnchor(
     TickLabelAnchor anchor,
     bool isFirst,
     bool isLast,
-  ) {
-    switch (anchor) {
-      case TickLabelAnchor.before:
-        return PixelVerticalDirection.under;
-      case TickLabelAnchor.after:
-        return PixelVerticalDirection.over;
-      case TickLabelAnchor.inside:
-        if (isFirst) {
-          return PixelVerticalDirection.over;
-        }
-        if (isLast) {
-          return PixelVerticalDirection.under;
-        }
-        return PixelVerticalDirection.center;
-      case TickLabelAnchor.centered:
-      default:
-        return PixelVerticalDirection.center;
-    }
-  }
+  ) =>
+      switch (anchor) {
+        TickLabelAnchor.before => PixelVerticalDirection.under,
+        TickLabelAnchor.after => PixelVerticalDirection.over,
+        TickLabelAnchor.inside when isFirst => PixelVerticalDirection.over,
+        TickLabelAnchor.inside when isLast => PixelVerticalDirection.under,
+        TickLabelAnchor.inside ||
+        TickLabelAnchor.centered =>
+          PixelVerticalDirection.center,
+      };
 
   /// Returns the width of a rotated labels on a domain axis.
   double calculateWidthForRotatedLabel(

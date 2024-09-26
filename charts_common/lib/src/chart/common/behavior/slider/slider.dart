@@ -531,7 +531,7 @@ class Slider<D> implements ChartBehavior<D> {
     _chart = chart;
 
     // Only vertical rendering is supported by this behavior.
-    assert(chart.vertical);
+    assert(chart.vertical, 'Only vertical charts are supported for Slider.');
 
     _view = SliderLayoutView<D>(
       layoutPaintOrder: layoutPaintOrder,

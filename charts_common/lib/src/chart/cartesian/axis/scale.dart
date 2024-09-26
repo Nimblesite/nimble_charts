@@ -253,10 +253,12 @@ class RangeBandConfig {
   ///
   /// [percentOfStepWidth] is the percentage of the step from 0.0 - 1.0.
   RangeBandConfig.percentOfStep(double percentOfStepWidth)
-      : type = RangeBandType.fixedPercentOfStep,
-        size = percentOfStepWidth {
-    assert(percentOfStepWidth >= 0 && percentOfStepWidth <= 1.0);
-  }
+      : assert(
+          percentOfStepWidth >= 0 && percentOfStepWidth <= 1.0,
+          'Value of percentOfStepWidth must be between 0 and 1.0 inclusive',
+        ),
+        type = RangeBandType.fixedPercentOfStep,
+        size = percentOfStepWidth;
 
   /// Creates a config that assigns the rangeBand according to the stylepack.
   ///
