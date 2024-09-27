@@ -185,7 +185,7 @@ abstract class BaseArcRenderer<D, D2 extends ArcRendererElement<D>>
   void paint(ChartCanvas canvas, double animationPercent) {
     final arcLists = getArcLists();
     final arcListToElementsList =
-        <AnimatedArcList<D>, ArcRendererElementList<D, D2>>{};
+        <AnimatedArcList<D,D2>, ArcRendererElementList<D, D2>>{};
     for (final arcList in arcLists) {
       final elementsList = ArcRendererElementList<D, D2>(
         arcs: <D2>[],

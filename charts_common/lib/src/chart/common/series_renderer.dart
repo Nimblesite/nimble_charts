@@ -17,6 +17,7 @@ import 'dart:math' show Point, Rectangle, max;
 
 import 'package:meta/meta.dart';
 import 'package:nimble_charts_common/common.dart';
+import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart';
 
 /// Unique identifier used to associate custom series renderers on a chart with
 /// one or more series of data.
@@ -26,10 +27,13 @@ import 'package:nimble_charts_common/common.dart';
 const rendererIdKey = AttributeKey<String>('SeriesRenderer.rendererId');
 
 const rendererKey =
-    AttributeKey<SeriesRenderer<Object>>('SeriesRenderer.renderer');
+    AttributeKey<SeriesRenderer<Object, ArcRendererElement<Object>>>(
+  'SeriesRenderer.renderer',
+);
 
 /// A series renderer draws one or more series of data onto a chart canvas.
-abstract class SeriesRenderer<D> extends LayoutView {
+abstract class SeriesRenderer<D, D2 extends ArcRendererElement<D>>
+    extends LayoutView {
   static const defaultRendererId = 'default';
 
   /// Symbol renderer for this renderer.
@@ -49,11 +53,11 @@ abstract class SeriesRenderer<D> extends LayoutView {
 
   /// Handles any setup of the renderer that needs to be deferred until it is
   /// attached to a chart.
-  void onAttach(BaseChart<D> chart);
+  void onAttach(BaseChart<D, D2> chart);
 
   /// Handles any clean-up of the renderer that needs to be performed when it is
   /// detached from a chart.
-  void onDetach(BaseChart<D> chart);
+  void onDetach(BaseChart<D, D2> chart);
 
   /// Performs basic configuration for the series, before it is pre-processed.
   ///
@@ -126,7 +130,8 @@ abstract class SeriesRenderer<D> extends LayoutView {
 
 /// Concrete base class for [SeriesRenderer]s that implements common
 /// functionality.
-abstract class BaseSeriesRenderer<D> implements SeriesRenderer<D> {
+abstract class BaseSeriesRenderer<D, D2 extends ArcRendererElement<D>>
+    implements SeriesRenderer<D, D2> {
   BaseSeriesRenderer({
     required this.rendererId,
     required int layoutPaintOrder,
@@ -153,10 +158,10 @@ abstract class BaseSeriesRenderer<D> implements SeriesRenderer<D> {
   GraphicsFactory? graphicsFactory;
 
   @override
-  void onAttach(BaseChart<D> chart) {}
+  void onAttach(BaseChart<D, D2> chart) {}
 
   @override
-  void onDetach(BaseChart<D> chart) {}
+  void onDetach(BaseChart<D, D2> chart) {}
 
   /// Assigns colors to series that are missing their colorFn.
   ///

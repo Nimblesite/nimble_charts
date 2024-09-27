@@ -15,11 +15,12 @@
 
 import 'package:nimble_charts_common/src/chart/common/series_renderer.dart'
     show SeriesRenderer;
+import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart';
 import 'package:nimble_charts_common/src/common/symbol_renderer.dart';
 import 'package:nimble_charts_common/src/common/typed_registry.dart';
 
 /// Interface for series renderer configuration.
-abstract class SeriesRendererConfig<D> {
+abstract class SeriesRendererConfig<D, D2 extends ArcRendererElement<D>> {
   /// Stores typed renderer attributes
   ///
   /// This is useful for storing attributes that is used on the native platform.
@@ -31,7 +32,7 @@ abstract class SeriesRendererConfig<D> {
 
   SymbolRenderer? get symbolRenderer;
 
-  SeriesRenderer<D> build();
+  SeriesRenderer<D, D2> build();
 }
 
 class RendererAttributeKey<R> extends TypedKey<R> {
