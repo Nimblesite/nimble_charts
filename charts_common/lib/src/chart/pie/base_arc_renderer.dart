@@ -44,8 +44,9 @@ import 'package:nimble_charts_common/src/data/series.dart' show AttributeKey;
 const arcElementsKey =
     AttributeKey<List<ArcRendererElement<Object>>>('ArcRenderer.elements');
 
-abstract class BaseArcRenderer<D, D2 extends ArcRendererElement<D>>
-    extends BaseSeriesRenderer<D> {
+abstract class BaseArcRenderer<D,
+        TArcRendererElement extends ArcRendererElement<D>>
+    extends BaseSeriesRenderer<D, TArcRendererElement> {
   BaseArcRenderer({required this.config, required super.rendererId})
       : arcRendererDecorators = config.arcRendererDecorators,
         super(
@@ -56,15 +57,16 @@ abstract class BaseArcRenderer<D, D2 extends ArcRendererElement<D>>
   // once to save runtime cost.
   static final _cosPIOver4 = cos(pi / 4);
 
-  final BaseArcRendererConfig<D, D2> config;
+  final BaseArcRendererConfig<D, TArcRendererElement> config;
 
-  final List<ArcRendererDecorator<D, D2>> arcRendererDecorators;
+  final List<ArcRendererDecorator<D, TArcRendererElement>>
+      arcRendererDecorators;
 
   @protected
-  BaseChart<D>? chart;
+  BaseChart<D, TArcRendererElement>? chart;
 
   @override
-  void onAttach(BaseChart<D> chart) {
+  void onAttach(BaseChart<D, TArcRendererElement> chart) {
     super.onAttach(chart);
     this.chart = chart;
   }
@@ -139,7 +141,7 @@ abstract class BaseArcRenderer<D, D2 extends ArcRendererElement<D>>
   /// Chart has one AnimatedArcList and the Sunburst chart usually has multiple
   /// elements.
   @protected
-  List<AnimatedArcList<D, D2>> getArcLists({String? seriesId});
+  List<AnimatedArcList<D, TArcRendererElement>> getArcLists({String? seriesId});
 
   /// Returns the chart position for a given datum by series ID and domain
   /// value.
@@ -184,11 +186,11 @@ abstract class BaseArcRenderer<D, D2 extends ArcRendererElement<D>>
   @override
   void paint(ChartCanvas canvas, double animationPercent) {
     final arcLists = getArcLists();
-    final arcListToElementsList =
-        <AnimatedArcList<D,D2>, ArcRendererElementList<D, D2>>{};
+    final arcListToElementsList = <AnimatedArcList<D, TArcRendererElement>,
+        ArcRendererElementList<D, TArcRendererElement>>{};
     for (final arcList in arcLists) {
-      final elementsList = ArcRendererElementList<D, D2>(
-        arcs: <D2>[],
+      final elementsList = ArcRendererElementList<D, TArcRendererElement>(
+        arcs: <TArcRendererElement>[],
         center: arcList.center!,
         innerRadius: arcList.innerRadius!,
         radius: arcList.radius!,
@@ -254,9 +256,9 @@ abstract class BaseArcRenderer<D, D2 extends ArcRendererElement<D>>
         .forEach((decorator) {
       decorator.decorate(
         arcLists
-            .map<ArcRendererElementList<D>>(
-              //TODO: dangerous casts
-              (e) => arcListToElementsList[e] as ArcRendererElementList<D>,
+            .map(
+              //TODO: dangerous
+              (e) => arcListToElementsList[e]!,
             )
             .toList(),
         canvas,

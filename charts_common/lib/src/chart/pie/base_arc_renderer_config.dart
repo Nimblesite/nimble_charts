@@ -28,8 +28,10 @@ import 'package:nimble_charts_common/src/common/style/style_factory.dart'
 import 'package:nimble_charts_common/src/common/symbol_renderer.dart';
 
 /// The base renderer config for arc renderer and sunburst arc renderer.
-abstract class BaseArcRendererConfig<D, D2 extends ArcRendererElement<D>>
-    extends LayoutViewConfig implements SeriesRendererConfig<D> {
+abstract class BaseArcRendererConfig<D,
+        TArcRendererElement extends ArcRendererElement<D>>
+    extends LayoutViewConfig
+    implements SeriesRendererConfig<D, TArcRendererElement> {
   BaseArcRendererConfig({
     this.customRendererId,
     this.arcLength = 2 * pi,
@@ -48,7 +50,8 @@ abstract class BaseArcRendererConfig<D, D2 extends ArcRendererElement<D>>
   final String? customRendererId;
 
   /// List of decorators applied to rendered arcs.
-  final List<ArcRendererDecorator<D, D2>> arcRendererDecorators;
+  final List<ArcRendererDecorator<D, TArcRendererElement>>
+      arcRendererDecorators;
 
   @override
   final SymbolRenderer symbolRenderer;

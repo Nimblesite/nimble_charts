@@ -28,8 +28,8 @@ import 'package:nimble_charts_common/src/data/series.dart' show AccessorFn;
 /// This decorator performs very basic label collision detection. If the y
 /// position of a label positioned outside collides with the previously drawn
 /// label (on the same side of the chart), then that label will be skipped.
-class ArcLabelDecorator<D, D2 extends ArcRendererElement<D>>
-    extends ArcRendererDecorator<D, D2> {
+class ArcLabelDecorator<D, TArcRendererElement extends ArcRendererElement<D>>
+    extends ArcRendererDecorator<D, TArcRendererElement> {
   ArcLabelDecorator({
     TextStyleSpec? insideLabelStyleSpec,
     TextStyleSpec? outsideLabelStyleSpec,
@@ -84,7 +84,7 @@ class ArcLabelDecorator<D, D2 extends ArcRendererElement<D>>
 
   @override
   void decorate(
-    List<ArcRendererElementList<D, D2>> arcElementsList,
+    List<ArcRendererElementList<D, TArcRendererElement>> arcElementsList,
     ChartCanvas canvas,
     GraphicsFactory graphicsFactory, {
     required Rectangle drawBounds,
@@ -220,7 +220,7 @@ class ArcLabelDecorator<D, D2 extends ArcRendererElement<D>>
     TextStyle labelStyle,
     int insideArcWidth,
     int outsideArcWidth,
-    D2 arcRendererElement,
+    TArcRendererElement arcRendererElement,
     ArcLabelPosition labelPosition,
   ) {
     if (labelPosition == ArcLabelPosition.auto) {
@@ -267,7 +267,7 @@ class ArcLabelDecorator<D, D2 extends ArcRendererElement<D>>
   /// Draws a label inside of an arc.
   void _drawInsideLabel(
     ChartCanvas canvas,
-    ArcRendererElementList<D, D2> arcElements,
+    ArcRendererElementList<D, TArcRendererElement> arcElements,
     TextElement labelElement,
     double centerAngle,
   ) {
@@ -295,14 +295,14 @@ class ArcLabelDecorator<D, D2 extends ArcRendererElement<D>>
     _previousOutsideLabelY = params[1] as int;
   }
 
-  double getLabelRadius(ArcRendererElementList<D, D2> arcElements) =>
+  double getLabelRadius(ArcRendererElementList<D, TArcRendererElement> arcElements) =>
       arcElements.radius + leaderLineStyleSpec.length / 2;
 
   /// Draws a label outside of an arc.
   List<Object>? _drawOutsideLabel(
     ChartCanvas canvas,
     Rectangle drawBounds,
-    ArcRendererElementList<D, D2> arcElements,
+    ArcRendererElementList<D, TArcRendererElement> arcElements,
     TextElement labelElement,
     double centerAngle,
   ) {

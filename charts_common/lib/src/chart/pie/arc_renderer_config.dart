@@ -20,8 +20,8 @@ import 'package:nimble_charts_common/src/chart/pie/base_arc_renderer_config.dart
     show BaseArcRendererConfig;
 
 /// Configuration for an [ArcRenderer].
-class ArcRendererConfig<D, D2 extends ArcRendererElement<D>>
-    extends BaseArcRendererConfig<D, D2> {
+class ArcRendererConfig<D, TArcRendererElement extends ArcRendererElement<D>>
+    extends BaseArcRendererConfig<D, TArcRendererElement> {
   ArcRendererConfig({
     super.customRendererId,
     super.arcLength,
@@ -35,6 +35,9 @@ class ArcRendererConfig<D, D2 extends ArcRendererElement<D>>
   });
 
   @override
-  ArcRenderer<D, D2> build() =>
-      ArcRenderer<D, D2>(config: this, rendererId: customRendererId);
+  ArcRenderer<D, TArcRendererElement> build() =>
+      ArcRenderer<D, TArcRendererElement>(
+        config: this,
+        rendererId: customRendererId,
+      );
 }

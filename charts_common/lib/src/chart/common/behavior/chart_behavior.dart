@@ -14,18 +14,20 @@
 // limitations under the License.
 
 import 'package:nimble_charts_common/src/chart/common/base_chart.dart';
+import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart';
 
 /// Interface for adding behavior to a chart.
 ///
 /// For example pan and zoom are implemented via behavior strategies.
-abstract class ChartBehavior<D> {
+abstract class ChartBehavior<D,
+    TArcRenderElement extends ArcRendererElement<D>> {
   String get role;
 
   /// Injects the behavior into a chart.
-  void attachTo(BaseChart<D> chart);
+  void attachTo(BaseChart<D, TArcRenderElement> chart);
 
   /// Removes the behavior from a chart.
-  void removeFrom(BaseChart<D> chart);
+  void removeFrom(BaseChart<D, TArcRenderElement> chart);
 }
 
 /// Position of a component within the chart layout.

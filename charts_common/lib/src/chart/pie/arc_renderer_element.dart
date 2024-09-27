@@ -22,7 +22,8 @@ import 'package:nimble_charts_common/src/chart/common/processed_series.dart'
     show ImmutableSeries;
 import 'package:nimble_charts_common/src/common/color.dart' show Color;
 
-class ArcRendererElementList<D, D2 extends ArcRendererElement<D>> {
+class ArcRendererElementList<D,
+    TArcRendererElement extends ArcRendererElement<D>> {
   ArcRendererElementList({
     required this.arcs,
     required this.center,
@@ -32,7 +33,7 @@ class ArcRendererElementList<D, D2 extends ArcRendererElement<D>> {
     this.stroke,
     this.strokeWidthPx,
   });
-  final List<D2> arcs;
+  final List<TArcRendererElement> arcs;
   final Point<double> center;
   final double innerRadius;
   final double radius;
@@ -89,7 +90,7 @@ class ArcRendererElement<D> {
 }
 
 @protected
-class AnimatedArcList<D, D2> {
+class AnimatedArcList<D, TArcRendererElement> {
   final arcs = <AnimatedArc<D>>[];
   Point<double>? center;
   double? innerRadius;

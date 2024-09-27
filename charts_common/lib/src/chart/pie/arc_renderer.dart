@@ -35,9 +35,12 @@ import 'package:nimble_charts_common/src/data/series.dart' show AttributeKey;
 const arcElementsKey =
     AttributeKey<List<ArcRendererElement<Object>>>('ArcRenderer.elements');
 
-class ArcRenderer<D, D2 extends ArcRendererElement<D>>
-    extends BaseArcRenderer<D> {
-  factory ArcRenderer({String? rendererId, ArcRendererConfig<D, D2>? config}) =>
+class ArcRenderer<D, TArcRendererElement extends ArcRendererElement<D>>
+    extends BaseArcRenderer<D, TArcRendererElement> {
+  factory ArcRenderer({
+    String? rendererId,
+    ArcRendererConfig<D, TArcRendererElement>? config,
+  }) =>
       ArcRenderer._internal(
         rendererId: rendererId ?? 'line',
         config: config ?? ArcRendererConfig(),
@@ -47,17 +50,19 @@ class ArcRenderer<D, D2 extends ArcRendererElement<D>>
       : arcRendererDecorators = config.arcRendererDecorators,
         super(config: config);
   @override
-  final ArcRendererConfig<D, D2> config;
+  final ArcRendererConfig<D, TArcRendererElement> config;
 
   @override
-  final List<ArcRendererDecorator<D, D2>> arcRendererDecorators;
+  final List<ArcRendererDecorator<D, TArcRendererElement>>
+      arcRendererDecorators;
 
   /// Store a map of series drawn on the chart, mapped by series name.
   ///
   /// [LinkedHashMap] is used to render the series on the canvas in the same
   /// order as the data was given to the chart.
   // ignore: prefer_collection_literals, https://github.com/dart-lang/linter/issues/1649
-  final _seriesArcMap = LinkedHashMap<String, AnimatedArcList<D, D2>>();
+  final _seriesArcMap =
+      LinkedHashMap<String, AnimatedArcList<D, TArcRendererElement>>();
 
   // Store a list of arcs that exist in the series data.
   //

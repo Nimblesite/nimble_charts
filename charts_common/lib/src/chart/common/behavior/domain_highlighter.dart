@@ -21,6 +21,7 @@ import 'package:nimble_charts_common/src/chart/common/processed_series.dart'
     show MutableSeries;
 import 'package:nimble_charts_common/src/chart/common/selection_model/selection_model.dart'
     show SelectionModel, SelectionModelType;
+import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart';
 
 /// Chart behavior that monitors the specified [SelectionModel] and darkens the
 /// color for selected data.
@@ -29,14 +30,15 @@ import 'package:nimble_charts_common/src/chart/common/selection_model/selection_
 ///
 /// It is used in combination with SelectNearest to update the selection model
 /// and expand selection out to the domain value.
-class DomainHighlighter<D> implements ChartBehavior<D> {
+class DomainHighlighter<D, TArcRenderElement extends ArcRendererElement<D>>
+    implements ChartBehavior<D, TArcRenderElement> {
   DomainHighlighter([this.selectionModelType = SelectionModelType.info]) {
     _lifecycleListener =
         LifecycleListener<D>(onPostprocess: _updateColorFunctions);
   }
   final SelectionModelType selectionModelType;
 
-  late BaseChart<D> _chart;
+  late BaseChart<D, TArcRenderElement> _chart;
 
   late LifecycleListener<D> _lifecycleListener;
 
@@ -64,7 +66,7 @@ class DomainHighlighter<D> implements ChartBehavior<D> {
   }
 
   @override
-  void attachTo(BaseChart<D> chart) {
+  void attachTo(BaseChart<D, TArcRenderElement> chart) {
     _chart = chart;
     chart.addLifecycleListener(_lifecycleListener);
     chart
@@ -73,7 +75,7 @@ class DomainHighlighter<D> implements ChartBehavior<D> {
   }
 
   @override
-  void removeFrom(BaseChart<D> chart) {
+  void removeFrom(BaseChart<D, TArcRenderElement> chart) {
     chart
         .getSelectionModel(selectionModelType)
         .removeSelectionChangedListener(_selectionChanged);
