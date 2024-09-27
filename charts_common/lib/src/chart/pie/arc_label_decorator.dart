@@ -28,7 +28,8 @@ import 'package:nimble_charts_common/src/data/series.dart' show AccessorFn;
 /// This decorator performs very basic label collision detection. If the y
 /// position of a label positioned outside collides with the previously drawn
 /// label (on the same side of the chart), then that label will be skipped.
-class ArcLabelDecorator<D> extends ArcRendererDecorator<D> {
+class ArcLabelDecorator<D, D2 extends ArcRendererElement<D>>
+    extends ArcRendererDecorator<D, D2> {
   ArcLabelDecorator({
     TextStyleSpec? insideLabelStyleSpec,
     TextStyleSpec? outsideLabelStyleSpec,
@@ -83,7 +84,7 @@ class ArcLabelDecorator<D> extends ArcRendererDecorator<D> {
 
   @override
   void decorate(
-    List<ArcRendererElementList<D>> arcElementsList,
+    List<ArcRendererElementList<D, D2>> arcElementsList,
     ChartCanvas canvas,
     GraphicsFactory graphicsFactory, {
     required Rectangle drawBounds,
@@ -219,7 +220,7 @@ class ArcLabelDecorator<D> extends ArcRendererDecorator<D> {
     TextStyle labelStyle,
     int insideArcWidth,
     int outsideArcWidth,
-    ArcRendererElement arcRendererElement,
+    D2 arcRendererElement,
     ArcLabelPosition labelPosition,
   ) {
     if (labelPosition == ArcLabelPosition.auto) {
@@ -266,7 +267,7 @@ class ArcLabelDecorator<D> extends ArcRendererDecorator<D> {
   /// Draws a label inside of an arc.
   void _drawInsideLabel(
     ChartCanvas canvas,
-    ArcRendererElementList<D> arcElements,
+    ArcRendererElementList<D, D2> arcElements,
     TextElement labelElement,
     double centerAngle,
   ) {
@@ -294,14 +295,14 @@ class ArcLabelDecorator<D> extends ArcRendererDecorator<D> {
     _previousOutsideLabelY = params[1] as int;
   }
 
-  double getLabelRadius(ArcRendererElementList<D> arcElements) =>
+  double getLabelRadius(ArcRendererElementList<D, D2> arcElements) =>
       arcElements.radius + leaderLineStyleSpec.length / 2;
 
   /// Draws a label outside of an arc.
   List<Object>? _drawOutsideLabel(
     ChartCanvas canvas,
     Rectangle drawBounds,
-    ArcRendererElementList<D> arcElements,
+    ArcRendererElementList<D, D2> arcElements,
     TextElement labelElement,
     double centerAngle,
   ) {

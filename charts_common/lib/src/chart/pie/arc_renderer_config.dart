@@ -15,11 +15,13 @@
 
 import 'package:nimble_charts_common/src/chart/pie/arc_renderer.dart'
     show ArcRenderer;
+import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/pie/base_arc_renderer_config.dart'
     show BaseArcRendererConfig;
 
 /// Configuration for an [ArcRenderer].
-class ArcRendererConfig<D> extends BaseArcRendererConfig<D> {
+class ArcRendererConfig<D, D2 extends ArcRendererElement<D>>
+    extends BaseArcRendererConfig<D, D2> {
   ArcRendererConfig({
     super.customRendererId,
     super.arcLength,
@@ -33,6 +35,6 @@ class ArcRendererConfig<D> extends BaseArcRendererConfig<D> {
   });
 
   @override
-  ArcRenderer<D> build() =>
-      ArcRenderer<D>(config: this, rendererId: customRendererId);
+  ArcRenderer<D, D2> build() =>
+      ArcRenderer<D, D2>(config: this, rendererId: customRendererId);
 }

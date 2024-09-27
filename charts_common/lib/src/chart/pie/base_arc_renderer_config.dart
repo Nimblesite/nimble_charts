@@ -21,14 +21,15 @@ import 'package:nimble_charts_common/src/chart/layout/layout_view.dart'
     show LayoutViewConfig, LayoutViewPaintOrder;
 import 'package:nimble_charts_common/src/chart/pie/arc_renderer_decorator.dart'
     show ArcRendererDecorator;
+import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart';
 import 'package:nimble_charts_common/src/common/color.dart' show Color;
 import 'package:nimble_charts_common/src/common/style/style_factory.dart'
     show StyleFactory;
 import 'package:nimble_charts_common/src/common/symbol_renderer.dart';
 
 /// The base renderer config for arc renderer and sunburst arc renderer.
-abstract class BaseArcRendererConfig<D> extends LayoutViewConfig
-    implements SeriesRendererConfig<D> {
+abstract class BaseArcRendererConfig<D, D2 extends ArcRendererElement<D>>
+    extends LayoutViewConfig implements SeriesRendererConfig<D> {
   BaseArcRendererConfig({
     this.customRendererId,
     this.arcLength = 2 * pi,
@@ -47,7 +48,7 @@ abstract class BaseArcRendererConfig<D> extends LayoutViewConfig
   final String? customRendererId;
 
   /// List of decorators applied to rendered arcs.
-  final List<ArcRendererDecorator<D>> arcRendererDecorators;
+  final List<ArcRendererDecorator<D, D2>> arcRendererDecorators;
 
   @override
   final SymbolRenderer symbolRenderer;

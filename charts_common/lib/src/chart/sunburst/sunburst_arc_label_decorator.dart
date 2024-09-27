@@ -35,7 +35,8 @@ import 'package:nimble_charts_common/src/common/text_style.dart' show TextStyle;
 /// inner arcs' label versus the outer arcs.
 ///
 /// TODO: Improve label handling for sunburst chart.
-class SunburstArcLabelDecorator<D> extends ArcLabelDecorator<D> {
+class SunburstArcLabelDecorator<D>
+    extends ArcLabelDecorator<D, SunburstArcRendererElement<D>> {
   SunburstArcLabelDecorator({
     super.insideLabelStyleSpec,
     super.outsideLabelStyleSpec,
@@ -77,7 +78,8 @@ class SunburstArcLabelDecorator<D> extends ArcLabelDecorator<D> {
 
   @override
   void decorate(
-    List<ArcRendererElementList<D>> arcElementsList,
+    List<ArcRendererElementList<D, SunburstArcRendererElement<D>>>
+        arcElementsList,
     ChartCanvas canvas,
     GraphicsFactory graphicsFactory, {
     required Rectangle drawBounds,
@@ -118,7 +120,9 @@ class SunburstArcLabelDecorator<D> extends ArcLabelDecorator<D> {
   }
 
   @override
-  double getLabelRadius(ArcRendererElementList<D> arcElements) =>
+  double getLabelRadius(
+    ArcRendererElementList<D, SunburstArcRendererElement<D>> arcElements,
+  ) =>
       (extendLeaderLine
           ? (_outerMostRadius ?? arcElements.radius)
           : arcElements.radius) +
@@ -167,13 +171,10 @@ class SunburstArcLabelDecorator<D> extends ArcLabelDecorator<D> {
     TextStyle labelStyle,
     int insideArcWidth,
     int outsideArcWidth,
-    ArcRendererElement arcRendererElement,
+    SunburstArcRendererElement<D> arcRendererElement,
     ArcLabelPosition labelPosition,
   ) {
-    assert(arcRendererElement is SunburstArcRendererElement);
-
-    if ((arcRendererElement as SunburstArcRendererElement).isOuterMostRing ==
-        true) {
+    if (arcRendererElement.isOuterMostRing ?? false) {
       return super.calculateLabelPosition(
         labelElement,
         labelStyle,

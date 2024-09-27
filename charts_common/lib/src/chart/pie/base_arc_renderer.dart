@@ -44,7 +44,8 @@ import 'package:nimble_charts_common/src/data/series.dart' show AttributeKey;
 const arcElementsKey =
     AttributeKey<List<ArcRendererElement<Object>>>('ArcRenderer.elements');
 
-abstract class BaseArcRenderer<D> extends BaseSeriesRenderer<D> {
+abstract class BaseArcRenderer<D, D2 extends ArcRendererElement<D>>
+    extends BaseSeriesRenderer<D> {
   BaseArcRenderer({required this.config, required super.rendererId})
       : arcRendererDecorators = config.arcRendererDecorators,
         super(
@@ -55,9 +56,9 @@ abstract class BaseArcRenderer<D> extends BaseSeriesRenderer<D> {
   // once to save runtime cost.
   static final _cosPIOver4 = cos(pi / 4);
 
-  final BaseArcRendererConfig<D> config;
+  final BaseArcRendererConfig<D, D2> config;
 
-  final List<ArcRendererDecorator<D>> arcRendererDecorators;
+  final List<ArcRendererDecorator<D, D2>> arcRendererDecorators;
 
   @protected
   BaseChart<D>? chart;
@@ -138,7 +139,7 @@ abstract class BaseArcRenderer<D> extends BaseSeriesRenderer<D> {
   /// Chart has one AnimatedArcList and the Sunburst chart usually has multiple
   /// elements.
   @protected
-  List<AnimatedArcList<D>> getArcLists({String? seriesId});
+  List<AnimatedArcList<D, D2>> getArcLists({String? seriesId});
 
   /// Returns the chart position for a given datum by series ID and domain
   /// value.
@@ -183,10 +184,11 @@ abstract class BaseArcRenderer<D> extends BaseSeriesRenderer<D> {
   @override
   void paint(ChartCanvas canvas, double animationPercent) {
     final arcLists = getArcLists();
-    final arcListToElementsList = {};
+    final arcListToElementsList =
+        <AnimatedArcList<D>, ArcRendererElementList<D, D2>>{};
     for (final arcList in arcLists) {
-      final elementsList = ArcRendererElementList<D>(
-        arcs: <ArcRendererElement<D>>[],
+      final elementsList = ArcRendererElementList<D, D2>(
+        arcs: <D2>[],
         center: arcList.center!,
         innerRadius: arcList.innerRadius!,
         radius: arcList.radius!,
@@ -205,9 +207,9 @@ abstract class BaseArcRenderer<D> extends BaseSeriesRenderer<D> {
         .forEach((decorator) {
       decorator.decorate(
         arcLists
-            .map<ArcRendererElementList<D>>(
+            .map(
               //TODO: dangerous casts
-              (e) => arcListToElementsList[e] as ArcRendererElementList<D>,
+              (e) => arcListToElementsList[e]!,
             )
             .toList(),
         canvas,
@@ -229,7 +231,7 @@ abstract class BaseArcRenderer<D> extends BaseSeriesRenderer<D> {
         circleSectors
             .add(CanvasPieSlice(arc.startAngle, arc.endAngle, fill: arc.color));
 
-        arcListToElementsList[arcList].arcs.add(arc);
+        arcListToElementsList[arcList]?.arcs.add(arc);
       });
 
       // Draw the arcs.
