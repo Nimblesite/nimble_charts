@@ -20,6 +20,7 @@ import 'package:nimble_charts_common/src/chart/common/series_renderer_config.dar
     show RendererAttributes, SeriesRendererConfig;
 import 'package:nimble_charts_common/src/chart/layout/layout_view.dart'
     show LayoutViewConfig;
+import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart';
 import 'package:nimble_charts_common/src/common/symbol_renderer.dart'
     show RoundedRectSymbolRenderer, SymbolRenderer;
 
@@ -41,8 +42,10 @@ import 'package:nimble_charts_common/src/common/symbol_renderer.dart'
 ///   offsets overlap. Note that bars for each series will be rendered in order,
 ///   such that bars from the last series will be "on top" of bars from previous
 ///   series.
-abstract class BaseBarRendererConfig<D> extends LayoutViewConfig
-    implements SeriesRendererConfig<D> {
+abstract class BaseBarRendererConfig<D,
+        TArcRendererElement extends ArcRendererElement<D>>
+    extends LayoutViewConfig
+    implements SeriesRendererConfig<D, TArcRendererElement> {
   BaseBarRendererConfig({
     this.barGroupInnerPaddingPx = 2,
     this.customRendererId,

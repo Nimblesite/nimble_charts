@@ -13,33 +13,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/common/chart_canvas.dart'
     show FillPatternType, getAnimatedColor;
 import 'package:nimble_charts_common/src/chart/common/processed_series.dart'
     show ImmutableSeries;
+import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart';
 import 'package:nimble_charts_common/src/common/color.dart' show Color;
 
-abstract class BaseBarRendererElement {
-  BaseBarRendererElement();
-
-  BaseBarRendererElement.clone(BaseBarRendererElement other) {
-    barStackIndex = other.barStackIndex;
-    color = other.color != null ? Color.fromOther(color: other.color!) : null;
-    cumulativeTotal = other.cumulativeTotal;
-    dashPattern = other.dashPattern;
-    fillColor = other.fillColor != null
-        ? Color.fromOther(color: other.fillColor!)
-        : null;
-    fillPattern = other.fillPattern;
-    measureAxisPosition = other.measureAxisPosition;
-    measureOffset = other.measureOffset;
-    measureOffsetPlusMeasure = other.measureOffsetPlusMeasure;
-    strokeWidthPx = other.strokeWidthPx;
-    measureIsNull = other.measureIsNull;
-    measureIsNegative = other.measureIsNegative;
-  }
-  int? barStackIndex;
+abstract class BaseBarRendererElement<D> implements BaseRendererElement<D> {
+  @override
   Color? color;
+
+  @override
+  int? index;
+
+  @override
+  num? key;
+
+  @override
+  D? domain;
+
+  @override
+  late ImmutableSeries<D> series;
+
+  int? barStackIndex;
   num? cumulativeTotal;
   List<int>? dashPattern;
   Color? fillColor;
@@ -51,20 +49,27 @@ abstract class BaseBarRendererElement {
   bool? measureIsNull;
   bool? measureIsNegative;
 
+  @override
   void updateAnimationPercent(
-    BaseBarRendererElement previous,
-    BaseBarRendererElement target,
+    BaseRendererElement<D> previous,
+    BaseRendererElement<D> target,
     double animationPercent,
   ) {
-    color = getAnimatedColor(previous.color!, target.color!, animationPercent);
+    final prev = previous as BaseBarRendererElement<D>;
+    final tgt = target as BaseBarRendererElement<D>;
+
+    color = getAnimatedColor(prev.color!, tgt.color!, animationPercent);
     fillColor = getAnimatedColor(
-      previous.fillColor!,
-      target.fillColor!,
+      prev.fillColor!,
+      tgt.fillColor!,
       animationPercent,
     );
-    measureIsNull = target.measureIsNull;
-    measureIsNegative = target.measureIsNegative;
+    measureIsNull = tgt.measureIsNull;
+    measureIsNegative = tgt.measureIsNegative;
   }
+
+  @override
+  BaseBarRendererElement<D> clone();
 }
 
 abstract class BaseAnimatedBar<D, R extends BaseBarRendererElement> {

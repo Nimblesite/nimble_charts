@@ -53,6 +53,7 @@ import 'package:nimble_charts_common/src/chart/layout/layout_config.dart'
     show LayoutConfig, MarginSpec;
 import 'package:nimble_charts_common/src/chart/layout/layout_view.dart'
     show LayoutViewPaintOrder;
+import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart';
 import 'package:nimble_charts_common/src/common/graphics_factory.dart'
     show GraphicsFactory;
 import 'package:nimble_charts_common/src/data/series.dart' show Series;
@@ -95,7 +96,9 @@ class OrdinalCartesianChart extends CartesianChart<String> {
   }
 }
 
-abstract class CartesianChart<D> extends BaseChart<D> {
+abstract class CartesianChart<D,
+        TArcRendererElement extends ArcRendererElement<D>>
+    extends BaseChart<D, TArcRendererElement> {
   CartesianChart({
     bool? vertical,
     LayoutConfig? layoutConfig,

@@ -24,9 +24,11 @@ import 'package:nimble_charts_common/src/chart/common/processed_series.dart'
     show MutableSeries;
 import 'package:nimble_charts_common/src/chart/common/series_renderer.dart'
     show BaseSeriesRenderer, SeriesRenderer;
+import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart';
 import 'package:nimble_charts_common/src/data/series.dart' show AccessorFn;
 
-abstract class CartesianRenderer<D> extends SeriesRenderer<D> {
+abstract class CartesianRenderer<D, TRendererElement extends BaseRendererElement<D>>
+    extends SeriesRenderer<D, TRenderElement> {
   @override
   void configureDomainAxes(List<MutableSeries<D>> seriesList);
 
@@ -34,8 +36,9 @@ abstract class CartesianRenderer<D> extends SeriesRenderer<D> {
   void configureMeasureAxes(List<MutableSeries<D>> seriesList);
 }
 
-abstract class BaseCartesianRenderer<D> extends BaseSeriesRenderer<D>
-    implements CartesianRenderer<D> {
+abstract class BaseCartesianRenderer<D, TRenderElement extends BaseRendererElement<D>>
+    extends BaseSeriesRenderer<D, TRenderElement>
+    implements CartesianRenderer<D, TRenderElement> {
   BaseCartesianRenderer({
     required super.rendererId,
     required super.layoutPaintOrder,
@@ -43,16 +46,16 @@ abstract class BaseCartesianRenderer<D> extends BaseSeriesRenderer<D>
   });
 
   @protected
-  late CartesianChart<D> chart;
+  late CartesianChart<D, TRenderElement> chart;
 
   @override
-  void onAttach(BaseChart<D> chart) {
+  void onAttach(BaseChart<D, TRenderElement> chart) {
     super.onAttach(chart);
 
     // Save a reference to the parent chart so that we can access properties
     // that are not set until a later state (e.g. isRtl), or that might change
     // dynamically (e.g. vertical).
-    this.chart = chart as CartesianChart<D>;
+    this.chart = chart as CartesianChart<D, TRenderElement>;
   }
 
   // True when the chart should be rendered in vertical mode, false when in

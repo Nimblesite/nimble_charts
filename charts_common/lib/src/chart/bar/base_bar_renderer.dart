@@ -75,7 +75,7 @@ const barElementsKey =
 ///   such that bars from the last series will be "on top" of bars from previous
 ///   series.
 abstract class BaseBarRenderer<D, R extends BaseBarRendererElement,
-    B extends BaseAnimatedBar<D, R>> extends BaseCartesianRenderer<D> {
+    B extends BaseAnimatedBar<D, R>> extends BaseCartesianRenderer<D, R> {
   BaseBarRenderer({
     required this.config,
     required super.rendererId,

@@ -16,6 +16,7 @@
 import 'dart:math' show Point;
 
 import 'package:meta/meta.dart' show protected;
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/common/chart_canvas.dart'
     show getAnimatedColor;
 import 'package:nimble_charts_common/src/chart/common/processed_series.dart'
@@ -46,7 +47,7 @@ class ArcRendererElementList<D,
   final double? strokeWidthPx;
 }
 
-abstract class ArcRendererElement<D> {
+abstract class ArcRendererElement<D> implements BaseRendererElement<D> {
   ArcRendererElement({
     required this.startAngle,
     required this.endAngle,
@@ -56,28 +57,44 @@ abstract class ArcRendererElement<D> {
     this.key,
     this.domain,
   });
+  @override
+  Color? color;
+
+  @override
+  int? index;
+
+  @override
+  num? key;
+
+  @override
+  D? domain;
+
+  @override
+  late ImmutableSeries<D> series;
+
   double startAngle;
   double endAngle;
-  Color? color;
-  int? index;
-  num? key;
-  D? domain;
-  ImmutableSeries<D> series;
 
+  @override
   void updateAnimationPercent(
-    ArcRendererElement<D> previous,
-    ArcRendererElement<D> target,
+    BaseRendererElement<D> previous,
+    BaseRendererElement<D> target,
     double animationPercent,
   ) {
-    startAngle =
-        ((target.startAngle - previous.startAngle) * animationPercent) +
-            previous.startAngle;
+    final prev = previous as ArcRendererElement<D>;
+    final tgt = target as ArcRendererElement<D>;
 
-    endAngle = ((target.endAngle - previous.endAngle) * animationPercent) +
-        previous.endAngle;
+    startAngle = ((tgt.startAngle - prev.startAngle) * animationPercent) +
+        prev.startAngle;
 
-    color = getAnimatedColor(previous.color!, target.color!, animationPercent);
+    endAngle =
+        ((tgt.endAngle - prev.endAngle) * animationPercent) + prev.endAngle;
+
+    color = getAnimatedColor(prev.color!, tgt.color!, animationPercent);
   }
+
+  @override
+  ArcRendererElement<D> clone();
 }
 
 @protected
