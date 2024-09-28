@@ -54,12 +54,11 @@ import 'package:nimble_charts_common/src/chart/layout/layout_config.dart'
     show LayoutConfig, MarginSpec;
 import 'package:nimble_charts_common/src/chart/layout/layout_view.dart'
     show LayoutViewPaintOrder;
-import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart';
 import 'package:nimble_charts_common/src/common/graphics_factory.dart'
     show GraphicsFactory;
 import 'package:nimble_charts_common/src/data/series.dart' show Series;
 
-class NumericCartesianChart extends CartesianChart<num> {
+class NumericCartesianChart extends CartesianChart<num, BarRenderer<num>> {
   NumericCartesianChart({
     super.vertical,
     super.layoutConfig,

@@ -549,17 +549,19 @@ abstract class ImmutableBarRendererElement<D> {
   Rectangle<int>? get bounds;
 }
 
-class BarRendererElement<D> extends BaseBarRendererElement
+class BarRendererElement<D> extends BaseBarRendererElement<D>
     implements ImmutableBarRendererElement<D> {
   BarRendererElement();
 
-  BarRendererElement.clone(BarRendererElement<D> other) : super.clone(other) {
-    series = other.series;
-    bounds = other.bounds;
-    roundPx = other.roundPx;
-    index = other.index;
-    _datum = other._datum;
-  }
+  @override
+  BaseBarRendererElement<D> clone(BaseBarRendererElement<D> other) =>
+      BarRendererElement()
+        ..series = other.series
+        ..bounds = other.bounds
+        ..roundPx = other.roundPx
+        ..index = other.index
+        .._datum = other._datum;
+
   @override
   ImmutableSeries<D>? series;
 

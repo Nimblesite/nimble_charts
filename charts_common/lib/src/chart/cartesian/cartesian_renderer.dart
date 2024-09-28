@@ -20,15 +20,16 @@ import 'package:nimble_charts_common/src/chart/cartesian/cartesian_chart.dart'
     show CartesianChart;
 import 'package:nimble_charts_common/src/chart/common/base_chart.dart'
     show BaseChart;
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/common/processed_series.dart'
     show MutableSeries;
 import 'package:nimble_charts_common/src/chart/common/series_renderer.dart'
     show BaseSeriesRenderer, SeriesRenderer;
-import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart';
 import 'package:nimble_charts_common/src/data/series.dart' show AccessorFn;
 
-abstract class CartesianRenderer<D, TRendererElement extends BaseRendererElement<D>>
-    extends SeriesRenderer<D, TRenderElement> {
+abstract class CartesianRenderer<D,
+        TRendererElement extends BaseRendererElement<D>>
+    extends SeriesRenderer<D, TRendererElement> {
   @override
   void configureDomainAxes(List<MutableSeries<D>> seriesList);
 
@@ -36,7 +37,8 @@ abstract class CartesianRenderer<D, TRendererElement extends BaseRendererElement
   void configureMeasureAxes(List<MutableSeries<D>> seriesList);
 }
 
-abstract class BaseCartesianRenderer<D, TRenderElement extends BaseRendererElement<D>>
+abstract class BaseCartesianRenderer<D,
+        TRenderElement extends BaseRendererElement<D>>
     extends BaseSeriesRenderer<D, TRenderElement>
     implements CartesianRenderer<D, TRenderElement> {
   BaseCartesianRenderer({

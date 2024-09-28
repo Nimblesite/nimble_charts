@@ -131,7 +131,7 @@ abstract class SeriesRenderer<D,
 
 /// Concrete base class for [SeriesRenderer]s that implements common
 /// functionality.
-abstract class BaseSeriesRenderer<D, D2 extends ArcRendererElement<D>>
+abstract class BaseSeriesRenderer<D, D2 extends BaseRendererElement<D>>
     implements SeriesRenderer<D, D2> {
   BaseSeriesRenderer({
     required this.rendererId,

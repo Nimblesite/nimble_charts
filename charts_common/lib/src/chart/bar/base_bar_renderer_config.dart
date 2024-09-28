@@ -21,7 +21,6 @@ import 'package:nimble_charts_common/src/chart/common/series_renderer_config.dar
     show RendererAttributes, SeriesRendererConfig;
 import 'package:nimble_charts_common/src/chart/layout/layout_view.dart'
     show LayoutViewConfig;
-import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart';
 import 'package:nimble_charts_common/src/common/symbol_renderer.dart'
     show RoundedRectSymbolRenderer, SymbolRenderer;
 

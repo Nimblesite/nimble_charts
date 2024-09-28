@@ -18,7 +18,6 @@ import 'package:nimble_charts_common/src/chart/common/chart_canvas.dart'
     show FillPatternType, getAnimatedColor;
 import 'package:nimble_charts_common/src/chart/common/processed_series.dart'
     show ImmutableSeries;
-import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart';
 import 'package:nimble_charts_common/src/common/color.dart' show Color;
 
 abstract class BaseBarRendererElement<D> implements BaseRendererElement<D> {
@@ -72,7 +71,7 @@ abstract class BaseBarRendererElement<D> implements BaseRendererElement<D> {
   BaseBarRendererElement<D> clone();
 }
 
-abstract class BaseAnimatedBar<D, R extends BaseBarRendererElement> {
+abstract class BaseAnimatedBar<D, R extends BaseBarRendererElement<D>> {
   BaseAnimatedBar({
     required this.key,
     required this.datum,

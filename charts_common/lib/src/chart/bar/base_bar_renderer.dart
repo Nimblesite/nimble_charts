@@ -74,7 +74,7 @@ const barElementsKey =
 ///   offsets overlap. Note that bars for each series will be rendered in order,
 ///   such that bars from the last series will be "on top" of bars from previous
 ///   series.
-abstract class BaseBarRenderer<D, R extends BaseBarRendererElement,
+abstract class BaseBarRenderer<D, R extends BaseBarRendererElement<D>,
     B extends BaseAnimatedBar<D, R>> extends BaseCartesianRenderer<D, R> {
   BaseBarRenderer({
     required this.config,
@@ -86,7 +86,7 @@ abstract class BaseBarRenderer<D, R extends BaseBarRendererElement,
   // `config` can't be a `BaseBarRendererConfig<D>` because `BarLaneRenderer<D>`
   // passes a `BarLaneRendererConfig`, but `BarLaneRendererConfig` is a
   // `BarRendererConfig<String>`.
-  final BaseBarRendererConfig<Object?> config;
+  final BaseBarRendererConfig<Object?, R> config;
 
   // Save the chart.vertical value at the start of every draw cycle. If it
   // changes, delete all of the cached rendering element information so that we
