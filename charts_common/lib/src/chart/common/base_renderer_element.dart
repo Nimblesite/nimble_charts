@@ -15,5 +15,5 @@ abstract class BaseRendererElement<D> {
     double animationPercent,
   );
 
-  BaseRendererElement<D> clone();
+  // BaseRendererElement<D> clone();
 }

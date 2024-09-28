@@ -13,17 +13,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:nimble_charts_common/src/chart/bar/bar_renderer.dart'
-    show BarRenderer;
-import 'package:nimble_charts_common/src/chart/bar/bar_renderer_decorator.dart'
-    show BarRendererDecorator;
-import 'package:nimble_charts_common/src/chart/bar/base_bar_renderer_config.dart'
-    show BarGroupingType, BaseBarRendererConfig;
-import 'package:nimble_charts_common/src/chart/layout/layout_view.dart'
-    show LayoutViewPaintOrder;
+import 'package:nimble_charts_common/common.dart';
 
 /// Configuration for a bar renderer.
-class BarRendererConfig<D> extends BaseBarRendererConfig<D> {
+class BarRendererConfig<D>
+    extends BaseBarRendererConfig<D, BarRendererElement<D>> {
   BarRendererConfig({
     super.barGroupInnerPaddingPx,
     super.customRendererId,

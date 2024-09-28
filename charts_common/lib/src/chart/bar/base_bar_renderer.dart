@@ -18,25 +18,12 @@ import 'dart:math' show Point, Rectangle, max;
 
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:meta/meta.dart' show protected;
-import 'package:nimble_charts_common/src/chart/bar/base_bar_renderer_config.dart'
-    show BaseBarRendererConfig;
+import 'package:nimble_charts_common/common.dart';
 import 'package:nimble_charts_common/src/chart/bar/base_bar_renderer_element.dart'
     show BaseAnimatedBar, BaseBarRendererElement;
-import 'package:nimble_charts_common/src/chart/cartesian/axis/axis.dart'
-    show ImmutableAxis, OrdinalAxis, domainAxisKey, measureAxisKey;
 import 'package:nimble_charts_common/src/chart/cartesian/axis/scale.dart'
     show RangeBandConfig;
-import 'package:nimble_charts_common/src/chart/cartesian/cartesian_renderer.dart'
-    show BaseCartesianRenderer;
-import 'package:nimble_charts_common/src/chart/common/chart_canvas.dart'
-    show ChartCanvas, FillPatternType;
-import 'package:nimble_charts_common/src/chart/common/datum_details.dart'
-    show DatumDetails;
-import 'package:nimble_charts_common/src/chart/common/processed_series.dart'
-    show ImmutableSeries, MutableSeries;
-import 'package:nimble_charts_common/src/common/color.dart' show Color;
 import 'package:nimble_charts_common/src/common/math.dart' show clamp;
-import 'package:nimble_charts_common/src/data/series.dart' show AttributeKey;
 
 const barGroupIndexKey = AttributeKey<int>('BarRenderer.barGroupIndex');
 
@@ -86,7 +73,7 @@ abstract class BaseBarRenderer<D, R extends BaseBarRendererElement<D>,
   // `config` can't be a `BaseBarRendererConfig<D>` because `BarLaneRenderer<D>`
   // passes a `BarLaneRendererConfig`, but `BarLaneRendererConfig` is a
   // `BarRendererConfig<String>`.
-  final BaseBarRendererConfig<Object?, R> config;
+  final BarRendererConfig<Object?> config;
 
   // Save the chart.vertical value at the start of every draw cycle. If it
   // changes, delete all of the cached rendering element information so that we

@@ -32,6 +32,7 @@ import 'package:nimble_charts_common/src/chart/bar/base_bar_renderer_element.dar
     show BaseAnimatedBar, BaseBarRendererElement;
 import 'package:nimble_charts_common/src/chart/cartesian/axis/axis.dart'
     show ImmutableAxis, domainAxisKey, measureAxisKey;
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/common/canvas_shapes.dart'
     show CanvasBarStack, CanvasRect;
 import 'package:nimble_charts_common/src/chart/common/chart_canvas.dart'
@@ -58,7 +59,7 @@ class BarRenderer<D>
   /// cannot call the factory in their own constructors.
   @protected
   BarRenderer.internal({
-    required BarRendererConfig<Object?> super.config,
+    required super.config,
     required super.rendererId,
   })  : barRendererDecorator = config.barRendererDecorator,
         _stackedBarPaddingPx = config.stackedBarPaddingPx,
@@ -554,18 +555,6 @@ class BarRendererElement<D> extends BaseBarRendererElement<D>
   BarRendererElement();
 
   @override
-  BaseBarRendererElement<D> clone(BaseBarRendererElement<D> other) =>
-      BarRendererElement()
-        ..series = other.series
-        ..bounds = other.bounds
-        ..roundPx = other.roundPx
-        ..index = other.index
-        .._datum = other._datum;
-
-  @override
-  ImmutableSeries<D>? series;
-
-  @override
   Rectangle<int>? bounds;
 
   int? roundPx;
@@ -580,13 +569,13 @@ class BarRendererElement<D> extends BaseBarRendererElement<D>
 
   set datum(dynamic datum) {
     _datum = datum;
-    index = series?.data.indexOf(datum);
+    index = series.data.indexOf(datum);
   }
 
   @override
   void updateAnimationPercent(
-    BaseBarRendererElement previous,
-    BaseBarRendererElement target,
+    BaseRendererElement<D> previous,
+    BaseRendererElement<D> target,
     double animationPercent,
   ) {
     final localPrevious = previous as BarRendererElement<D>;
@@ -654,5 +643,10 @@ class AnimatedBar<D> extends BaseAnimatedBar<D, BarRendererElement<D>> {
 
   @override
   BarRendererElement<D> clone(BarRendererElement<D> bar) =>
-      BarRendererElement<D>.clone(bar);
+      BarRendererElement<D>()
+        ..series = bar.series
+        ..bounds = bar.bounds
+        ..roundPx = bar.roundPx
+        ..index = bar.index
+        .._datum = bar._datum;
 }

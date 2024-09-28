@@ -66,9 +66,6 @@ abstract class BaseBarRendererElement<D> implements BaseRendererElement<D> {
     measureIsNull = tgt.measureIsNull;
     measureIsNegative = tgt.measureIsNegative;
   }
-
-  @override
-  BaseBarRendererElement<D> clone();
 }
 
 abstract class BaseAnimatedBar<D, R extends BaseBarRendererElement<D>> {

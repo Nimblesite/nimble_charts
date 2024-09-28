@@ -17,13 +17,16 @@ import 'package:nimble_charts_common/src/chart/bar/bar_target_line_renderer.dart
     show BarTargetLineRenderer;
 import 'package:nimble_charts_common/src/chart/bar/base_bar_renderer_config.dart'
     show BaseBarRendererConfig;
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/layout/layout_view.dart'
     show LayoutViewPaintOrder;
 import 'package:nimble_charts_common/src/common/symbol_renderer.dart'
     show LineSymbolRenderer, SymbolRenderer;
 
 /// Configuration for a bar target line renderer.
-class BarTargetLineRendererConfig<D> extends BaseBarRendererConfig<D> {
+class BarTargetLineRendererConfig<D,
+        TRendererElement extends BaseRendererElement<D>>
+    extends BaseBarRendererConfig<D, TRendererElement> {
   BarTargetLineRendererConfig({
     super.barGroupInnerPaddingPx,
     super.customRendererId,
