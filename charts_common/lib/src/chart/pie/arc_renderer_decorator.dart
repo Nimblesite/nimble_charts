@@ -15,6 +15,7 @@
 
 import 'dart:math' show Rectangle;
 
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/common/chart_canvas.dart'
     show ChartCanvas;
 import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart'
@@ -24,7 +25,7 @@ import 'package:nimble_charts_common/src/common/graphics_factory.dart'
 
 /// Decorates arcs after the arcs have already been painted.
 abstract class ArcRendererDecorator<D,
-    TArcRendererElement extends ArcRendererElement<D>> {
+    TBaseRendererElement extends BaseRendererElement<D>> {
   const ArcRendererDecorator();
 
   /// Configures whether the decorator should be rendered on top of or below
@@ -32,7 +33,7 @@ abstract class ArcRendererDecorator<D,
   bool get renderAbove;
 
   void decorate(
-    List<ArcRendererElementList<D, TArcRendererElement>> arcElementsList,
+    List<ArcRendererElementList<D, ArcRendererElement<D>>> arcElementsList,
     ChartCanvas canvas,
     GraphicsFactory graphicsFactory, {
     required Rectangle drawBounds,

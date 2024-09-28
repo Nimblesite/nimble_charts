@@ -17,6 +17,7 @@ import 'dart:math' show Point, Rectangle, cos, min, pi, sin;
 
 import 'package:meta/meta.dart' show immutable, protected;
 import 'package:nimble_charts_common/common.dart';
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/pie/arc_renderer_decorator.dart'
     show ArcRendererDecorator;
 import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart'
@@ -28,8 +29,8 @@ import 'package:nimble_charts_common/src/data/series.dart' show AccessorFn;
 /// This decorator performs very basic label collision detection. If the y
 /// position of a label positioned outside collides with the previously drawn
 /// label (on the same side of the chart), then that label will be skipped.
-class ArcLabelDecorator<D, TArcRendererElement extends ArcRendererElement<D>>
-    extends ArcRendererDecorator<D, TArcRendererElement> {
+class ArcLabelDecorator<D, TBaseRendererElement extends BaseRendererElement<D>>
+    extends ArcRendererDecorator<D, TBaseRendererElement> {
   ArcLabelDecorator({
     TextStyleSpec? insideLabelStyleSpec,
     TextStyleSpec? outsideLabelStyleSpec,
@@ -84,7 +85,7 @@ class ArcLabelDecorator<D, TArcRendererElement extends ArcRendererElement<D>>
 
   @override
   void decorate(
-    List<ArcRendererElementList<D, TArcRendererElement>> arcElementsList,
+    List<ArcRendererElementList<D, TBaseRendererElement>> arcElementsList,
     ChartCanvas canvas,
     GraphicsFactory graphicsFactory, {
     required Rectangle drawBounds,
@@ -220,7 +221,7 @@ class ArcLabelDecorator<D, TArcRendererElement extends ArcRendererElement<D>>
     TextStyle labelStyle,
     int insideArcWidth,
     int outsideArcWidth,
-    TArcRendererElement arcRendererElement,
+    TBaseRendererElement arcRendererElement,
     ArcLabelPosition labelPosition,
   ) {
     if (labelPosition == ArcLabelPosition.auto) {
@@ -267,7 +268,7 @@ class ArcLabelDecorator<D, TArcRendererElement extends ArcRendererElement<D>>
   /// Draws a label inside of an arc.
   void _drawInsideLabel(
     ChartCanvas canvas,
-    ArcRendererElementList<D, TArcRendererElement> arcElements,
+    ArcRendererElementList<D, TBaseRendererElement> arcElements,
     TextElement labelElement,
     double centerAngle,
   ) {
@@ -296,7 +297,7 @@ class ArcLabelDecorator<D, TArcRendererElement extends ArcRendererElement<D>>
   }
 
   double getLabelRadius(
-    ArcRendererElementList<D, TArcRendererElement> arcElements,
+    ArcRendererElementList<D, TBaseRendererElement> arcElements,
   ) =>
       arcElements.radius + leaderLineStyleSpec.length / 2;
 
@@ -304,7 +305,7 @@ class ArcLabelDecorator<D, TArcRendererElement extends ArcRendererElement<D>>
   List<Object>? _drawOutsideLabel(
     ChartCanvas canvas,
     Rectangle drawBounds,
-    ArcRendererElementList<D, TArcRendererElement> arcElements,
+    ArcRendererElementList<D, TBaseRendererElement> arcElements,
     TextElement labelElement,
     double centerAngle,
   ) {

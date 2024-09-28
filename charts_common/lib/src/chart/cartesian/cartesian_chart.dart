@@ -39,6 +39,7 @@ import 'package:nimble_charts_common/src/chart/cartesian/axis/spec/numeric_axis_
     show NumericAxisSpec;
 import 'package:nimble_charts_common/src/chart/common/base_chart.dart'
     show BaseChart;
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/common/chart_context.dart'
     show ChartContext;
 import 'package:nimble_charts_common/src/chart/common/datum_details.dart'
@@ -97,8 +98,8 @@ class OrdinalCartesianChart extends CartesianChart<String> {
 }
 
 abstract class CartesianChart<D,
-        TArcRendererElement extends ArcRendererElement<D>>
-    extends BaseChart<D, TArcRendererElement> {
+        TBaseRendererElement extends BaseRendererElement<D>>
+    extends BaseChart<D, TBaseRendererElement> {
   CartesianChart({
     bool? vertical,
     LayoutConfig? layoutConfig,

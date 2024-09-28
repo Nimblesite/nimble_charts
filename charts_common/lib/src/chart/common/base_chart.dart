@@ -17,15 +17,17 @@ import 'dart:math' show Point, Rectangle;
 
 import 'package:meta/meta.dart' show protected;
 import 'package:nimble_charts_common/common.dart';
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/layout/layout_manager.dart'
     show LayoutManager;
 import 'package:nimble_charts_common/src/chart/layout/layout_manager_impl.dart'
     show LayoutManagerImpl;
-import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart';
 
-typedef BehaviorCreator = ChartBehavior<D> Function<D>();
+typedef BehaviorCreator = ChartBehavior<D, TBaseRendererElement>
+    Function<D, TBaseRendererElement extends BaseRendererElement<D>>();
 
-abstract class BaseChart<D, TArcRendererElement extends ArcRendererElement<D>> {
+abstract class BaseChart<D,
+    TBaseRendererElement extends BaseRendererElement<D>> {
   BaseChart({LayoutConfig? layoutConfig})
       : _layoutManager = LayoutManagerImpl(config: layoutConfig);
   late ChartContext context;
@@ -61,13 +63,14 @@ abstract class BaseChart<D, TArcRendererElement extends ArcRendererElement<D>> {
   Set<String> _usingRenderers = <String>{};
   Map<String, List<MutableSeries<D>>>? _rendererToSeriesList;
 
-  final _seriesRenderers = <String, SeriesRenderer<D, TArcRendererElement>>{};
+  final _seriesRenderers = <String, SeriesRenderer<D, TBaseRendererElement>>{};
 
   /// Map of named chart behaviors attached to this chart.
-  final _behaviorRoleMap = <String, ChartBehavior<D>>{};
-  final _behaviorStack = <ChartBehavior<D>>[];
+  final _behaviorRoleMap = <String, ChartBehavior<D, TBaseRendererElement>>{};
+  final _behaviorStack = <ChartBehavior<D, TBaseRendererElement>>[];
 
-  final _behaviorTappableMap = <String, ChartBehavior<D>>{};
+  final _behaviorTappableMap =
+      <String, ChartBehavior<D, TBaseRendererElement>>{};
 
   /// Whether or not the chart will respond to tap events.
   ///
@@ -189,15 +192,15 @@ abstract class BaseChart<D, TArcRendererElement extends ArcRendererElement<D>> {
   // Renderer methods
   //
 
-  set defaultRenderer(SeriesRenderer<D, TArcRendererElement> renderer) {
+  set defaultRenderer(SeriesRenderer<D, TBaseRendererElement> renderer) {
     renderer.rendererId = SeriesRenderer.defaultRendererId;
     addSeriesRenderer(renderer);
   }
 
-  SeriesRenderer<D, TArcRendererElement> get defaultRenderer =>
+  SeriesRenderer<D, TBaseRendererElement> get defaultRenderer =>
       getSeriesRenderer(SeriesRenderer.defaultRendererId);
 
-  void addSeriesRenderer(SeriesRenderer<D, TArcRendererElement> renderer) {
+  void addSeriesRenderer(SeriesRenderer<D, TBaseRendererElement> renderer) {
     final rendererId = renderer.rendererId;
 
     final previousRenderer = _seriesRenderers[rendererId];
@@ -211,7 +214,9 @@ abstract class BaseChart<D, TArcRendererElement extends ArcRendererElement<D>> {
     _seriesRenderers[rendererId] = renderer;
   }
 
-  SeriesRenderer<D, TArcRendererElement> getSeriesRenderer(String? rendererId) {
+  SeriesRenderer<D, TBaseRendererElement> getSeriesRenderer(
+    String? rendererId,
+  ) {
     var renderer = _seriesRenderers[rendererId];
 
     // Special case, if we are asking for the default and we haven't made it
@@ -226,7 +231,7 @@ abstract class BaseChart<D, TArcRendererElement extends ArcRendererElement<D>> {
     return renderer;
   }
 
-  SeriesRenderer<D,TArcRendererElement> makeDefaultRenderer();
+  SeriesRenderer<D, TBaseRendererElement> makeDefaultRenderer();
 
   bool pointWithinRenderer(Point<double> chartPosition) => _usingRenderers.any(
         (rendererId) => getSeriesRenderer(rendererId)
@@ -347,14 +352,17 @@ abstract class BaseChart<D, TArcRendererElement extends ArcRendererElement<D>> {
   ///
   /// This invokes the provides helper with type parameters that match this
   /// chart.
-  ChartBehavior<D> createBehavior(BehaviorCreator creator) => creator<D>();
+  ChartBehavior<D, TBaseRendererElement> createBehavior(
+    BehaviorCreator creator,
+  ) =>
+      creator<D, TBaseRendererElement>();
 
   /// Attaches a behavior to the chart.
   ///
   /// Setting a behavior with the same role as a behavior already attached
   /// to the chart will replace the old behavior. The old behavior's removeFrom
   /// method will be called before we attach the behavior.
-  void addBehavior(ChartBehavior<D> behavior) {
+  void addBehavior(ChartBehavior<D, TBaseRendererElement> behavior) {
     final role = behavior.role;
 
     if (_behaviorRoleMap[role] != behavior) {
@@ -374,7 +382,7 @@ abstract class BaseChart<D, TArcRendererElement extends ArcRendererElement<D>> {
   /// Removes a behavior from the chart.
   ///
   /// Returns true if a behavior was removed, otherwise returns false.
-  bool removeBehavior(ChartBehavior<D>? behavior) {
+  bool removeBehavior(ChartBehavior<D, TBaseRendererElement>? behavior) {
     if (behavior == null) {
       return false;
     }
@@ -397,7 +405,7 @@ abstract class BaseChart<D, TArcRendererElement extends ArcRendererElement<D>> {
   ///
   /// This should only be called after [behavior] has been attached to the chart
   /// via [addBehavior].
-  void registerTappable(ChartBehavior<D> behavior) {
+  void registerTappable(ChartBehavior<D, TBaseRendererElement> behavior) {
     final role = behavior.role;
 
     if (_behaviorRoleMap[role] == behavior &&
@@ -407,7 +415,7 @@ abstract class BaseChart<D, TArcRendererElement extends ArcRendererElement<D>> {
   }
 
   /// Tells the chart that this behavior no longer responds to tap events.
-  void unregisterTappable(ChartBehavior<D> behavior) {
+  void unregisterTappable(ChartBehavior<D, TBaseRendererElement> behavior) {
     final role = behavior.role;
     if (_behaviorTappableMap[role] == behavior) {
       _behaviorTappableMap.remove(role);
@@ -415,7 +423,8 @@ abstract class BaseChart<D, TArcRendererElement extends ArcRendererElement<D>> {
   }
 
   /// Returns a list of behaviors that have been added.
-  List<ChartBehavior<D>> get behaviors => List.unmodifiable(_behaviorStack);
+  List<ChartBehavior<D, TBaseRendererElement>> get behaviors =>
+      List.unmodifiable(_behaviorStack);
 
   //
   // Layout methods

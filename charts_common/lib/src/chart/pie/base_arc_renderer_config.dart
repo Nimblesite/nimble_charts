@@ -15,6 +15,7 @@
 
 import 'dart:math' show pi;
 
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/common/series_renderer_config.dart'
     show RendererAttributes, SeriesRendererConfig;
 import 'package:nimble_charts_common/src/chart/layout/layout_view.dart'
@@ -29,9 +30,9 @@ import 'package:nimble_charts_common/src/common/symbol_renderer.dart';
 
 /// The base renderer config for arc renderer and sunburst arc renderer.
 abstract class BaseArcRendererConfig<D,
-        TArcRendererElement extends ArcRendererElement<D>>
+        TBaseRendererElement extends BaseRendererElement<D>>
     extends LayoutViewConfig
-    implements SeriesRendererConfig<D, TArcRendererElement> {
+    implements SeriesRendererConfig<D, TBaseRendererElement> {
   BaseArcRendererConfig({
     this.customRendererId,
     this.arcLength = 2 * pi,
@@ -50,7 +51,7 @@ abstract class BaseArcRendererConfig<D,
   final String? customRendererId;
 
   /// List of decorators applied to rendered arcs.
-  final List<ArcRendererDecorator<D, TArcRendererElement>>
+  final List<ArcRendererDecorator<D, TBaseRendererElement>>
       arcRendererDecorators;
 
   @override

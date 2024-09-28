@@ -13,6 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:nimble_charts_common/common.dart';
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/pie/arc_renderer.dart'
     show ArcRenderer;
 import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart';
@@ -31,8 +33,8 @@ typedef ExpandNodeCallback = List<TreeNode<dynamic>> Function(
 
 /// Configuration for an [ArcRenderer].
 class SunburstArcRendererConfig<D,
-        TArcRendererElement extends ArcRendererElement<D>>
-    extends BaseArcRendererConfig<D, TArcRendererElement> {
+        TBaseRendererElement extends BaseRendererElement<D>>
+    extends BaseArcRendererConfig<D, TBaseRendererElement> {
   SunburstArcRendererConfig({
     super.customRendererId,
     super.arcLength,

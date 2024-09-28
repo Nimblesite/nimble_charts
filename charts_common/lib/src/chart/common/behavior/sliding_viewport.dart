@@ -17,6 +17,7 @@ import 'package:nimble_charts_common/src/chart/cartesian/cartesian_chart.dart'
     show CartesianChart;
 import 'package:nimble_charts_common/src/chart/common/base_chart.dart'
     show BaseChart;
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/common/behavior/chart_behavior.dart'
     show ChartBehavior;
 import 'package:nimble_charts_common/src/chart/common/selection_model/selection_model.dart'
@@ -29,8 +30,8 @@ import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart';
 /// and notify this behavior to update the viewport on selection change.
 ///
 /// This behavior can only be used on [CartesianChart].
-class SlidingViewport<D, TArcRendererElement extends ArcRendererElement<D>>
-    implements ChartBehavior<D, TArcRendererElement> {
+class SlidingViewport<D, TBaseRendererElement extends BaseRendererElement<D>>
+    implements ChartBehavior<D, TBaseRendererElement> {
   SlidingViewport([this.selectionModelType = SelectionModelType.info]);
   final SelectionModelType selectionModelType;
 
@@ -61,7 +62,7 @@ class SlidingViewport<D, TArcRendererElement extends ArcRendererElement<D>>
   }
 
   @override
-  void attachTo(BaseChart<D, TArcRendererElement> chart) {
+  void attachTo(BaseChart<D, TBaseRendererElement> chart) {
     assert(chart is CartesianChart);
     _chart = chart as CartesianChart<D>;
     chart
@@ -70,7 +71,7 @@ class SlidingViewport<D, TArcRendererElement extends ArcRendererElement<D>>
   }
 
   @override
-  void removeFrom(BaseChart<D, TArcRendererElement> chart) {
+  void removeFrom(BaseChart<D, TBaseRendererElement> chart) {
     chart
         .getSelectionModel(selectionModelType)
         .removeSelectionChangedListener(_selectionChanged);

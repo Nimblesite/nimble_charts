@@ -14,6 +14,7 @@
 // limitations under the License.
 
 import 'package:collection/collection.dart' show ListEquality;
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/common/chart_canvas.dart'
     show FillPatternType;
 import 'package:nimble_charts_common/src/chart/common/series_renderer_config.dart'
@@ -43,9 +44,9 @@ import 'package:nimble_charts_common/src/common/symbol_renderer.dart'
 ///   such that bars from the last series will be "on top" of bars from previous
 ///   series.
 abstract class BaseBarRendererConfig<D,
-        TArcRendererElement extends ArcRendererElement<D>>
+        TBaseRendererElement extends BaseRendererElement<D>>
     extends LayoutViewConfig
-    implements SeriesRendererConfig<D, TArcRendererElement> {
+    implements SeriesRendererConfig<D, TBaseRendererElement> {
   BaseBarRendererConfig({
     this.barGroupInnerPaddingPx = 2,
     this.customRendererId,

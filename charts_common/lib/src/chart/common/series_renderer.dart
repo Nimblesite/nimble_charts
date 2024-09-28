@@ -17,6 +17,7 @@ import 'dart:math' show Point, Rectangle, max;
 
 import 'package:meta/meta.dart';
 import 'package:nimble_charts_common/common.dart';
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart';
 
 /// Unique identifier used to associate custom series renderers on a chart with
@@ -32,8 +33,8 @@ const rendererKey =
 );
 
 /// A series renderer draws one or more series of data onto a chart canvas.
-abstract class SeriesRenderer<D, D2 extends ArcRendererElement<D>>
-    extends LayoutView {
+abstract class SeriesRenderer<D,
+    TBaseRendererElement extends BaseRendererElement<D>> extends LayoutView {
   static const defaultRendererId = 'default';
 
   /// Symbol renderer for this renderer.
@@ -53,11 +54,11 @@ abstract class SeriesRenderer<D, D2 extends ArcRendererElement<D>>
 
   /// Handles any setup of the renderer that needs to be deferred until it is
   /// attached to a chart.
-  void onAttach(BaseChart<D, D2> chart);
+  void onAttach(BaseChart<D, TBaseRendererElement> chart);
 
   /// Handles any clean-up of the renderer that needs to be performed when it is
   /// detached from a chart.
-  void onDetach(BaseChart<D, D2> chart);
+  void onDetach(BaseChart<D, TBaseRendererElement> chart);
 
   /// Performs basic configuration for the series, before it is pre-processed.
   ///

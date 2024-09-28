@@ -14,12 +14,13 @@
 // limitations under the License.
 
 import 'package:nimble_charts_common/common.dart';
-import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart';
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 
 /// Expands the initially displayed outer ring to show subset of data in one
 /// final ring.
-class SunburstRingExpander<D, TArcRendererElement extends ArcRendererElement<D>>
-    implements ChartBehavior<D, TArcRendererElement> {
+class SunburstRingExpander<D,
+        TBaseRendererElement extends BaseRendererElement<D>>
+    implements ChartBehavior<D, TBaseRendererElement> {
   SunburstRingExpander([this.selectionModelType = SelectionModelType.action]);
   final SelectionModelType selectionModelType;
 
@@ -35,7 +36,7 @@ class SunburstRingExpander<D, TArcRendererElement extends ArcRendererElement<D>>
   }
 
   @override
-  void attachTo(BaseChart<D, TArcRendererElement> chart) {
+  void attachTo(BaseChart<D, BaseRendererElement<D>> chart) {
     if (chart is! SunburstChart) {
       throw ArgumentError(
         'SunburstRingExpander can only be attached to a Sunburst chart',
@@ -48,7 +49,7 @@ class SunburstRingExpander<D, TArcRendererElement extends ArcRendererElement<D>>
   }
 
   @override
-  void removeFrom(BaseChart<D, TArcRendererElement> chart) {
+  void removeFrom(BaseChart<D, BaseRendererElement<D>> chart) {
     chart
         .getSelectionModel(selectionModelType)
         .addSelectionUpdatedListener(_selectionChanged);

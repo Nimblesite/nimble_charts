@@ -47,7 +47,7 @@ class ArcRendererElementList<D,
   final double? strokeWidthPx;
 }
 
-abstract class ArcRendererElement<D> implements BaseRendererElement<D> {
+class ArcRendererElement<D> implements BaseRendererElement<D> {
   ArcRendererElement({
     required this.startAngle,
     required this.endAngle,
