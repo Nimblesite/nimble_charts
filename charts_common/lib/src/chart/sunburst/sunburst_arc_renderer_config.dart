@@ -15,6 +15,7 @@
 
 import 'package:nimble_charts_common/src/chart/pie/arc_renderer.dart'
     show ArcRenderer;
+import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/pie/base_arc_renderer_config.dart'
     show BaseArcRendererConfig;
 import 'package:nimble_charts_common/src/chart/sunburst/sunburst_arc_renderer.dart'
@@ -29,7 +30,9 @@ typedef ExpandNodeCallback = List<TreeNode<dynamic>> Function(
 );
 
 /// Configuration for an [ArcRenderer].
-class SunburstArcRendererConfig<D> extends BaseArcRendererConfig<D> {
+class SunburstArcRendererConfig<D,
+        TArcRendererElement extends ArcRendererElement<D>>
+    extends BaseArcRendererConfig<D, TArcRendererElement> {
   SunburstArcRendererConfig({
     super.customRendererId,
     super.arcLength,
@@ -80,8 +83,10 @@ class SunburstArcRendererConfig<D> extends BaseArcRendererConfig<D> {
   final int maxDisplayLevel;
 
   @override
-  SunburstArcRenderer<D> build() =>
-      SunburstArcRenderer<D>(config: this, rendererId: customRendererId);
+  SunburstArcRenderer<D> build() => SunburstArcRenderer<D>(
+        config: this,
+        rendererId: customRendererId,
+      );
 }
 
 /// Strategies for assigning color to the arcs if colorFn is not provided for

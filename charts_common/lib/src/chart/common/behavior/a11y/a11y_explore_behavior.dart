@@ -21,6 +21,7 @@ import 'package:nimble_charts_common/src/chart/common/behavior/a11y/a11y_node.da
     show A11yNode;
 import 'package:nimble_charts_common/src/chart/common/behavior/chart_behavior.dart'
     show ChartBehavior;
+import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart';
 import 'package:nimble_charts_common/src/common/gesture_listener.dart'
     show GestureListener;
 
@@ -31,7 +32,9 @@ enum ExploreModeTrigger {
 }
 
 /// Chart behavior for adding A11y information.
-abstract class A11yExploreBehavior<D> implements ChartBehavior<D> {
+abstract class A11yExploreBehavior<D,
+        TArcRendererElement extends ArcRendererElement<D>>
+    implements ChartBehavior<D, TArcRendererElement> {
   A11yExploreBehavior({
     ExploreModeTrigger? exploreModeTrigger,
     double? minimumWidth,
@@ -67,7 +70,7 @@ abstract class A11yExploreBehavior<D> implements ChartBehavior<D> {
   /// Optionally notify the OS when explore mode is disabled.
   final String? exploreModeDisabledAnnouncement;
 
-  BaseChart<D>? _chart;
+  BaseChart<D, TArcRendererElement>? _chart;
   late GestureListener _listener;
   bool _exploreModeOn = false;
 
@@ -94,13 +97,13 @@ abstract class A11yExploreBehavior<D> implements ChartBehavior<D> {
   List<A11yNode> createA11yNodes();
 
   @override
-  void attachTo(BaseChart<D> chart) {
+  void attachTo(BaseChart<D, TArcRendererElement> chart) {
     _chart = chart;
     chart.addGestureListener(_listener);
   }
 
   @override
-  void removeFrom(BaseChart<D> chart) {
+  void removeFrom(BaseChart<D, TArcRendererElement> chart) {
     chart.removeGestureListener(_listener);
   }
 }

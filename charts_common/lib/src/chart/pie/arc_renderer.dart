@@ -61,8 +61,7 @@ class ArcRenderer<D, TArcRendererElement extends ArcRendererElement<D>>
   /// [LinkedHashMap] is used to render the series on the canvas in the same
   /// order as the data was given to the chart.
   // ignore: prefer_collection_literals, https://github.com/dart-lang/linter/issues/1649
-  final _seriesArcMap =
-      LinkedHashMap<String, AnimatedArcList<D, TArcRendererElement>>();
+  final _seriesArcMap = <String, AnimatedArcList<D, TArcRendererElement>>{};
 
   // Store a list of arcs that exist in the series data.
   //
@@ -368,13 +367,15 @@ class ArcRenderer<D, TArcRendererElement extends ArcRendererElement<D>>
   }
 
   @override
-  List<AnimatedArcList<D>> getArcLists({String? seriesId}) {
+  List<AnimatedArcList<D, TArcRendererElement>> getArcLists({
+    String? seriesId,
+  }) {
     if (seriesId == null) {
       return _seriesArcMap.values.toList();
     }
     final arcList = _seriesArcMap[seriesId];
 
-    if (arcList == null) return <AnimatedArcList<D>>[];
+    if (arcList == null) return <AnimatedArcList<D, TArcRendererElement>>[];
     return [arcList];
   }
 }

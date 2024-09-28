@@ -21,6 +21,7 @@ import 'package:nimble_charts_common/src/chart/common/behavior/chart_behavior.da
     show ChartBehavior;
 import 'package:nimble_charts_common/src/chart/common/selection_model/selection_model.dart'
     show SelectionModel, SelectionModelType;
+import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart';
 
 /// Chart behavior that centers the viewport on the selected domain.
 ///
@@ -28,7 +29,8 @@ import 'package:nimble_charts_common/src/chart/common/selection_model/selection_
 /// and notify this behavior to update the viewport on selection change.
 ///
 /// This behavior can only be used on [CartesianChart].
-class SlidingViewport<D> implements ChartBehavior<D> {
+class SlidingViewport<D, TArcRendererElement extends ArcRendererElement<D>>
+    implements ChartBehavior<D, TArcRendererElement> {
   SlidingViewport([this.selectionModelType = SelectionModelType.info]);
   final SelectionModelType selectionModelType;
 
@@ -59,7 +61,7 @@ class SlidingViewport<D> implements ChartBehavior<D> {
   }
 
   @override
-  void attachTo(BaseChart<D> chart) {
+  void attachTo(BaseChart<D, TArcRendererElement> chart) {
     assert(chart is CartesianChart);
     _chart = chart as CartesianChart<D>;
     chart
@@ -68,7 +70,7 @@ class SlidingViewport<D> implements ChartBehavior<D> {
   }
 
   @override
-  void removeFrom(BaseChart<D> chart) {
+  void removeFrom(BaseChart<D, TArcRendererElement> chart) {
     chart
         .getSelectionModel(selectionModelType)
         .removeSelectionChangedListener(_selectionChanged);

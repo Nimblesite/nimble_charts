@@ -46,7 +46,7 @@ class ArcRendererElementList<D,
   final double? strokeWidthPx;
 }
 
-class ArcRendererElement<D> {
+abstract class ArcRendererElement<D> {
   ArcRendererElement({
     required this.startAngle,
     required this.endAngle,
@@ -63,15 +63,6 @@ class ArcRendererElement<D> {
   num? key;
   D? domain;
   ImmutableSeries<D> series;
-
-  ArcRendererElement<D> clone() => ArcRendererElement<D>(
-        startAngle: startAngle,
-        endAngle: endAngle,
-        color: color == null ? null : Color.fromOther(color: color!),
-        index: index,
-        key: key,
-        series: series,
-      );
 
   void updateAnimationPercent(
     ArcRendererElement<D> previous,
@@ -90,8 +81,8 @@ class ArcRendererElement<D> {
 }
 
 @protected
-class AnimatedArcList<D, TArcRendererElement> {
-  final arcs = <AnimatedArc<D>>[];
+class AnimatedArcList<D, TArcRendererElement extends ArcRendererElement<D>> {
+  final arcs = <AnimatedArc<D, TArcRendererElement>>[];
   Point<double>? center;
   double? innerRadius;
   double? radius;
@@ -105,15 +96,15 @@ class AnimatedArcList<D, TArcRendererElement> {
 }
 
 @protected
-class AnimatedArc<D> {
+class AnimatedArc<D, TArcRendererElement extends ArcRendererElement<D>> {
   AnimatedArc(this.key, this.datum, this.domain);
   final String key;
   Object? datum;
   D? domain;
 
   ArcRendererElement<D>? _previousArc;
-  late ArcRendererElement<D> _targetArc;
-  ArcRendererElement<D>? _currentArc;
+  late TArcRendererElement _targetArc;
+  TArcRendererElement? _currentArc;
 
   // Flag indicating whether this arc is being animated out of the chart.
   bool animatingOut = false;
@@ -125,7 +116,7 @@ class AnimatedArc<D> {
   ///
   /// Animates the angle of the arc to [endAngle], in radians.
   void animateOut(double endAngle) {
-    final newTarget = _currentArc!.clone()
+    final newTarget = _currentArc!.clone<TArcRendererElement>()
 
       // Animate the arc out by setting the angles to 0.
       ..startAngle = endAngle
@@ -135,14 +126,14 @@ class AnimatedArc<D> {
     animatingOut = true;
   }
 
-  void setNewTarget(ArcRendererElement<D> newTarget) {
+  void setNewTarget(TArcRendererElement newTarget) {
     animatingOut = false;
     _currentArc ??= newTarget.clone();
     _previousArc = _currentArc!.clone();
     _targetArc = newTarget;
   }
 
-  ArcRendererElement<D> getCurrentArc(double animationPercent) {
+  TArcRendererElement getCurrentArc(double animationPercent) {
     if (animationPercent == 1.0 || _previousArc == null) {
       _currentArc = _targetArc;
       _previousArc = _targetArc;
@@ -174,4 +165,25 @@ class AnimatedArc<D> {
   /// Returns the [startAngle] of the previously rendered element, without
   /// updating animation state.
   double? get previousArcStartAngle => _previousArc?.startAngle;
+}
+
+extension Aasdasd<D> on ArcRendererElement<D> {
+  T clone<T extends ArcRendererElement<D>>(
+    T Function({
+      required Color? color,
+      required double endAngle,
+      required double startAngle,
+      num? index,
+      num? key,
+      ImmutableSeries<D> series,
+    }) fact,
+  ) =>
+      fact(
+        startAngle: startAngle,
+        endAngle: endAngle,
+        color: color == null ? null : Color.fromOther(color: color!),
+        index: index,
+        key: key,
+        series: series,
+      );
 }

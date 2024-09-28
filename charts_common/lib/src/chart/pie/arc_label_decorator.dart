@@ -295,7 +295,9 @@ class ArcLabelDecorator<D, TArcRendererElement extends ArcRendererElement<D>>
     _previousOutsideLabelY = params[1] as int;
   }
 
-  double getLabelRadius(ArcRendererElementList<D, TArcRendererElement> arcElements) =>
+  double getLabelRadius(
+    ArcRendererElementList<D, TArcRendererElement> arcElements,
+  ) =>
       arcElements.radius + leaderLineStyleSpec.length / 2;
 
   /// Draws a label outside of an arc.

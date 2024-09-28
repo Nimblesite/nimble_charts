@@ -25,7 +25,7 @@ import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart';
 
 typedef BehaviorCreator = ChartBehavior<D> Function<D>();
 
-abstract class BaseChart<D, D2 extends ArcRendererElement<D>> {
+abstract class BaseChart<D, TArcRendererElement extends ArcRendererElement<D>> {
   BaseChart({LayoutConfig? layoutConfig})
       : _layoutManager = LayoutManagerImpl(config: layoutConfig);
   late ChartContext context;
@@ -61,7 +61,7 @@ abstract class BaseChart<D, D2 extends ArcRendererElement<D>> {
   Set<String> _usingRenderers = <String>{};
   Map<String, List<MutableSeries<D>>>? _rendererToSeriesList;
 
-  final _seriesRenderers = <String, SeriesRenderer<D, D2>>{};
+  final _seriesRenderers = <String, SeriesRenderer<D, TArcRendererElement>>{};
 
   /// Map of named chart behaviors attached to this chart.
   final _behaviorRoleMap = <String, ChartBehavior<D>>{};
@@ -189,15 +189,15 @@ abstract class BaseChart<D, D2 extends ArcRendererElement<D>> {
   // Renderer methods
   //
 
-  set defaultRenderer(SeriesRenderer<D, D2> renderer) {
+  set defaultRenderer(SeriesRenderer<D, TArcRendererElement> renderer) {
     renderer.rendererId = SeriesRenderer.defaultRendererId;
     addSeriesRenderer(renderer);
   }
 
-  SeriesRenderer<D, D2> get defaultRenderer =>
+  SeriesRenderer<D, TArcRendererElement> get defaultRenderer =>
       getSeriesRenderer(SeriesRenderer.defaultRendererId);
 
-  void addSeriesRenderer(SeriesRenderer<D, D2> renderer) {
+  void addSeriesRenderer(SeriesRenderer<D, TArcRendererElement> renderer) {
     final rendererId = renderer.rendererId;
 
     final previousRenderer = _seriesRenderers[rendererId];
@@ -211,7 +211,7 @@ abstract class BaseChart<D, D2 extends ArcRendererElement<D>> {
     _seriesRenderers[rendererId] = renderer;
   }
 
-  SeriesRenderer<D, D2> getSeriesRenderer(String? rendererId) {
+  SeriesRenderer<D, TArcRendererElement> getSeriesRenderer(String? rendererId) {
     var renderer = _seriesRenderers[rendererId];
 
     // Special case, if we are asking for the default and we haven't made it
@@ -226,7 +226,7 @@ abstract class BaseChart<D, D2 extends ArcRendererElement<D>> {
     return renderer;
   }
 
-  SeriesRenderer<D,D2> makeDefaultRenderer();
+  SeriesRenderer<D,TArcRendererElement> makeDefaultRenderer();
 
   bool pointWithinRenderer(Point<double> chartPosition) => _usingRenderers.any(
         (rendererId) => getSeriesRenderer(rendererId)
