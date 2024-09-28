@@ -24,6 +24,7 @@ import 'package:nimble_charts_common/src/chart/cartesian/cartesian_renderer.dart
     show BaseCartesianRenderer;
 import 'package:nimble_charts_common/src/chart/common/base_chart.dart'
     show BaseChart;
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/common/chart_canvas.dart'
     show ChartCanvas, getAnimatedColor;
 import 'package:nimble_charts_common/src/chart/common/datum_details.dart'
@@ -49,11 +50,15 @@ const styleSegmentsKey = AttributeKey<List<_LineRendererElement<Object>>>(
 
 const lineStackIndexKey = AttributeKey<int>('LineRenderer.lineStackIndex');
 
-class LineRenderer<D> extends BaseCartesianRenderer<D> {
-  factory LineRenderer({String? rendererId, LineRendererConfig<D>? config}) =>
+class LineRenderer<D, TRendererElement extends BaseRendererElement<D>>
+    extends BaseCartesianRenderer<D, TRendererElement> {
+  factory LineRenderer({
+    String? rendererId,
+    LineRendererConfig<D, TRendererElement>? config,
+  }) =>
       LineRenderer._internal(
         rendererId: rendererId ?? 'line',
-        config: config ?? LineRendererConfig<D>(),
+        config: config ?? LineRendererConfig<D, TRendererElement>(),
       );
 
   LineRenderer._internal({required super.rendererId, required this.config})
@@ -68,11 +73,11 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
   static const drawBoundTopExtensionPx = 5;
   static const drawBoundBottomExtensionPx = 5;
 
-  final LineRendererConfig<D> config;
+  final LineRendererConfig<D, TRendererElement> config;
 
   late PointRenderer<D> _pointRenderer;
 
-  BaseChart<D>? _chart;
+  BaseChart<D, TRendererElement>? _chart;
 
   /// True if any series has a measureUpperBoundFn and measureLowerBoundFn.
   ///
@@ -1034,7 +1039,7 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
   }
 
   @override
-  void onAttach(BaseChart<D> chart) {
+  void onAttach(BaseChart<D, TRendererElement> chart) {
     super.onAttach(chart);
     // We only need the chart.context.isRtl setting, but context is not yet
     // available when the default renderer is attached to the chart on chart
@@ -1831,9 +1836,9 @@ class _Range<D> {
 }
 
 @visibleForTesting
-class LineRendererTester<D> {
+class LineRendererTester<D, TRendererElement extends BaseRendererElement<D>> {
   LineRendererTester(this.renderer);
-  final LineRenderer<D> renderer;
+  final LineRenderer<D, TRendererElement> renderer;
 
   Iterable<String> get seriesKeys => renderer._seriesLineMap.keys;
 

@@ -58,7 +58,8 @@ import 'package:nimble_charts_common/src/common/graphics_factory.dart'
     show GraphicsFactory;
 import 'package:nimble_charts_common/src/data/series.dart' show Series;
 
-class NumericCartesianChart extends CartesianChart<num, BarRenderer<num>> {
+class NumericCartesianChart
+    extends CartesianChart<num, BaseRendererElement<num>> {
   NumericCartesianChart({
     super.vertical,
     super.layoutConfig,
@@ -77,7 +78,9 @@ class NumericCartesianChart extends CartesianChart<num, BarRenderer<num>> {
   }
 }
 
-class OrdinalCartesianChart extends CartesianChart<String> {
+class OrdinalCartesianChart<
+        TRendererElement extends BaseRendererElement<String>>
+    extends CartesianChart<String, TRendererElement> {
   OrdinalCartesianChart({
     super.vertical,
     super.layoutConfig,
@@ -378,8 +381,8 @@ abstract class CartesianChart<D,
   }
 
   @override
-  SeriesRenderer<D> makeDefaultRenderer() =>
-      BarRenderer()..rendererId = SeriesRenderer.defaultRendererId;
+  SeriesRenderer<D, TBaseRendererElement> makeDefaultRenderer() =>
+      BarRenderer<D>()..rendererId = SeriesRenderer.defaultRendererId;
 
   @override
   Map<String, List<MutableSeries<D>>> preprocessSeries(

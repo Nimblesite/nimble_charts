@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/common/series_renderer_config.dart'
     show RendererAttributes, SeriesRendererConfig;
 import 'package:nimble_charts_common/src/chart/layout/layout_view.dart'
@@ -22,8 +23,9 @@ import 'package:nimble_charts_common/src/chart/line/line_renderer.dart'
 import 'package:nimble_charts_common/src/common/symbol_renderer.dart';
 
 /// Configuration for a line renderer.
-class LineRendererConfig<D> extends LayoutViewConfig
-    implements SeriesRendererConfig<D> {
+class LineRendererConfig<D, TRendererElement extends BaseRendererElement<D>>
+    extends LayoutViewConfig
+    implements SeriesRendererConfig<D, TRendererElement> {
   LineRendererConfig({
     this.customRendererId,
     this.radiusPx = 3.5,
@@ -90,6 +92,9 @@ class LineRendererConfig<D> extends LayoutViewConfig
   final bool roundEndCaps;
 
   @override
-  LineRenderer<D> build() =>
-      LineRenderer<D>(config: this, rendererId: customRendererId);
+  LineRenderer<D, TRendererElement> build() =>
+      LineRenderer<D, TRendererElement>(
+        config: this,
+        rendererId: customRendererId,
+      );
 }
