@@ -18,6 +18,7 @@ import 'dart:math' show Point, Rectangle, max, min;
 
 import 'package:meta/meta.dart';
 import 'package:nimble_charts_common/common.dart';
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/common/chart_canvas.dart'
     show ChartCanvas, getAnimatedColor;
 
@@ -33,7 +34,8 @@ import 'package:nimble_charts_common/src/chart/common/chart_canvas.dart'
 ///
 /// It is used in combination with SelectNearest to update the selection model
 /// and expand selection out to the domain value.
-class LinePointHighlighter<D> implements ChartBehavior<D> {
+class LinePointHighlighter<D, TRendererElement extends BaseRendererElement<D>>
+    implements ChartBehavior<D, TRendererElement> {
   LinePointHighlighter({
     SelectionModelType? selectionModelType,
     double? defaultRadiusPx,
@@ -98,9 +100,9 @@ class LinePointHighlighter<D> implements ChartBehavior<D> {
   /// Renderer used to draw the highlighted points.
   final SymbolRenderer symbolRenderer;
 
-  late BaseChart<D> _chart;
+  late BaseChart<D, TRendererElement> _chart;
 
-  late _LinePointLayoutView<D> _view;
+  late _LinePointLayoutView<D, TRendererElement> _view;
 
   late LifecycleListener<D> _lifecycleListener;
 
@@ -119,10 +121,10 @@ class LinePointHighlighter<D> implements ChartBehavior<D> {
   final _currentKeys = <String>[];
 
   @override
-  void attachTo(BaseChart<D> chart) {
+  void attachTo(BaseChart<D, TRendererElement> chart) {
     _chart = chart;
 
-    _view = _LinePointLayoutView<D>(
+    _view = _LinePointLayoutView<D, TRendererElement>(
       chart: chart,
       layoutPaintOrder: LayoutViewPaintOrder.linePointHighlighter,
       showHorizontalFollowLine: showHorizontalFollowLine,
@@ -149,7 +151,7 @@ class LinePointHighlighter<D> implements ChartBehavior<D> {
   }
 
   @override
-  void removeFrom(BaseChart<D> chart) {
+  void removeFrom(BaseChart<D, TRendererElement> chart) {
     chart.removeView(_view);
     chart
         .getSelectionModel(selectionModelType)
@@ -262,7 +264,8 @@ class LinePointHighlighter<D> implements ChartBehavior<D> {
   String get role => 'LinePointHighlighter-$selectionModelType';
 }
 
-class _LinePointLayoutView<D> extends LayoutView {
+class _LinePointLayoutView<D, TRendererElement extends BaseRendererElement<D>>
+    extends LayoutView {
   _LinePointLayoutView({
     required this.chart,
     required int layoutPaintOrder,
@@ -283,7 +286,7 @@ class _LinePointLayoutView<D> extends LayoutView {
 
   final LinePointHighlighterFollowLineType showVerticalFollowLine;
 
-  final BaseChart<D> chart;
+  final BaseChart<D, TRendererElement> chart;
 
   final List<int>? dashPattern;
 
@@ -688,9 +691,10 @@ enum LinePointHighlighterFollowLineType {
 
 /// Helper class that exposes fewer private internal properties for unit tests.
 @visibleForTesting
-class LinePointHighlighterTester<D> {
+class LinePointHighlighterTester<D,
+    TRendererElement extends BaseRendererElement<D>> {
   LinePointHighlighterTester(this.behavior);
-  final LinePointHighlighter<D> behavior;
+  final LinePointHighlighter<D, TRendererElement> behavior;
 
   int getSelectionLength() => behavior._seriesPointMap.length;
 

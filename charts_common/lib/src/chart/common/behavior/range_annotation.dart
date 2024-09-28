@@ -25,6 +25,7 @@ import 'package:nimble_charts_common/src/chart/cartesian/cartesian_chart.dart'
     show CartesianChart;
 import 'package:nimble_charts_common/src/chart/common/base_chart.dart'
     show BaseChart, LifecycleListener;
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/common/behavior/chart_behavior.dart'
     show ChartBehavior;
 import 'package:nimble_charts_common/src/chart/common/chart_canvas.dart'
@@ -58,7 +59,8 @@ const _defaultStrokeWidthPx = 2.0;
 /// range.
 ///
 /// TODO: Support labels.
-class RangeAnnotation<D> implements ChartBehavior<D> {
+class RangeAnnotation<D, TRendererElement extends BaseRendererElement<D>>
+    implements ChartBehavior<D, TRendererElement> {
   RangeAnnotation(
     this.annotations, {
     AnnotationLabelAnchor? defaultLabelAnchor,
@@ -125,9 +127,9 @@ class RangeAnnotation<D> implements ChartBehavior<D> {
   /// (e.g. LayoutViewPaintOrder.rangeAnnotation + 1)
   final int layoutPaintOrder;
 
-  late CartesianChart<D> _chart;
+  late CartesianChart<D, TRendererElement> _chart;
 
-  late _RangeAnnotationLayoutView<D> _view;
+  late _RangeAnnotationLayoutView<D, TRendererElement> _view;
 
   late LifecycleListener<D> _lifecycleListener;
 
@@ -146,8 +148,8 @@ class RangeAnnotation<D> implements ChartBehavior<D> {
   final _currentKeys = <String>[];
 
   @override
-  void attachTo(BaseChart<D> chart) {
-    if (chart is! CartesianChart<D>) {
+  void attachTo(BaseChart<D, TRendererElement> chart) {
+    if (chart is! CartesianChart<D, TRendererElement>) {
       throw ArgumentError(
         'RangeAnnotation can only be attached to a CartesianChart<D>',
       );
@@ -155,7 +157,7 @@ class RangeAnnotation<D> implements ChartBehavior<D> {
 
     _chart = chart;
 
-    _view = _RangeAnnotationLayoutView<D>(
+    _view = _RangeAnnotationLayoutView<D, TRendererElement>(
       defaultColor: defaultColor,
       labelPadding: labelPadding,
       chart: _chart,
@@ -169,7 +171,7 @@ class RangeAnnotation<D> implements ChartBehavior<D> {
   }
 
   @override
-  void removeFrom(BaseChart<D> chart) {
+  void removeFrom(BaseChart<D, TRendererElement> chart) {
     chart
       ..removeView(_view)
       ..removeLifecycleListener(_lifecycleListener);
@@ -371,7 +373,8 @@ class RangeAnnotation<D> implements ChartBehavior<D> {
   String get role => 'RangeAnnotation';
 }
 
-class _RangeAnnotationLayoutView<D> extends LayoutView {
+class _RangeAnnotationLayoutView<D,
+    TRendererElement extends BaseRendererElement<D>> extends LayoutView {
   _RangeAnnotationLayoutView({
     required this.defaultColor,
     required this.labelPadding,
@@ -390,11 +393,11 @@ class _RangeAnnotationLayoutView<D> extends LayoutView {
 
   final int labelPadding;
 
-  final RangeAnnotation<D> rangeAnnotation;
+  final RangeAnnotation<D, TRendererElement> rangeAnnotation;
 
   final int layoutPaintOrder;
 
-  CartesianChart<D>? chart;
+  CartesianChart<D, TRendererElement>? chart;
 
   bool get isRtl => chart!.context.isRtl;
 
@@ -1274,9 +1277,10 @@ class _AnimatedAnnotation<D> {
 
 /// Helper class that exposes fewer private internal properties for unit tests.
 @visibleForTesting
-class RangeAnnotationTester<D> {
+class RangeAnnotationTester<D,
+    TRendererElement extends BaseRendererElement<D>> {
   RangeAnnotationTester(this.behavior);
-  final RangeAnnotation<D> behavior;
+  final RangeAnnotation<D, TRendererElement> behavior;
 
   set graphicsFactory(GraphicsFactory value) {
     behavior._view.graphicsFactory = value;

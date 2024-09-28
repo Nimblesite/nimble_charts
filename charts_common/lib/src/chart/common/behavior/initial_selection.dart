@@ -15,6 +15,7 @@
 
 import 'package:nimble_charts_common/src/chart/common/base_chart.dart'
     show BaseChart, LifecycleListener;
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/common/behavior/chart_behavior.dart'
     show ChartBehavior;
 import 'package:nimble_charts_common/src/chart/common/processed_series.dart'
@@ -25,7 +26,8 @@ import 'package:nimble_charts_common/src/chart/common/series_datum.dart'
     show SeriesDatumConfig;
 
 /// Behavior that sets initial selection.
-class InitialSelection<D> implements ChartBehavior<D> {
+class InitialSelection<D, TRendererElement extends BaseRendererElement<D>>
+    implements ChartBehavior<D, TRendererElement> {
   // TODO : When the series changes, if the user does not also
   // change the index the wrong item could be highlighted.
   InitialSelection({
@@ -48,7 +50,7 @@ class InitialSelection<D> implements ChartBehavior<D> {
   /// selection until the fist draw or redraw call.
   final bool shouldPreserveSelectionOnDraw;
 
-  BaseChart<D>? _chart;
+  BaseChart<D, TRendererElement>? _chart;
   late LifecycleListener<D> _lifecycleListener;
   bool _firstDraw = true;
 
@@ -72,13 +74,13 @@ class InitialSelection<D> implements ChartBehavior<D> {
   }
 
   @override
-  void attachTo(BaseChart<D> chart) {
+  void attachTo(BaseChart<D, TRendererElement> chart) {
     _chart = chart;
     chart.addLifecycleListener(_lifecycleListener);
   }
 
   @override
-  void removeFrom(BaseChart<D> chart) {
+  void removeFrom(BaseChart<D, TRendererElement> chart) {
     chart.removeLifecycleListener(_lifecycleListener);
     _chart = null;
   }

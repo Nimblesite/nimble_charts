@@ -14,13 +14,15 @@
 // limitations under the License.
 
 import 'package:nimble_charts_common/common.dart';
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 
 /// Chart behavior that monitors the specified [SelectionModel] and outlines the
 /// selected data.
 ///
 /// This is typically used for treemap charts to highlight nodes.
 /// For bars and pies, prefers to use [DomainHighlighter] for UX consistency.
-class DomainOutliner<D> implements ChartBehavior<D> {
+class DomainOutliner<D, TRendererElement extends BaseRendererElement<D>>
+    implements ChartBehavior<D, TRendererElement> {
   DomainOutliner({
     this.selectionType = SelectionModelType.info,
     double? defaultStrokePx,
@@ -44,7 +46,7 @@ class DomainOutliner<D> implements ChartBehavior<D> {
   /// defined.
   final double strokePaddingPx;
 
-  late BaseChart<D> _chart;
+  late BaseChart<D, TRendererElement> _chart;
 
   late LifecycleListener<D> _lifecycleListener;
 
@@ -83,7 +85,7 @@ class DomainOutliner<D> implements ChartBehavior<D> {
   }
 
   @override
-  void attachTo(BaseChart<D> chart) {
+  void attachTo(BaseChart<D, TRendererElement> chart) {
     _chart = chart;
     chart.addLifecycleListener(_lifecycleListener);
     chart
@@ -92,7 +94,7 @@ class DomainOutliner<D> implements ChartBehavior<D> {
   }
 
   @override
-  void removeFrom(BaseChart<D> chart) {
+  void removeFrom(BaseChart<D, TRendererElement> chart) {
     chart
         .getSelectionModel(selectionType)
         .removeSelectionChangedListener(_selectionChange);
