@@ -393,11 +393,12 @@ class BarTargetLineRenderer<D> extends BaseBarRenderer<D,
   }
 }
 
-class BarTargetLineRendererElement extends BaseBarRendererElement {
+class BarTargetLineRendererElement<D> extends BaseBarRendererElement<D> {
   BarTargetLineRendererElement({required this.roundEndCaps});
 
-  BarTargetLineRendererElement.clone(BarTargetLineRendererElement super.other)
-      : points = List.of(other.points),
+  BarTargetLineRendererElement.clone(
+    BarTargetLineRendererElement super.other,
+  )   : points = List.of(other.points),
         roundEndCaps = other.roundEndCaps,
         super.clone();
   late List<Point<int>> points;
