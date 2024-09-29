@@ -13,14 +13,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:nimble_charts_common/common.dart';
 import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/common/chart_canvas.dart'
     show FillPatternType, getAnimatedColor;
-import 'package:nimble_charts_common/src/chart/common/processed_series.dart'
-    show ImmutableSeries;
-import 'package:nimble_charts_common/src/common/color.dart' show Color;
 
-abstract class BaseBarRendererElement<D> implements BaseRendererElement<D> {
+abstract class BaseBarRendererElement<D>
+    implements
+        SeriesRenderer<D, BaseBarRendererElement<D>>,
+        BaseRendererElement<D> {
   @override
   Color? color;
 
