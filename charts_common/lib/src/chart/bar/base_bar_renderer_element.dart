@@ -20,6 +20,9 @@ import 'package:nimble_charts_common/src/chart/common/chart_canvas.dart'
 
 abstract class BaseBarRendererElement<D>
     implements
+        //Note: very questionable...
+        //The original does not implement this
+        //TODO: investigate
         SeriesRenderer<D, BaseBarRendererElement<D>>,
         BaseRendererElement<D> {
   @override
