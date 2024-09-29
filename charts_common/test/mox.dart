@@ -1,3 +1,5 @@
+// ignore_for_file: strict_raw_type
+
 import 'package:mockito/annotations.dart';
 import 'package:nimble_charts_common/common.dart';
 

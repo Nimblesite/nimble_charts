@@ -68,7 +68,7 @@ class SunburstArcRenderer<D> extends BaseArcRenderer<D> {
   final _seriesArcMap = LinkedHashMap<String, List<AnimatedArcList<D>>>();
 
   final _nodeToArcRenderElementMap =
-      <TreeNode<D>, SunburstArcRendererElement>{};
+      <TreeNode<D>, SunburstArcRendererElement<D>>{};
 
   // Store a list of arcs that exist in the series data.
   //
@@ -336,7 +336,7 @@ class SunburstArcRenderer<D> extends BaseArcRenderer<D> {
                 arcKey,
                 datum,
                 //TODO: dangerous casts
-                domainValue as D?,
+                domainValue,
               )..setNewTarget(
                   SunburstArcRendererElement<D>(
                     color: colorFn!(arcIndex),
@@ -357,7 +357,7 @@ class SunburstArcRenderer<D> extends BaseArcRenderer<D> {
             }
 
             // TODO: this could be a dangerous cast
-            animatingArc.domain = domainValue as D?;
+            animatingArc.domain = domainValue;
 
             // Update the set of arcs that still exist in the series data.
             _currentKeys.add(arcKey);

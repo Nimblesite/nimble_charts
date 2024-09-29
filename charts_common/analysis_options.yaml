@@ -9,7 +9,6 @@ analyzer:
     #return_of_invalid_type_from_closure: warning
 
     # Dangerous
-    strict_raw_type: warning
     avoid_equals_and_hash_code_on_mutable_classes: warning
     avoid_dynamic_calls: warning
     inference_failure_on_collection_literal: warning

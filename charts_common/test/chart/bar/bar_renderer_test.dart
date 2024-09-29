@@ -44,7 +44,7 @@ class FakeBarRenderer<D> extends BarRenderer<D> {
   List<List<BarRendererElement<D>>> elementsPainted = [];
 
   factory FakeBarRenderer({
-    required BarRendererConfig config,
+    required BarRendererConfig<dynamic> config,
     required String rendererId,
   }) =>
       FakeBarRenderer._internal(config: config, rendererId: rendererId);
@@ -67,7 +67,7 @@ class FakeBarRenderer<D> extends BarRenderer<D> {
 
 void main() {
   // ignore: unused_local_variable
-  late BarRenderer renderer;
+  late BarRenderer<dynamic> renderer;
   late List<MutableSeries<String>> seriesList;
   late List<MutableSeries<String>> groupedStackedSeriesList;
 
@@ -75,8 +75,8 @@ void main() {
   // Convenience methods for creating mocks.
   /////////////////////////////////////////
   // ignore: no_leading_underscores_for_local_identifiers
-  BaseBarRenderer _configureBaseRenderer(
-    BaseBarRenderer renderer,
+  BaseBarRenderer<dynamic, dynamic, dynamic> _configureBaseRenderer(
+    BaseBarRenderer<dynamic, dynamic, dynamic> renderer,
     bool vertical,
   ) {
     final context = MockChartContext();
@@ -90,13 +90,17 @@ void main() {
     return renderer;
   }
 
-  BarRenderer makeRenderer({required BarRendererConfig config}) {
+  BarRenderer<dynamic> makeRenderer({
+    required BarRendererConfig<dynamic> config,
+  }) {
     final renderer = BarRenderer(config: config);
     _configureBaseRenderer(renderer, true);
     return renderer;
   }
 
-  FakeBarRenderer makeFakeRenderer({required BarRendererConfig config}) {
+  FakeBarRenderer<dynamic> makeFakeRenderer({
+    required BarRendererConfig<dynamic> config,
+  }) {
     final renderer = FakeBarRenderer<dynamic>(
       config: config,
       rendererId: '123',

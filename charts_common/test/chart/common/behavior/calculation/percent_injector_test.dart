@@ -39,18 +39,20 @@ class MyRow {
   final int clickCountUpper;
 }
 
-class MockChart extends Mock implements CartesianChart {
-  LifecycleListener? lastLifecycleListener;
+class MockChart extends Mock implements CartesianChart<dynamic> {
+  LifecycleListener<dynamic>? lastLifecycleListener;
 
   @override
   bool vertical = true;
 
   @override
-  LifecycleListener addLifecycleListener(LifecycleListener listener) =>
+  LifecycleListener<dynamic> addLifecycleListener(
+    LifecycleListener<dynamic> listener,
+  ) =>
       lastLifecycleListener = listener;
 
   @override
-  bool removeLifecycleListener(LifecycleListener listener) {
+  bool removeLifecycleListener(LifecycleListener<dynamic> listener) {
     expect(listener, equals(lastLifecycleListener));
     lastLifecycleListener = null;
     return true;
@@ -61,7 +63,7 @@ void main() {
   late MockChart chart;
   late List<MutableSeries<String>> seriesList;
 
-  PercentInjector makeBehavior({
+  PercentInjector<dynamic> makeBehavior({
     PercentInjectorTotalType totalType = PercentInjectorTotalType.domain,
   }) {
     final behavior = PercentInjector(totalType: totalType);

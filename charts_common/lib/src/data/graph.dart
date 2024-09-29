@@ -128,11 +128,14 @@ class Graph<N, L, D> {
   /// Store additional key-value pairs for link attributes
   final LinkAttributes linkAttributes = LinkAttributes();
 
+  //TODO: looks like there is something off about the graph types
+  //because dynamic is necessary
+
   /// Transform graph data given by links and nodes into a [Series] list.
   ///
   /// Output should contain two [Series] with the format:
   /// `[Series<Node<N,L>> nodeSeries, Series<Link<N,L>> linkSeries]`
-  List<Series<GraphElement, D>> toSeriesList() {
+  List<Series<GraphElement<dynamic>, D>> toSeriesList() {
     final nodeSeries = Series<Node<N, L>, D>(
       id: '${id}_nodes',
       data: nodes,
