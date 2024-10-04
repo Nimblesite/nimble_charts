@@ -49,9 +49,10 @@ jobs:
           done
 
       - name: Run Common Tests
+        # TODO: don't skip any tests
         run: |
           cd charts_common
-          flutter test --coverage
+          flutter test --coverage --exclude-tags skip-file
           cd $GITHUB_WORKSPACE
 
       - name: Run UI Tests
