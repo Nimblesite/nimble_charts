@@ -381,8 +381,9 @@ abstract class CartesianChart<D,
   }
 
   @override
-  BarRenderer<D> makeDefaultRenderer() =>
-      BarRenderer<D>()..rendererId = SeriesRenderer.defaultRendererId;
+  SeriesRenderer<D, TBaseRendererElement> makeDefaultRenderer() =>
+      BarRenderer<D, TBaseRendererElement>()
+        ..rendererId = SeriesRenderer.defaultRendererId;
 
   @override
   Map<String, List<MutableSeries<D>>> preprocessSeries(

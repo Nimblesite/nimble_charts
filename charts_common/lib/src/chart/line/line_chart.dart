@@ -15,12 +15,14 @@
 
 import 'package:nimble_charts_common/src/chart/cartesian/cartesian_chart.dart'
     show NumericCartesianChart;
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/common/series_renderer.dart'
     show SeriesRenderer;
 import 'package:nimble_charts_common/src/chart/line/line_renderer.dart'
     show LineRenderer;
 
-class LineChart extends NumericCartesianChart {
+class LineChart<TBaseRendererElement extends BaseRendererElement<num>>
+    extends NumericCartesianChart {
   LineChart({
     super.vertical,
     super.layoutConfig,
@@ -30,6 +32,7 @@ class LineChart extends NumericCartesianChart {
   });
 
   @override
-  SeriesRenderer<num, LineRenderer> makeDefaultRenderer() =>
-      LineRenderer<num>()..rendererId = SeriesRenderer.defaultRendererId;
+  SeriesRenderer<num, TBaseRendererElement> makeDefaultRenderer() =>
+      LineRenderer<num, TBaseRendererElement>()
+        ..rendererId = SeriesRenderer.defaultRendererId;
 }
