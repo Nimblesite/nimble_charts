@@ -1,29 +1,10 @@
-// Copyright 2018 the Charts project authors. Please see the AUTHORS file
-// for details.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-@Tags(['skip-file'])
-library;
-
-import 'package:test/test.dart';
-/*
-
 import 'dart:math';
 
 import 'package:mockito/mockito.dart';
 import 'package:nimble_charts_common/common.dart';
 import 'package:test/test.dart';
+
+import '../../mox.mocks.dart';
 
 /// Datum/Row for the chart.
 class MyRow {
@@ -43,14 +24,10 @@ class MyRow {
   final String shape;
 }
 
-class MockNumericAxis extends Mock implements Axis<num> {}
-
-class MockCanvas extends Mock implements ChartCanvas {}
-
 void main() {
-  Rectangle<int> layout;
+  late Rectangle<int> layout;
 
-  MutableSeries<num> makeSeries({String id, String seriesCategory}) {
+  MutableSeries<num> makeSeries({required String id, String? seriesCategory}) {
     final data = <MyRow>[];
 
     final series = MutableSeries(
@@ -62,13 +39,12 @@ void main() {
         measureFn: (row, _) => row.clickCount,
         seriesCategory: seriesCategory,
       ),
-    );
-
-    series.measureOffsetFn = (_) => 0.0;
-    series.colorFn = (_) => Color.fromHex(code: '#000000');
+    )
+      ..measureOffsetFn = ((_) => 0.0)
+      ..colorFn = (_) => Color.fromHex(code: '#000000');
 
     // Mock the Domain axis results.
-    final domainAxis = MockNumericAxis();
+    final domainAxis = MockAxis<num>();
     when(domainAxis.rangeBand).thenReturn(100);
 
     when(domainAxis.getLocation(any))
@@ -76,7 +52,7 @@ void main() {
     series.setAttr(domainAxisKey, domainAxis);
 
     // Mock the Measure axis results.
-    final measureAxis = MockNumericAxis();
+    final measureAxis = MockAxis<num>();
     when(measureAxis.getLocation(any))
         .thenAnswer((input) => 1.0 * (input.positionalArguments.first as num));
     series.setAttr(measureAxisKey, measureAxis);
@@ -93,7 +69,7 @@ void main() {
         'with both selectOverlappingPoints and selectOverlappingPoints set to '
         'false', () {
       // Setup
-      final renderer = PointRenderer(config: PointRendererConfig())
+      final renderer = PointRenderer<num>(config: PointRendererConfig())
         ..layout(layout, layout);
       final seriesList = <MutableSeries<num>>[
         makeSeries(id: 'foo')
@@ -103,10 +79,11 @@ void main() {
             MyRow('point3', 30, 40, 4, 0, ''),
           ]),
       ];
-      renderer.configureSeries(seriesList);
-      renderer.preprocessSeries(seriesList);
-      renderer.update(seriesList, false);
-      renderer.paint(MockCanvas(), 1);
+      renderer
+        ..configureSeries(seriesList)
+        ..preprocessSeries(seriesList)
+        ..update(seriesList, false)
+        ..paint(MockCanvas(), 1);
 
       // Act
       final details = renderer.getNearestDatumDetailPerSeries(
@@ -126,7 +103,7 @@ void main() {
         'with both selectOverlappingPoints and selectOverlappingPoints set to '
         'true and there are points inside event', () {
       // Setup
-      final renderer = PointRenderer(config: PointRendererConfig())
+      final renderer = PointRenderer<num>(config: PointRendererConfig())
         ..layout(layout, layout);
       final seriesList = <MutableSeries<num>>[
         makeSeries(id: 'foo')
@@ -136,10 +113,11 @@ void main() {
             MyRow('point3', 30, 40, 4, 0, ''),
           ]),
       ];
-      renderer.configureSeries(seriesList);
-      renderer.preprocessSeries(seriesList);
-      renderer.update(seriesList, false);
-      renderer.paint(MockCanvas(), 1);
+      renderer
+        ..configureSeries(seriesList)
+        ..preprocessSeries(seriesList)
+        ..update(seriesList, false)
+        ..paint(MockCanvas(), 1);
 
       // Act
       final details = renderer.getNearestDatumDetailPerSeries(
@@ -160,7 +138,7 @@ void main() {
         'with both selectOverlappingPoints and selectOverlappingPoints set to '
         'true and there are NO points inside event', () {
       // Setup
-      final renderer = PointRenderer(config: PointRendererConfig())
+      final renderer = PointRenderer<num>(config: PointRendererConfig())
         ..layout(layout, layout);
       final seriesList = <MutableSeries<num>>[
         makeSeries(id: 'foo')
@@ -170,10 +148,11 @@ void main() {
             MyRow('point3', 30, 40, 4, 0, ''),
           ]),
       ];
-      renderer.configureSeries(seriesList);
-      renderer.preprocessSeries(seriesList);
-      renderer.update(seriesList, false);
-      renderer.paint(MockCanvas(), 1);
+      renderer
+        ..configureSeries(seriesList)
+        ..preprocessSeries(seriesList)
+        ..update(seriesList, false)
+        ..paint(MockCanvas(), 1);
 
       // Act
       final details = renderer.getNearestDatumDetailPerSeries(
@@ -193,7 +172,7 @@ void main() {
         'selectOverlappingPoints == false and there are points inside event',
         () {
       // Setup
-      final renderer = PointRenderer(config: PointRendererConfig())
+      final renderer = PointRenderer<num>(config: PointRendererConfig())
         ..layout(layout, layout);
       final seriesList = <MutableSeries<num>>[
         makeSeries(id: 'foo')
@@ -203,10 +182,11 @@ void main() {
             MyRow('point3', 30, 40, 4, 0, ''),
           ]),
       ];
-      renderer.configureSeries(seriesList);
-      renderer.preprocessSeries(seriesList);
-      renderer.update(seriesList, false);
-      renderer.paint(MockCanvas(), 1);
+      renderer
+        ..configureSeries(seriesList)
+        ..preprocessSeries(seriesList)
+        ..update(seriesList, false)
+        ..paint(MockCanvas(), 1);
 
       // Act
       final details = renderer.getNearestDatumDetailPerSeries(
@@ -228,7 +208,7 @@ void main() {
         'selectOverlappingPoints == false and there are NO points inside event',
         () {
       // Setup
-      final renderer = PointRenderer(config: PointRendererConfig())
+      final renderer = PointRenderer<num>(config: PointRendererConfig())
         ..layout(layout, layout);
       final seriesList = <MutableSeries<num>>[
         makeSeries(id: 'foo')
@@ -238,10 +218,11 @@ void main() {
             MyRow('point3', 30, 40, 4, 0, ''),
           ]),
       ];
-      renderer.configureSeries(seriesList);
-      renderer.preprocessSeries(seriesList);
-      renderer.update(seriesList, false);
-      renderer.paint(MockCanvas(), 1);
+      renderer
+        ..configureSeries(seriesList)
+        ..preprocessSeries(seriesList)
+        ..update(seriesList, false)
+        ..paint(MockCanvas(), 1);
 
       // Act
       final details = renderer.getNearestDatumDetailPerSeries(
@@ -262,7 +243,7 @@ void main() {
         'selectOverlappingPoints == true and there are points inside event',
         () {
       // Setup
-      final renderer = PointRenderer(config: PointRendererConfig())
+      final renderer = PointRenderer<num>(config: PointRendererConfig())
         ..layout(layout, layout);
       final seriesList = <MutableSeries<num>>[
         makeSeries(id: 'foo')
@@ -272,10 +253,11 @@ void main() {
             MyRow('point3', 30, 40, 4, 0, ''),
           ]),
       ];
-      renderer.configureSeries(seriesList);
-      renderer.preprocessSeries(seriesList);
-      renderer.update(seriesList, false);
-      renderer.paint(MockCanvas(), 1);
+      renderer
+        ..configureSeries(seriesList)
+        ..preprocessSeries(seriesList)
+        ..update(seriesList, false)
+        ..paint(MockCanvas(), 1);
 
       // Act
       final details = renderer.getNearestDatumDetailPerSeries(
@@ -296,7 +278,7 @@ void main() {
         'selectOverlappingPoints == true and there are NO points inside event',
         () {
       // Setup
-      final renderer = PointRenderer(config: PointRendererConfig())
+      final renderer = PointRenderer<num>(config: PointRendererConfig())
         ..layout(layout, layout);
       final seriesList = <MutableSeries<num>>[
         makeSeries(id: 'foo')
@@ -306,10 +288,11 @@ void main() {
             MyRow('point3', 30, 40, 4, 0, ''),
           ]),
       ];
-      renderer.configureSeries(seriesList);
-      renderer.preprocessSeries(seriesList);
-      renderer.update(seriesList, false);
-      renderer.paint(MockCanvas(), 1);
+      renderer
+        ..configureSeries(seriesList)
+        ..preprocessSeries(seriesList)
+        ..update(seriesList, false)
+        ..paint(MockCanvas(), 1);
 
       // Act
       final details = renderer.getNearestDatumDetailPerSeries(
@@ -325,5 +308,3 @@ void main() {
     });
   });
 }
-
-*/

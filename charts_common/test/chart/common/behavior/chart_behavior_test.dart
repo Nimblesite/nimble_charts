@@ -13,12 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@Tags(['skip-file'])
-library;
-
-import 'package:test/test.dart';
-/*
-
 import 'package:mockito/mockito.dart';
 import 'package:nimble_charts_common/src/chart/common/base_chart.dart';
 import 'package:nimble_charts_common/src/chart/common/behavior/chart_behavior.dart';
@@ -27,38 +21,39 @@ import 'package:nimble_charts_common/src/chart/common/selection_model/selection_
 import 'package:nimble_charts_common/src/chart/common/series_renderer.dart';
 import 'package:test/test.dart';
 
-class MockBehavior extends Mock implements ChartBehavior<String> {}
+import '../../../mox.mocks.dart';
 
 class ParentBehavior implements ChartBehavior<String> {
   ParentBehavior(this.child);
   final ChartBehavior<String> child;
 
   @override
-  String get role => null;
+  String get role => '';
 
   @override
-  void attachTo(BaseChart chart) {
+  void attachTo(BaseChart<String> chart) {
     chart.addBehavior(child);
   }
 
   @override
-  void removeFrom(BaseChart chart) {
+  void removeFrom(BaseChart<String> chart) {
     chart.removeBehavior(child);
   }
 }
 
 class ConcreteChart extends BaseChart<String> {
   @override
-  SeriesRenderer<String> makeDefaultRenderer() => null;
+  SeriesRenderer<String> makeDefaultRenderer() => throw UnimplementedError();
 
   @override
-  List<DatumDetails<String>> getDatumDetails(SelectionModelType _) => null;
+  List<DatumDetails<String>> getDatumDetails(SelectionModelType _) =>
+      throw UnimplementedError();
 }
 
 void main() {
-  ConcreteChart chart;
-  MockBehavior namedBehavior;
-  MockBehavior unnamedBehavior;
+  late ConcreteChart chart;
+  late MockBehavior<String> namedBehavior;
+  late MockBehavior<String> unnamedBehavior;
 
   setUp(() {
     chart = ConcreteChart();
@@ -67,7 +62,7 @@ void main() {
     when(namedBehavior.role).thenReturn('foo');
 
     unnamedBehavior = MockBehavior();
-    when(unnamedBehavior.role).thenReturn(null);
+    when(unnamedBehavior.role).thenReturn('_role_'); // can't do null here
   });
 
   group('Attach & Detach', () {
@@ -91,7 +86,7 @@ void main() {
     });
 
     test('detach is called when name is reused', () {
-      final otherBehavior = MockBehavior();
+      final otherBehavior = MockBehavior<String>();
       when(otherBehavior.role).thenReturn('foo');
 
       chart.addBehavior(namedBehavior);
@@ -121,7 +116,7 @@ void main() {
     });
 
     test('detach is not called when name is different', () {
-      final otherBehavior = MockBehavior();
+      final otherBehavior = MockBehavior<String>();
       when(otherBehavior.role).thenReturn('bar');
 
       chart.addBehavior(namedBehavior);
@@ -155,5 +150,3 @@ void main() {
     });
   });
 }
-
-*/
