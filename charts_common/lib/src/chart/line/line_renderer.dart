@@ -72,11 +72,11 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
   static const drawBoundTopExtensionPx = 5;
   static const drawBoundBottomExtensionPx = 5;
 
-  final LineRendererConfig<D, TRendererElement> config;
+  final LineRendererConfig<D, BaseRendererElement<D>> config;
 
   late PointRenderer<D> _pointRenderer;
 
-  BaseChart<D, TRendererElement>? _chart;
+  BaseChart<D, BaseRendererElement<D>>? _chart;
 
   /// True if any series has a measureUpperBoundFn and measureLowerBoundFn.
   ///
@@ -1038,7 +1038,7 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
   }
 
   @override
-  void onAttach(BaseChart<D, TRendererElement> chart) {
+  void onAttach(BaseChart<D, BaseRendererElement<D>> chart) {
     super.onAttach(chart);
     // We only need the chart.context.isRtl setting, but context is not yet
     // available when the default renderer is attached to the chart on chart
@@ -1837,7 +1837,7 @@ class _Range<D> {
 @visibleForTesting
 class LineRendererTester<D, TRendererElement extends BaseRendererElement<D>> {
   LineRendererTester(this.renderer);
-  final LineRenderer<D, TRendererElement> renderer;
+  final LineRenderer<D> renderer;
 
   Iterable<String> get seriesKeys => renderer._seriesLineMap.keys;
 

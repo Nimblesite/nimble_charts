@@ -69,8 +69,8 @@ class BarLaneRendererConfig extends BarRendererConfig<String> {
   final bool renderNegativeLanes;
 
   @override
-  BarLaneRenderer<String> build() =>
-      BarLaneRenderer<String>(config: this, rendererId: customRendererId);
+  BarLaneRenderer build() =>
+      BarLaneRenderer(config: this, rendererId: customRendererId);
 
   @override
   bool operator ==(Object other) {

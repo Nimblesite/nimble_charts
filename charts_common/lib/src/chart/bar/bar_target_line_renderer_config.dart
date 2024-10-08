@@ -14,18 +14,14 @@
 // limitations under the License.
 
 import 'package:nimble_charts_common/common.dart';
-import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 
 /// Configuration for a bar target line renderer.
-class BarTargetLineRendererConfig<D,
-        TRendererElement extends BaseRendererElement<D>>
-    extends BaseBarRendererConfig<D, TRendererElement> {
+class BarTargetLineRendererConfig<D> extends BarRendererConfig<D> {
   BarTargetLineRendererConfig({
     super.barGroupInnerPaddingPx,
     super.customRendererId,
-    super.dashPattern,
     super.groupingType,
-    int super.layoutPaintOrder = LayoutViewPaintOrder.barTargetLine,
+    super.layoutPaintOrder = LayoutViewPaintOrder.barTargetLine,
     super.minBarLengthPx,
     this.overDrawOuterPx,
     this.overDrawPx = 0,
@@ -54,7 +50,7 @@ class BarTargetLineRendererConfig<D,
   final bool roundEndCaps;
 
   @override
-  SeriesRenderer<D, BaseRendererElement<D>> build() =>
+  BarRenderer<D> build() =>
       BarTargetLineRenderer<D>(config: this, rendererId: customRendererId);
 
   @override

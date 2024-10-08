@@ -149,13 +149,13 @@ class RangeAnnotation<D, TRendererElement extends BaseRendererElement<D>>
 
   @override
   void attachTo(BaseChart<D, TRendererElement> chart) {
-    if (chart is! CartesianChart<D, TRendererElement>) {
+    if (chart is! CartesianChart<D>) {
       throw ArgumentError(
         'RangeAnnotation can only be attached to a CartesianChart<D>',
       );
     }
 
-    _chart = chart;
+    _chart = chart as CartesianChart<D>;
 
     _view = _RangeAnnotationLayoutView<D, TRendererElement>(
       defaultColor: defaultColor,
