@@ -21,6 +21,7 @@ import 'package:nimble_charts_common/src/chart/cartesian/axis/spec/axis_spec.dar
     show TextStyleSpec;
 import 'package:nimble_charts_common/src/chart/common/base_chart.dart'
     show BaseChart, LifecycleListener;
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/common/behavior/chart_behavior.dart'
     show
         BehaviorPosition,
@@ -55,7 +56,8 @@ import 'package:nimble_charts_common/src/common/graphics_factory.dart'
 /// visual content of legends is done on the native platforms. This allows users
 /// to specify customized content for legends using the native platform (ex. for
 /// Flutter, using widgets).
-abstract class Legend<D> implements ChartBehavior<D>, LayoutView {
+abstract class Legend<D>
+    implements ChartBehavior<D, BaseRendererElement<D>>, LayoutView {
   Legend({
     required this.selectionModelType,
     required this.legendEntryGenerator,
@@ -78,7 +80,7 @@ abstract class Legend<D> implements ChartBehavior<D>, LayoutView {
   /// The title text to display before legend entries.
   late String title;
 
-  late BaseChart<D> _chart;
+  late BaseChart<D, BaseRendererElement<D>> _chart;
   late final LifecycleListener<D> _lifecycleListener;
 
   Rectangle<int>? _componentBounds;

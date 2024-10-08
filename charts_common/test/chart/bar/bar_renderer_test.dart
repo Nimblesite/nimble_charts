@@ -44,7 +44,7 @@ class FakeBarRenderer<D> extends BarRenderer<D> {
   List<List<BarRendererElement<D>>> elementsPainted = [];
 
   factory FakeBarRenderer({
-    required BarRendererConfig<dynamic> config,
+    required BarRendererConfig<D> config,
     required String rendererId,
   }) =>
       FakeBarRenderer._internal(config: config, rendererId: rendererId);

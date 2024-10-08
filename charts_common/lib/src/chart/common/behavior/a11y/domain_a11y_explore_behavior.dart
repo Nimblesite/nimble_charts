@@ -21,6 +21,7 @@ import 'package:nimble_charts_common/src/chart/cartesian/cartesian_chart.dart'
     show CartesianChart;
 import 'package:nimble_charts_common/src/chart/common/base_chart.dart'
     show BaseChart, LifecycleListener;
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/common/behavior/a11y/a11y_explore_behavior.dart'
     show A11yExploreBehavior;
 import 'package:nimble_charts_common/src/chart/common/behavior/a11y/a11y_node.dart'
@@ -123,7 +124,7 @@ class DomainA11yExploreBehavior<D> extends A11yExploreBehavior<D> {
   }
 
   @override
-  void attachTo(BaseChart<D> chart) {
+  void attachTo(BaseChart<D, BaseRendererElement<D>> chart) {
     // Domain selection behavior only works for cartesian charts.
     assert(chart is CartesianChart<D>);
     _chart = chart as CartesianChart<D>;
@@ -134,7 +135,7 @@ class DomainA11yExploreBehavior<D> extends A11yExploreBehavior<D> {
   }
 
   @override
-  void removeFrom(BaseChart<D> chart) {
+  void removeFrom(BaseChart<D, BaseRendererElement<D>> chart) {
     chart.removeLifecycleListener(_lifecycleListener);
   }
 

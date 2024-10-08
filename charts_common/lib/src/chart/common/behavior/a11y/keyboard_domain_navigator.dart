@@ -18,6 +18,7 @@ import 'package:nimble_charts_common/src/chart/cartesian/cartesian_chart.dart'
     show CartesianChart;
 import 'package:nimble_charts_common/src/chart/common/base_chart.dart'
     show BaseChart, LifecycleListener;
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/common/behavior/chart_behavior.dart'
     show ChartBehavior;
 import 'package:nimble_charts_common/src/chart/common/processed_series.dart'
@@ -45,11 +46,12 @@ import 'package:nimble_charts_common/src/chart/common/series_datum.dart'
 /// chart component. Using the default value of 0 makes the chart focusable in
 /// the natural order of the page, but you have the option to use whatever
 /// fine-tuned order works best.
-abstract class KeyboardDomainNavigator<D> implements ChartBehavior<D> {
+abstract class KeyboardDomainNavigator<D>
+    implements ChartBehavior<D, BaseRendererElement<D>> {
   KeyboardDomainNavigator() {
     _lifecycleListener = LifecycleListener<D>(onData: onData);
   }
-  late BaseChart<D> _chart;
+  late BaseChart<D, BaseRendererElement<D>> _chart;
   late final LifecycleListener<D> _lifecycleListener;
 
   /// An ordered list of the available domains.
@@ -63,13 +65,13 @@ abstract class KeyboardDomainNavigator<D> implements ChartBehavior<D> {
   int _currentIndex = NO_SELECTION;
 
   @override
-  void attachTo(BaseChart<D> chart) {
+  void attachTo(BaseChart<D, BaseRendererElement<D>> chart) {
     _chart = chart;
     chart.addLifecycleListener(_lifecycleListener);
   }
 
   @override
-  void removeFrom(BaseChart<D> chart) {
+  void removeFrom(BaseChart<D, BaseRendererElement<D>> chart) {
     chart.removeLifecycleListener(_lifecycleListener);
   }
 

@@ -14,6 +14,7 @@
 // limitations under the License.
 
 import 'package:nimble_charts_common/common.dart';
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 
 const percentInjectedKey =
     AttributeKey<bool>('PercentInjector.percentInjected');
@@ -34,7 +35,7 @@ const percentInjectedKey =
 /// Note that if the chart has a [Legend] that is capable of hiding series data,
 /// then this behavior must be added after the [Legend] to ensure that it
 /// calculates values after series have been potentially removed from the list.
-class PercentInjector<D> implements ChartBehavior<D> {
+class PercentInjector<D> implements ChartBehavior<D, BaseRendererElement<D>> {
   /// Constructs a [PercentInjector].
   ///
   /// [totalType] configures the type of data total to be calculated.
@@ -49,12 +50,12 @@ class PercentInjector<D> implements ChartBehavior<D> {
   final PercentInjectorTotalType totalType;
 
   @override
-  void attachTo(BaseChart<D> chart) {
+  void attachTo(BaseChart<D, BaseRendererElement<D>> chart) {
     chart.addLifecycleListener(_lifecycleListener);
   }
 
   @override
-  void removeFrom(BaseChart<D> chart) {
+  void removeFrom(BaseChart<D, BaseRendererElement<D>> chart) {
     chart.removeLifecycleListener(_lifecycleListener);
   }
 

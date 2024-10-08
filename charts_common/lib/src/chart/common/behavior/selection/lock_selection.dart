@@ -16,6 +16,7 @@
 import 'dart:math';
 
 import 'package:nimble_charts_common/common.dart';
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 
 /// Chart behavior that listens to tap event triggers and locks the specified
 /// [SelectionModel]. This is used to prevent further updates to the selection
@@ -28,7 +29,7 @@ import 'package:nimble_charts_common/common.dart';
 /// You can add one LockSelection for each model type that you are updating.
 /// Any previous LockSelection behavior for that selection model will be
 /// removed.
-class LockSelection<D> implements ChartBehavior<D> {
+class LockSelection<D> implements ChartBehavior<D, BaseRendererElement<D>> {
   LockSelection({this.selectionModelType = SelectionModelType.info}) {
     // Setup the appropriate gesture listening.
     switch (eventTrigger) {
@@ -50,7 +51,7 @@ class LockSelection<D> implements ChartBehavior<D> {
   /// Type of input event that should trigger selection.
   final SelectionTrigger eventTrigger = SelectionTrigger.tap;
 
-  BaseChart<D>? _chart;
+  BaseChart<D, BaseRendererElement<D>>? _chart;
 
   bool _onTapTest(Point<double> chartPoint) =>
       // If the tap is within the drawArea, then claim the event from others.
@@ -85,7 +86,7 @@ class LockSelection<D> implements ChartBehavior<D> {
   }
 
   @override
-  void attachTo(BaseChart<D> chart) {
+  void attachTo(BaseChart<D, BaseRendererElement<D>> chart) {
     _chart = chart;
     chart.addGestureListener(_listener);
 
@@ -102,7 +103,7 @@ class LockSelection<D> implements ChartBehavior<D> {
   }
 
   @override
-  void removeFrom(BaseChart<D> chart) {
+  void removeFrom(BaseChart<D, BaseRendererElement<D>> chart) {
     chart
       ..removeGestureListener(_listener)
       ..unregisterTappable(this);

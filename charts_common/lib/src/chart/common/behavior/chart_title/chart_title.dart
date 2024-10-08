@@ -16,6 +16,7 @@
 import 'dart:math';
 
 import 'package:nimble_charts_common/common.dart';
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/layout/layout_view.dart'
     show
         LayoutPosition,
@@ -31,7 +32,7 @@ import 'package:nimble_charts_common/src/chart/layout/layout_view.dart'
 ///
 /// Titles will by default be rendered as the outermost component in the chart
 /// margin.
-class ChartTitle<D> implements ChartBehavior<D> {
+class ChartTitle<D> implements ChartBehavior<D, BaseRendererElement<D>> {
   /// Constructs a [ChartTitle].
   ///
   /// [title] contains the text for the chart title.
@@ -83,7 +84,7 @@ class ChartTitle<D> implements ChartBehavior<D> {
   /// Stores all of the configured properties of the behavior.
   final _ChartTitleConfig _config;
 
-  BaseChart<D>? _chart;
+  BaseChart<D, BaseRendererElement<D>>? _chart;
 
   _ChartTitleLayoutView<D>? _view;
 
@@ -216,7 +217,7 @@ class ChartTitle<D> implements ChartBehavior<D> {
   }
 
   @override
-  void attachTo(BaseChart<D> chart) {
+  void attachTo(BaseChart<D, BaseRendererElement<D>> chart) {
     _chart = chart;
 
     _view = _ChartTitleLayoutView<D>(
@@ -231,7 +232,7 @@ class ChartTitle<D> implements ChartBehavior<D> {
   }
 
   @override
-  void removeFrom(BaseChart<D> chart) {
+  void removeFrom(BaseChart<D, BaseRendererElement<D>> chart) {
     chart
       ..removeView(_view!)
       ..removeLifecycleListener(_lifecycleListener);
@@ -270,7 +271,7 @@ class _ChartTitleLayoutView<D> extends LayoutView {
   /// Stores all of the configured properties of the behavior.
   _ChartTitleConfig _config;
 
-  BaseChart<D>? chart;
+  BaseChart<D, BaseRendererElement<D>>? chart;
 
   bool get isRtl => chart?.context.isRtl ?? false;
 

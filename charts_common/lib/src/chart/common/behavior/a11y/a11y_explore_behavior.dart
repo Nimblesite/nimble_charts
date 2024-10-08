@@ -32,9 +32,8 @@ enum ExploreModeTrigger {
 }
 
 /// Chart behavior for adding A11y information.
-abstract class A11yExploreBehavior<D,
-        TBaseRendererElement extends BaseRendererElement<D>>
-    implements ChartBehavior<D, TBaseRendererElement> {
+abstract class A11yExploreBehavior<D>
+    implements ChartBehavior<D, BaseRendererElement<D>> {
   A11yExploreBehavior({
     ExploreModeTrigger? exploreModeTrigger,
     double? minimumWidth,
@@ -70,7 +69,7 @@ abstract class A11yExploreBehavior<D,
   /// Optionally notify the OS when explore mode is disabled.
   final String? exploreModeDisabledAnnouncement;
 
-  BaseChart<D, TBaseRendererElement>? _chart;
+  BaseChart<D, BaseRendererElement<D>>? _chart;
   late GestureListener _listener;
   bool _exploreModeOn = false;
 
@@ -97,13 +96,13 @@ abstract class A11yExploreBehavior<D,
   List<A11yNode> createA11yNodes();
 
   @override
-  void attachTo(BaseChart<D, TBaseRendererElement> chart) {
+  void attachTo(BaseChart<D, BaseRendererElement<D>> chart) {
     _chart = chart;
     chart.addGestureListener(_listener);
   }
 
   @override
-  void removeFrom(BaseChart<D, TBaseRendererElement> chart) {
+  void removeFrom(BaseChart<D, BaseRendererElement<D>> chart) {
     chart.removeGestureListener(_listener);
   }
 }
