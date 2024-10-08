@@ -3421,6 +3421,810 @@ class MockChart<D> extends _i1.Mock implements _i11.CartesianChart<D> {
       );
 }
 
+/// A class which mocks [BaseChart].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockBaseChart<D> extends _i1.Mock implements _i11.BaseChart<D> {
+  @override
+  _i7.ChartContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeChartContext_5(
+          this,
+          Invocation.getter(#context),
+        ),
+        returnValueForMissingStub: _FakeChartContext_5(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i7.ChartContext);
+
+  @override
+  set context(_i7.ChartContext? _context) => super.noSuchMethod(
+        Invocation.setter(
+          #context,
+          _context,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set graphicsFactory(_i8.GraphicsFactory? _graphicsFactory) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #graphicsFactory,
+          _graphicsFactory,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  Duration get transition => (super.noSuchMethod(
+        Invocation.getter(#transition),
+        returnValue: _FakeDuration_14(
+          this,
+          Invocation.getter(#transition),
+        ),
+        returnValueForMissingStub: _FakeDuration_14(
+          this,
+          Invocation.getter(#transition),
+        ),
+      ) as Duration);
+
+  @override
+  set transition(Duration? _transition) => super.noSuchMethod(
+        Invocation.setter(
+          #transition,
+          _transition,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  double get animationPercent => (super.noSuchMethod(
+        Invocation.getter(#animationPercent),
+        returnValue: 0.0,
+        returnValueForMissingStub: 0.0,
+      ) as double);
+
+  @override
+  set animationPercent(double? _animationPercent) => super.noSuchMethod(
+        Invocation.setter(
+          #animationPercent,
+          _animationPercent,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get isTappable => (super.noSuchMethod(
+        Invocation.getter(#isTappable),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  bool get selectExactEventLocation => (super.noSuchMethod(
+        Invocation.getter(#selectExactEventLocation),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  bool get selectNearestByDomain => (super.noSuchMethod(
+        Invocation.getter(#selectNearestByDomain),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  bool get selectOverlappingPoints => (super.noSuchMethod(
+        Invocation.getter(#selectOverlappingPoints),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  bool get chartIsDirty => (super.noSuchMethod(
+        Invocation.getter(#chartIsDirty),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  _i11.ProxyGestureListener get gestureProxy => (super.noSuchMethod(
+        Invocation.getter(#gestureProxy),
+        returnValue: _FakeProxyGestureListener_15(
+          this,
+          Invocation.getter(#gestureProxy),
+        ),
+        returnValueForMissingStub: _FakeProxyGestureListener_15(
+          this,
+          Invocation.getter(#gestureProxy),
+        ),
+      ) as _i11.ProxyGestureListener);
+
+  @override
+  set defaultRenderer(_i11.SeriesRenderer<D>? renderer) => super.noSuchMethod(
+        Invocation.setter(
+          #defaultRenderer,
+          renderer,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i11.SeriesRenderer<D> get defaultRenderer => (super.noSuchMethod(
+        Invocation.getter(#defaultRenderer),
+        returnValue: _FakeSeriesRenderer_16<D>(
+          this,
+          Invocation.getter(#defaultRenderer),
+        ),
+        returnValueForMissingStub: _FakeSeriesRenderer_16<D>(
+          this,
+          Invocation.getter(#defaultRenderer),
+        ),
+      ) as _i11.SeriesRenderer<D>);
+
+  @override
+  List<_i11.ChartBehavior<D>> get behaviors => (super.noSuchMethod(
+        Invocation.getter(#behaviors),
+        returnValue: <_i11.ChartBehavior<D>>[],
+        returnValueForMissingStub: <_i11.ChartBehavior<D>>[],
+      ) as List<_i11.ChartBehavior<D>>);
+
+  @override
+  _i13.Rectangle<int> get drawAreaBounds => (super.noSuchMethod(
+        Invocation.getter(#drawAreaBounds),
+        returnValue: _FakeRectangle_17<int>(
+          this,
+          Invocation.getter(#drawAreaBounds),
+        ),
+        returnValueForMissingStub: _FakeRectangle_17<int>(
+          this,
+          Invocation.getter(#drawAreaBounds),
+        ),
+      ) as _i13.Rectangle<int>);
+
+  @override
+  int get marginBottom => (super.noSuchMethod(
+        Invocation.getter(#marginBottom),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  int get marginLeft => (super.noSuchMethod(
+        Invocation.getter(#marginLeft),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  int get marginRight => (super.noSuchMethod(
+        Invocation.getter(#marginRight),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  int get marginTop => (super.noSuchMethod(
+        Invocation.getter(#marginTop),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  _i13.Rectangle<int> get drawableLayoutAreaBounds => (super.noSuchMethod(
+        Invocation.getter(#drawableLayoutAreaBounds),
+        returnValue: _FakeRectangle_17<int>(
+          this,
+          Invocation.getter(#drawableLayoutAreaBounds),
+        ),
+        returnValueForMissingStub: _FakeRectangle_17<int>(
+          this,
+          Invocation.getter(#drawableLayoutAreaBounds),
+        ),
+      ) as _i13.Rectangle<int>);
+
+  @override
+  List<_i11.MutableSeries<D>> get currentSeriesList => (super.noSuchMethod(
+        Invocation.getter(#currentSeriesList),
+        returnValue: <_i11.MutableSeries<D>>[],
+        returnValueForMissingStub: <_i11.MutableSeries<D>>[],
+      ) as List<_i11.MutableSeries<D>>);
+
+  @override
+  bool get animatingThisDraw => (super.noSuchMethod(
+        Invocation.getter(#animatingThisDraw),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  void init(
+    _i7.ChartContext? context,
+    _i8.GraphicsFactory? graphicsFactory,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #init,
+          [
+            context,
+            graphicsFactory,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void updateConfig(_i11.LayoutConfig? layoutConfig) => super.noSuchMethod(
+        Invocation.method(
+          #updateConfig,
+          [layoutConfig],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void resetChartDirtyFlag() => super.noSuchMethod(
+        Invocation.method(
+          #resetChartDirtyFlag,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void markChartDirty() => super.noSuchMethod(
+        Invocation.method(
+          #markChartDirty,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void configurationChanged() => super.noSuchMethod(
+        Invocation.method(
+          #configurationChanged,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i11.GestureListener addGestureListener(_i11.GestureListener? listener) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addGestureListener,
+          [listener],
+        ),
+        returnValue: _FakeGestureListener_20(
+          this,
+          Invocation.method(
+            #addGestureListener,
+            [listener],
+          ),
+        ),
+        returnValueForMissingStub: _FakeGestureListener_20(
+          this,
+          Invocation.method(
+            #addGestureListener,
+            [listener],
+          ),
+        ),
+      ) as _i11.GestureListener);
+
+  @override
+  void removeGestureListener(_i11.GestureListener? listener) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #removeGestureListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i11.LifecycleListener<D> addLifecycleListener(
+          _i11.LifecycleListener<D>? listener) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addLifecycleListener,
+          [listener],
+        ),
+        returnValue: _FakeLifecycleListener_21<D>(
+          this,
+          Invocation.method(
+            #addLifecycleListener,
+            [listener],
+          ),
+        ),
+        returnValueForMissingStub: _FakeLifecycleListener_21<D>(
+          this,
+          Invocation.method(
+            #addLifecycleListener,
+            [listener],
+          ),
+        ),
+      ) as _i11.LifecycleListener<D>);
+
+  @override
+  bool removeLifecycleListener(_i11.LifecycleListener<D>? listener) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #removeLifecycleListener,
+          [listener],
+        ),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  _i11.MutableSelectionModel<D> getSelectionModel(
+          _i11.SelectionModelType? type) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getSelectionModel,
+          [type],
+        ),
+        returnValue: _FakeMutableSelectionModel_22<D>(
+          this,
+          Invocation.method(
+            #getSelectionModel,
+            [type],
+          ),
+        ),
+        returnValueForMissingStub: _FakeMutableSelectionModel_22<D>(
+          this,
+          Invocation.method(
+            #getSelectionModel,
+            [type],
+          ),
+        ),
+      ) as _i11.MutableSelectionModel<D>);
+
+  @override
+  List<_i26.DatumDetails<D>> getDatumDetails(_i11.SelectionModelType? type) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getDatumDetails,
+          [type],
+        ),
+        returnValue: <_i26.DatumDetails<D>>[],
+        returnValueForMissingStub: <_i26.DatumDetails<D>>[],
+      ) as List<_i26.DatumDetails<D>>);
+
+  @override
+  void addSeriesRenderer(_i11.SeriesRenderer<D>? renderer) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #addSeriesRenderer,
+          [renderer],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i11.SeriesRenderer<D> getSeriesRenderer(String? rendererId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getSeriesRenderer,
+          [rendererId],
+        ),
+        returnValue: _FakeSeriesRenderer_16<D>(
+          this,
+          Invocation.method(
+            #getSeriesRenderer,
+            [rendererId],
+          ),
+        ),
+        returnValueForMissingStub: _FakeSeriesRenderer_16<D>(
+          this,
+          Invocation.method(
+            #getSeriesRenderer,
+            [rendererId],
+          ),
+        ),
+      ) as _i11.SeriesRenderer<D>);
+
+  @override
+  _i11.SeriesRenderer<D> makeDefaultRenderer() => (super.noSuchMethod(
+        Invocation.method(
+          #makeDefaultRenderer,
+          [],
+        ),
+        returnValue: _FakeSeriesRenderer_16<D>(
+          this,
+          Invocation.method(
+            #makeDefaultRenderer,
+            [],
+          ),
+        ),
+        returnValueForMissingStub: _FakeSeriesRenderer_16<D>(
+          this,
+          Invocation.method(
+            #makeDefaultRenderer,
+            [],
+          ),
+        ),
+      ) as _i11.SeriesRenderer<D>);
+
+  @override
+  bool pointWithinRenderer(_i13.Point<double>? chartPosition) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #pointWithinRenderer,
+          [chartPosition],
+        ),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  List<_i26.DatumDetails<D>> getNearestDatumDetailPerSeries(
+    _i13.Point<double>? drawAreaPoint,
+    bool? selectAcrossAllDrawAreaComponents,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getNearestDatumDetailPerSeries,
+          [
+            drawAreaPoint,
+            selectAcrossAllDrawAreaComponents,
+          ],
+        ),
+        returnValue: <_i26.DatumDetails<D>>[],
+        returnValueForMissingStub: <_i26.DatumDetails<D>>[],
+      ) as List<_i26.DatumDetails<D>>);
+
+  @override
+  List<_i26.DatumDetails<D>> getSelectedDatumDetails(
+          _i11.SelectionModelType? selectionModelType) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getSelectedDatumDetails,
+          [selectionModelType],
+        ),
+        returnValue: <_i26.DatumDetails<D>>[],
+        returnValueForMissingStub: <_i26.DatumDetails<D>>[],
+      ) as List<_i26.DatumDetails<D>>);
+
+  @override
+  List<_i26.DatumDetails<D>> getAllDatumDetails(
+          {bool? includeOverlaySeries = false}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getAllDatumDetails,
+          [],
+          {#includeOverlaySeries: includeOverlaySeries},
+        ),
+        returnValue: <_i26.DatumDetails<D>>[],
+        returnValueForMissingStub: <_i26.DatumDetails<D>>[],
+      ) as List<_i26.DatumDetails<D>>);
+
+  @override
+  _i11.ChartBehavior<D> createBehavior(_i27.BehaviorCreator? creator) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createBehavior,
+          [creator],
+        ),
+        returnValue: _FakeChartBehavior_23<D>(
+          this,
+          Invocation.method(
+            #createBehavior,
+            [creator],
+          ),
+        ),
+        returnValueForMissingStub: _FakeChartBehavior_23<D>(
+          this,
+          Invocation.method(
+            #createBehavior,
+            [creator],
+          ),
+        ),
+      ) as _i11.ChartBehavior<D>);
+
+  @override
+  void addBehavior(_i11.ChartBehavior<D>? behavior) => super.noSuchMethod(
+        Invocation.method(
+          #addBehavior,
+          [behavior],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool removeBehavior(_i11.ChartBehavior<D>? behavior) => (super.noSuchMethod(
+        Invocation.method(
+          #removeBehavior,
+          [behavior],
+        ),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  void registerTappable(_i11.ChartBehavior<D>? behavior) => super.noSuchMethod(
+        Invocation.method(
+          #registerTappable,
+          [behavior],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void unregisterTappable(_i11.ChartBehavior<D>? behavior) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #unregisterTappable,
+          [behavior],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void measure(
+    int? width,
+    int? height,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #measure,
+          [
+            width,
+            height,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void layout(
+    int? width,
+    int? height,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #layout,
+          [
+            width,
+            height,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void layoutInternal(
+    int? width,
+    int? height,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #layoutInternal,
+          [
+            width,
+            height,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void addView(_i10.LayoutView? view) => super.noSuchMethod(
+        Invocation.method(
+          #addView,
+          [view],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void removeView(_i10.LayoutView? view) => super.noSuchMethod(
+        Invocation.method(
+          #removeView,
+          [view],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool withinDrawArea(_i13.Point<num>? point) => (super.noSuchMethod(
+        Invocation.method(
+          #withinDrawArea,
+          [point],
+        ),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  void draw(List<_i11.Series<dynamic, D>>? seriesList) => super.noSuchMethod(
+        Invocation.method(
+          #draw,
+          [seriesList],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void redraw({
+    bool? skipAnimation = false,
+    bool? skipLayout = false,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #redraw,
+          [],
+          {
+            #skipAnimation: skipAnimation,
+            #skipLayout: skipLayout,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void drawInternal(
+    List<_i11.MutableSeries<D>>? seriesList, {
+    bool? skipAnimation,
+    bool? skipLayout,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #drawInternal,
+          [seriesList],
+          {
+            #skipAnimation: skipAnimation,
+            #skipLayout: skipLayout,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i11.MutableSeries<D> makeSeries(_i11.Series<dynamic, D>? series) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #makeSeries,
+          [series],
+        ),
+        returnValue: _FakeMutableSeries_19<D>(
+          this,
+          Invocation.method(
+            #makeSeries,
+            [series],
+          ),
+        ),
+        returnValueForMissingStub: _FakeMutableSeries_19<D>(
+          this,
+          Invocation.method(
+            #makeSeries,
+            [series],
+          ),
+        ),
+      ) as _i11.MutableSeries<D>);
+
+  @override
+  void configureSeries(List<_i11.MutableSeries<D>>? seriesList) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #configureSeries,
+          [seriesList],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  Map<String, List<_i11.MutableSeries<D>>> preprocessSeries(
+          List<_i11.MutableSeries<D>>? seriesList) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #preprocessSeries,
+          [seriesList],
+        ),
+        returnValue: <String, List<_i11.MutableSeries<D>>>{},
+        returnValueForMissingStub: <String, List<_i11.MutableSeries<D>>>{},
+      ) as Map<String, List<_i11.MutableSeries<D>>>);
+
+  @override
+  void onSkipLayout() => super.noSuchMethod(
+        Invocation.method(
+          #onSkipLayout,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void onPostLayout(
+          Map<String, List<_i11.MutableSeries<D>>>? rendererToSeriesList) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #onPostLayout,
+          [rendererToSeriesList],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void paint(_i20.ChartCanvas? canvas) => super.noSuchMethod(
+        Invocation.method(
+          #paint,
+          [canvas],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void fireOnDraw(List<_i11.MutableSeries<D>>? seriesList) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #fireOnDraw,
+          [seriesList],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void fireOnPreprocess(List<_i11.MutableSeries<D>>? seriesList) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #fireOnPreprocess,
+          [seriesList],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void fireOnPostprocess(List<_i11.MutableSeries<D>>? seriesList) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #fireOnPostprocess,
+          [seriesList],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void fireOnAxisConfigured() => super.noSuchMethod(
+        Invocation.method(
+          #fireOnAxisConfigured,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void fireOnPostrender(_i20.ChartCanvas? canvas) => super.noSuchMethod(
+        Invocation.method(
+          #fireOnPostrender,
+          [canvas],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void fireOnAnimationComplete() => super.noSuchMethod(
+        Invocation.method(
+          #fireOnAnimationComplete,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void destroy() => super.noSuchMethod(
+        Invocation.method(
+          #destroy,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
 /// A class which mocks [OrdinalAxis].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -4115,6 +4919,219 @@ class MockDateTimeScale extends _i1.Mock implements _i15.DateTimeScale {
         Invocation.method(
           #canTranslate,
           [domainValue],
+        ),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+}
+
+/// A class which mocks [ChartBehavior].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockBehavior<D> extends _i1.Mock implements _i11.ChartBehavior<D> {
+  @override
+  String get role => (super.noSuchMethod(
+        Invocation.getter(#role),
+        returnValue: _i17.dummyValue<String>(
+          this,
+          Invocation.getter(#role),
+        ),
+        returnValueForMissingStub: _i17.dummyValue<String>(
+          this,
+          Invocation.getter(#role),
+        ),
+      ) as String);
+
+  @override
+  void attachTo(_i11.BaseChart<D>? chart) => super.noSuchMethod(
+        Invocation.method(
+          #attachTo,
+          [chart],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void removeFrom(_i11.BaseChart<D>? chart) => super.noSuchMethod(
+        Invocation.method(
+          #removeFrom,
+          [chart],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [MutableSelectionModel].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMutableSelectionModel<D> extends _i1.Mock
+    implements _i11.MutableSelectionModel<D> {
+  @override
+  set locked(bool? locked) => super.noSuchMethod(
+        Invocation.setter(
+          #locked,
+          locked,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get locked => (super.noSuchMethod(
+        Invocation.getter(#locked),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  bool get hasDatumSelection => (super.noSuchMethod(
+        Invocation.getter(#hasDatumSelection),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  List<_i11.SeriesDatum<D>> get selectedDatum => (super.noSuchMethod(
+        Invocation.getter(#selectedDatum),
+        returnValue: <_i11.SeriesDatum<D>>[],
+        returnValueForMissingStub: <_i11.SeriesDatum<D>>[],
+      ) as List<_i11.SeriesDatum<D>>);
+
+  @override
+  bool get hasSeriesSelection => (super.noSuchMethod(
+        Invocation.getter(#hasSeriesSelection),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  List<_i11.ImmutableSeries<D>> get selectedSeries => (super.noSuchMethod(
+        Invocation.getter(#selectedSeries),
+        returnValue: <_i11.ImmutableSeries<D>>[],
+        returnValueForMissingStub: <_i11.ImmutableSeries<D>>[],
+      ) as List<_i11.ImmutableSeries<D>>);
+
+  @override
+  bool get hasAnySelection => (super.noSuchMethod(
+        Invocation.getter(#hasAnySelection),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  bool clearSelection({bool? notifyListeners = true}) => (super.noSuchMethod(
+        Invocation.method(
+          #clearSelection,
+          [],
+          {#notifyListeners: notifyListeners},
+        ),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  bool updateSelection(
+    List<_i11.SeriesDatum<D>>? datumSelection,
+    List<_i11.ImmutableSeries<D>>? seriesList, {
+    bool? notifyListeners = true,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateSelection,
+          [
+            datumSelection,
+            seriesList,
+          ],
+          {#notifyListeners: notifyListeners},
+        ),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  void addSelectionChangedListener(_i11.SelectionModelListener<D>? listener) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #addSelectionChangedListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void removeSelectionChangedListener(
+          _i11.SelectionModelListener<D>? listener) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #removeSelectionChangedListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void addSelectionUpdatedListener(_i11.SelectionModelListener<D>? listener) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #addSelectionUpdatedListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void removeSelectionUpdatedListener(
+          _i11.SelectionModelListener<D>? listener) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #removeSelectionUpdatedListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void addSelectionLockChangedListener(
+          _i11.SelectionModelListener<D>? listener) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #addSelectionLockChangedListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void removeSelectionLockChangedListener(
+          _i11.SelectionModelListener<D>? listener) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #removeSelectionLockChangedListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void clearAllListeners() => super.noSuchMethod(
+        Invocation.method(
+          #clearAllListeners,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool isDatumSelected(
+    _i11.ImmutableSeries<D>? series,
+    int? index,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #isDatumSelected,
+          [
+            series,
+            index,
+          ],
         ),
         returnValue: false,
         returnValueForMissingStub: false,
