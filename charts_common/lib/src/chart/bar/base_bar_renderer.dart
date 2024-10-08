@@ -40,7 +40,7 @@ const allBarGroupWeightsKey =
 const stackKeyKey = AttributeKey<String>('BarRenderer.stackKey');
 
 const barElementsKey =
-    AttributeKey<List<BaseBarRendererElement>>('BarRenderer.elements');
+    AttributeKey<List<BaseBarRendererElement<dynamic>>>('BarRenderer.elements');
 
 /// Base class for bar renderers that implements common stacking and grouping
 /// logic.
@@ -62,7 +62,7 @@ const barElementsKey =
 ///   such that bars from the last series will be "on top" of bars from previous
 ///   series.
 abstract class BaseBarRenderer<D, R extends BaseBarRendererElement<D>,
-    B extends BaseAnimatedBar<D, R>> extends BaseCartesianRenderer<D, R> {
+    B extends BaseAnimatedBar<D, R>> extends BaseCartesianRenderer<D> {
   BaseBarRenderer({
     required this.config,
     required super.rendererId,
@@ -73,7 +73,7 @@ abstract class BaseBarRenderer<D, R extends BaseBarRendererElement<D>,
   // `config` can't be a `BaseBarRendererConfig<D>` because `BarLaneRenderer<D>`
   // passes a `BarLaneRendererConfig`, but `BarLaneRendererConfig` is a
   // `BarRendererConfig<String>`.
-  final BarRendererConfig<Object?> config;
+  final BarRendererConfig<R> config;
 
   // Save the chart.vertical value at the start of every draw cycle. If it
   // changes, delete all of the cached rendering element information so that we
@@ -128,9 +128,9 @@ abstract class BaseBarRenderer<D, R extends BaseBarRendererElement<D>,
     // Maps used to store the final measure offset of the previous series, for
     // each domain value.
     final posDomainToStackKeyToDetailsMap =
-        <D, Map<String, BaseBarRendererElement>>{};
+        <D, Map<String, BaseBarRendererElement<dynamic>>>{};
     final negDomainToStackKeyToDetailsMap =
-        <D, Map<String, BaseBarRendererElement>>{};
+        <D, Map<String, BaseBarRendererElement<dynamic>>>{};
     final categoryToIndexMap = <String, int>{};
 
     // Keep track of the largest bar stack size. This should be 1 for grouped
@@ -141,7 +141,7 @@ abstract class BaseBarRenderer<D, R extends BaseBarRendererElement<D>,
     final orderedSeriesList = getOrderedSeriesList(seriesList);
 
     for (final series in orderedSeriesList) {
-      final elements = <BaseBarRendererElement>[];
+      final elements = <BaseBarRendererElement<dynamic>>[];
 
       final domainFn = series.domainFn;
       final measureFn = series.measureFn;
@@ -207,7 +207,7 @@ abstract class BaseBarRenderer<D, R extends BaseBarRendererElement<D>,
 
           final categoryToDetailsMap = domainToCategoryToDetailsMap.putIfAbsent(
             domain,
-            () => <String, BaseBarRendererElement>{},
+            () => <String, BaseBarRendererElement<dynamic>>{},
           );
 
           final prevDetail = categoryToDetailsMap[stackKey];
@@ -475,7 +475,8 @@ abstract class BaseBarRenderer<D, R extends BaseBarRendererElement<D>,
 
         // Get the barElement we are going to setup.
         // Optimization to prevent allocation in non-animating case.
-        final BaseBarRendererElement barElement = makeBarRendererElement(
+        final BaseBarRendererElement<dynamic> barElement =
+            makeBarRendererElement(
           barGroupIndex: barGroupIndex!,
           previousBarGroupWeight: previousBarGroupWeight,
           barGroupWeight: barGroupWeight,

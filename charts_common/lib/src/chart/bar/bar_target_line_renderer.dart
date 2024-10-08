@@ -29,6 +29,7 @@ import 'package:nimble_charts_common/src/chart/bar/base_bar_renderer_element.dar
     show BaseAnimatedBar, BaseBarRendererElement;
 import 'package:nimble_charts_common/src/chart/cartesian/axis/axis.dart'
     show ImmutableAxis, domainAxisKey, measureAxisKey;
+import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
 import 'package:nimble_charts_common/src/chart/common/chart_canvas.dart'
     show ChartCanvas, FillPatternType;
 import 'package:nimble_charts_common/src/chart/common/datum_details.dart'
@@ -47,12 +48,12 @@ import 'package:nimble_charts_common/src/common/math.dart' show NullablePoint;
 /// Usually paired with a BarRenderer to display target metrics alongside actual
 /// metrics.
 class BarTargetLineRenderer<D> extends BaseBarRenderer<D,
-    BarTargetLineRendererElement, AnimatedBarTargetLine<D>> {
+    BarTargetLineRendererElement<D>, AnimatedBarTargetLine<D>> {
   factory BarTargetLineRenderer({
-    BarTargetLineRendererConfig<D>? config,
+    BarTargetLineRendererConfig<D, BaseRendererElement<D>>? config,
     String? rendererId,
   }) {
-    config ??= BarTargetLineRendererConfig<D>();
+    config ??= BarTargetLineRendererConfig<D, BaseRendererElement<D>>();
     rendererId ??= 'barTargetLine';
     return BarTargetLineRenderer._internal(
       config: config,
@@ -61,7 +62,7 @@ class BarTargetLineRenderer<D> extends BaseBarRenderer<D,
   }
 
   BarTargetLineRenderer._internal({
-    required BarTargetLineRendererConfig<D> super.config,
+    required super.config,
     required super.rendererId,
   })  : _barGroupInnerPaddingPx = config.barGroupInnerPaddingPx,
         super(
@@ -142,8 +143,9 @@ class BarTargetLineRenderer<D> extends BaseBarRenderer<D,
   }
 
   @override
-  BarTargetLineRendererElement getBaseDetails(dynamic datum, int index) {
-    final localConfig = config as BarTargetLineRendererConfig<D>;
+  BarTargetLineRendererElement<D> getBaseDetails(dynamic datum, int index) {
+    final localConfig =
+        config as BarTargetLineRendererConfig<D, BaseRendererElement<D>>;
     return BarTargetLineRendererElement(
       roundEndCaps: localConfig.roundEndCaps,
     );
@@ -463,7 +465,7 @@ class BarTargetLineRendererElement<D> extends BaseBarRendererElement<D> {
 }
 
 class AnimatedBarTargetLine<D>
-    extends BaseAnimatedBar<D, BarTargetLineRendererElement> {
+    extends BaseAnimatedBar<D, BarTargetLineRendererElement<D>> {
   AnimatedBarTargetLine({
     required super.key,
     required super.datum,

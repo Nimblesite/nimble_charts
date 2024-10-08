@@ -13,15 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:nimble_charts_common/src/chart/bar/bar_target_line_renderer.dart'
-    show BarTargetLineRenderer;
-import 'package:nimble_charts_common/src/chart/bar/base_bar_renderer_config.dart'
-    show BaseBarRendererConfig;
+import 'package:nimble_charts_common/common.dart';
 import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
-import 'package:nimble_charts_common/src/chart/layout/layout_view.dart'
-    show LayoutViewPaintOrder;
-import 'package:nimble_charts_common/src/common/symbol_renderer.dart'
-    show LineSymbolRenderer, SymbolRenderer;
 
 /// Configuration for a bar target line renderer.
 class BarTargetLineRendererConfig<D,
@@ -61,7 +54,7 @@ class BarTargetLineRendererConfig<D,
   final bool roundEndCaps;
 
   @override
-  BarTargetLineRenderer<D> build() =>
+  SeriesRenderer<D, BaseRendererElement<D>> build() =>
       BarTargetLineRenderer<D>(config: this, rendererId: customRendererId);
 
   @override

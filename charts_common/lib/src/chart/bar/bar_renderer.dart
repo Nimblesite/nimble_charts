@@ -13,13 +13,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:math' show Rectangle, max, min;
+import 'dart:math' show Point, Rectangle, max, min;
 
 import 'package:meta/meta.dart' show protected;
-import 'package:nimble_charts_common/src/chart/bar/bar_renderer_config.dart'
-    show BarRendererConfig, CornerStrategy;
-import 'package:nimble_charts_common/src/chart/bar/bar_renderer_decorator.dart'
-    show BarRendererDecorator;
+import 'package:nimble_charts_common/common.dart';
 import 'package:nimble_charts_common/src/chart/bar/base_bar_renderer.dart'
     show
         BaseBarRenderer,
@@ -30,25 +27,12 @@ import 'package:nimble_charts_common/src/chart/bar/base_bar_renderer.dart'
         previousBarGroupWeightKey;
 import 'package:nimble_charts_common/src/chart/bar/base_bar_renderer_element.dart'
     show BaseAnimatedBar, BaseBarRendererElement;
-import 'package:nimble_charts_common/src/chart/cartesian/axis/axis.dart'
-    show ImmutableAxis, domainAxisKey, measureAxisKey;
 import 'package:nimble_charts_common/src/chart/common/base_renderer_element.dart';
-import 'package:nimble_charts_common/src/chart/common/canvas_shapes.dart'
-    show CanvasBarStack, CanvasRect;
-import 'package:nimble_charts_common/src/chart/common/chart_canvas.dart'
-    show ChartCanvas, FillPatternType;
-import 'package:nimble_charts_common/src/chart/common/datum_details.dart'
-    show DatumDetails;
-import 'package:nimble_charts_common/src/chart/common/processed_series.dart'
-    show ImmutableSeries, MutableSeries;
-import 'package:nimble_charts_common/src/chart/common/series_datum.dart'
-    show SeriesDatum;
-import 'package:nimble_charts_common/src/common/color.dart' show Color;
-import 'package:nimble_charts_common/src/common/math.dart' show NullablePoint;
 
 /// Renders series data as a series of bars.
 class BarRenderer<D>
-    extends BaseBarRenderer<D, BarRendererElement<D>, AnimatedBar<D>> {
+    extends BaseBarRenderer<D, BarRendererElement<D>, AnimatedBar<D>>
+    implements SeriesRenderer<D, BaseRendererElement<D>> {
   factory BarRenderer({BarRendererConfig<D>? config, String? rendererId}) {
     rendererId ??= 'bar';
     config ??= BarRendererConfig();
@@ -607,6 +591,106 @@ class BarRendererElement<D> extends BaseBarRendererElement<D>
 
     super.updateAnimationPercent(previous, target, animationPercent);
   }
+
+  @override
+  GraphicsFactory? graphicsFactory;
+
+  //TODO: remove late here. It's super dangerous
+  @override
+  late String rendererId;
+
+  @override
+  SymbolRenderer? symbolRenderer;
+
+  @override
+  DatumDetails<D> addPositionToDetailsForSeriesDatum(
+    DatumDetails<D> details,
+    SeriesDatum<D> seriesDatum,
+  ) {
+    // TODO: implement addPositionToDetailsForSeriesDatum
+    throw UnimplementedError();
+  }
+
+  @override
+  // TODO: implement componentBounds
+  Rectangle<int>? get componentBounds => throw UnimplementedError();
+
+  @override
+  void configureDomainAxes(List<MutableSeries<D>> seriesList) {
+    // TODO: implement configureDomainAxes
+  }
+
+  @override
+  void configureMeasureAxes(List<MutableSeries<D>> seriesList) {
+    // TODO: implement configureMeasureAxes
+  }
+
+  @override
+  void configureSeries(List<MutableSeries<D>> seriesList) {
+    // TODO: implement configureSeries
+  }
+
+  @override
+  DatumDetails<D> getDetailsForSeriesDatum(SeriesDatum<D> seriesDatum) {
+    // TODO: implement getDetailsForSeriesDatum
+    throw UnimplementedError();
+  }
+
+  @override
+  List<DatumDetails<D>> getNearestDatumDetailPerSeries(
+    Point<double> chartPoint,
+    bool byDomain,
+    Rectangle<int>? boundsOverride, {
+    bool selectOverlappingPoints = false,
+    bool selectExactEventLocation = false,
+  }) {
+    // TODO: implement getNearestDatumDetailPerSeries
+    throw UnimplementedError();
+  }
+
+  @override
+  // TODO: implement isSeriesRenderer
+  bool get isSeriesRenderer => throw UnimplementedError();
+
+  @override
+  void layout(Rectangle<int> componentBounds, Rectangle<int> drawAreaBounds) {
+    // TODO: implement layout
+  }
+
+  @override
+  // TODO: implement layoutConfig
+  LayoutViewConfig get layoutConfig => throw UnimplementedError();
+
+  @override
+  ViewMeasuredSizes? measure(int maxWidth, int maxHeight) {
+    // TODO: implement measure
+    throw UnimplementedError();
+  }
+
+  @override
+  void onAttach(BaseChart<D, BaseBarRendererElement<D>> chart) {
+    // TODO: implement onAttach
+  }
+
+  @override
+  void onDetach(BaseChart<D, BaseBarRendererElement<D>> chart) {
+    // TODO: implement onDetach
+  }
+
+  @override
+  void paint(ChartCanvas canvas, double animationPercent) {
+    // TODO: implement paint
+  }
+
+  @override
+  void preprocessSeries(List<MutableSeries<D>> seriesList) {
+    // TODO: implement preprocessSeries
+  }
+
+  @override
+  void update(List<ImmutableSeries<D>> seriesList, bool isAnimating) {
+    // TODO: implement update
+  }
 }
 
 class AnimatedBar<D> extends BaseAnimatedBar<D, BarRendererElement<D>> {
@@ -618,8 +702,8 @@ class AnimatedBar<D> extends BaseAnimatedBar<D, BarRendererElement<D>> {
   });
 
   @override
-  void animateElementToMeasureAxisPosition(BaseBarRendererElement target) {
-    final localTarget = target as BarRendererElement<D>;
+  void animateElementToMeasureAxisPosition(BarRendererElement<D> target) {
+    final localTarget = target;
 
     // TODO: Animate out bars in the middle of a stack.
     localTarget.bounds = Rectangle<int>(

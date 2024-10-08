@@ -131,8 +131,9 @@ abstract class SeriesRenderer<D,
 
 /// Concrete base class for [SeriesRenderer]s that implements common
 /// functionality.
-abstract class BaseSeriesRenderer<D, D2 extends BaseRendererElement<D>>
-    implements SeriesRenderer<D, D2> {
+abstract class BaseSeriesRenderer<D,
+        TRendererElement extends BaseRendererElement<D>>
+    implements SeriesRenderer<D, TRendererElement> {
   BaseSeriesRenderer({
     required this.rendererId,
     required int layoutPaintOrder,
@@ -159,10 +160,10 @@ abstract class BaseSeriesRenderer<D, D2 extends BaseRendererElement<D>>
   GraphicsFactory? graphicsFactory;
 
   @override
-  void onAttach(BaseChart<D, D2> chart) {}
+  void onAttach(BaseChart<D, TRendererElement> chart) {}
 
   @override
-  void onDetach(BaseChart<D, D2> chart) {}
+  void onDetach(BaseChart<D, TRendererElement> chart) {}
 
   /// Assigns colors to series that are missing their colorFn.
   ///

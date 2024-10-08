@@ -45,7 +45,7 @@ import 'package:nimble_charts_common/src/common/symbol_renderer.dart'
 abstract class BaseBarRendererConfig<D,
         TBaseRendererElement extends BaseRendererElement<D>>
     extends LayoutViewConfig
-    implements SeriesRendererConfig<D, TBaseRendererElement> {
+    implements SeriesRendererConfig<D> {
   BaseBarRendererConfig({
     this.barGroupInnerPaddingPx = 2,
     this.customRendererId,

@@ -127,7 +127,7 @@ class RangeAnnotation<D, TRendererElement extends BaseRendererElement<D>>
   /// (e.g. LayoutViewPaintOrder.rangeAnnotation + 1)
   final int layoutPaintOrder;
 
-  late CartesianChart<D, TRendererElement> _chart;
+  late CartesianChart<D> _chart;
 
   late _RangeAnnotationLayoutView<D, TRendererElement> _view;
 
@@ -397,7 +397,7 @@ class _RangeAnnotationLayoutView<D,
 
   final int layoutPaintOrder;
 
-  CartesianChart<D, TRendererElement>? chart;
+  CartesianChart<D>? chart;
 
   bool get isRtl => chart!.context.isRtl;
 

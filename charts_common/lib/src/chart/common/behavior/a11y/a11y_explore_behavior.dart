@@ -22,7 +22,6 @@ import 'package:nimble_charts_common/src/chart/common/behavior/a11y/a11y_node.da
     show A11yNode;
 import 'package:nimble_charts_common/src/chart/common/behavior/chart_behavior.dart'
     show ChartBehavior;
-import 'package:nimble_charts_common/src/chart/pie/arc_renderer_element.dart';
 import 'package:nimble_charts_common/src/common/gesture_listener.dart'
     show GestureListener;
 

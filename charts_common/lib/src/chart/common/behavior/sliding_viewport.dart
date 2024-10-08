@@ -34,7 +34,7 @@ class SlidingViewport<D, TRendererElement extends BaseRendererElement<D>>
   SlidingViewport([this.selectionModelType = SelectionModelType.info]);
   final SelectionModelType selectionModelType;
 
-  late CartesianChart<D, TRendererElement> _chart;
+  late CartesianChart<D> _chart;
 
   void _selectionChanged(SelectionModel<D> selectionModel) {
     if (!selectionModel.hasAnySelection) {
@@ -62,8 +62,8 @@ class SlidingViewport<D, TRendererElement extends BaseRendererElement<D>>
 
   @override
   void attachTo(BaseChart<D, TRendererElement> chart) {
-    assert(chart is CartesianChart<D, TRendererElement>);
-    _chart = chart as CartesianChart<D, TRendererElement>;
+    assert(chart is CartesianChart<D>);
+    _chart = chart as CartesianChart<D>;
     chart
         .getSelectionModel(selectionModelType)
         .addSelectionChangedListener(_selectionChanged);

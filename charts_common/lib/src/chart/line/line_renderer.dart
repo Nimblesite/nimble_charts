@@ -50,15 +50,14 @@ const styleSegmentsKey = AttributeKey<List<_LineRendererElement<Object>>>(
 
 const lineStackIndexKey = AttributeKey<int>('LineRenderer.lineStackIndex');
 
-class LineRenderer<D, TRendererElement extends BaseRendererElement<D>>
-    extends BaseCartesianRenderer<D, TRendererElement> {
+class LineRenderer<D> extends BaseCartesianRenderer<D> {
   factory LineRenderer({
     String? rendererId,
-    LineRendererConfig<D, TRendererElement>? config,
+    LineRendererConfig<D, BaseRendererElement<D>>? config,
   }) =>
       LineRenderer._internal(
         rendererId: rendererId ?? 'line',
-        config: config ?? LineRendererConfig<D, TRendererElement>(),
+        config: config ?? LineRendererConfig<D, BaseRendererElement<D>>(),
       );
 
   LineRenderer._internal({required super.rendererId, required this.config})

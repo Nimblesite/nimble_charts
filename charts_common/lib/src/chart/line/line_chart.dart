@@ -32,7 +32,7 @@ class LineChart<TBaseRendererElement extends BaseRendererElement<num>>
   });
 
   @override
-  SeriesRenderer<num, TBaseRendererElement> makeDefaultRenderer() =>
-      LineRenderer<num, TBaseRendererElement>()
+  SeriesRenderer<num, BaseRendererElement<num>> makeDefaultRenderer() =>
+      LineRenderer<num>()
         ..rendererId = SeriesRenderer.defaultRendererId;
 }

@@ -37,10 +37,9 @@ abstract class CartesianRenderer<D,
   void configureMeasureAxes(List<MutableSeries<D>> seriesList);
 }
 
-abstract class BaseCartesianRenderer<D,
-        TRenderElement extends BaseRendererElement<D>>
-    extends BaseSeriesRenderer<D, TRenderElement>
-    implements CartesianRenderer<D, TRenderElement> {
+abstract class BaseCartesianRenderer<D>
+    extends BaseSeriesRenderer<D, BaseRendererElement<D>>
+    implements CartesianRenderer<D, BaseRendererElement<D>> {
   BaseCartesianRenderer({
     required super.rendererId,
     required super.layoutPaintOrder,
@@ -48,16 +47,18 @@ abstract class BaseCartesianRenderer<D,
   });
 
   @protected
-  late CartesianChart<D, TRenderElement> chart;
+  late CartesianChart<D> chart;
 
   @override
-  void onAttach(BaseChart<D, TRenderElement> chart) {
+  void onAttach(BaseChart<D, BaseRendererElement<D>> chart) {
     super.onAttach(chart);
+
+    //TODO casting is dangerous here
 
     // Save a reference to the parent chart so that we can access properties
     // that are not set until a later state (e.g. isRtl), or that might change
     // dynamically (e.g. vertical).
-    this.chart = chart as CartesianChart<D, TRenderElement>;
+    this.chart = chart as CartesianChart<D>;
   }
 
   // True when the chart should be rendered in vertical mode, false when in
