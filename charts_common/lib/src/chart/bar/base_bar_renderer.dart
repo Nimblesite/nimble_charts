@@ -73,7 +73,7 @@ abstract class BaseBarRenderer<D, R extends BaseBarRendererElement<D>,
   // `config` can't be a `BaseBarRendererConfig<D>` because `BarLaneRenderer<D>`
   // passes a `BarLaneRendererConfig`, but `BarLaneRendererConfig` is a
   // `BarRendererConfig<String>`.
-  final BarRendererConfig<R> config;
+  final BarRendererConfig<Object?> config;
 
   // Save the chart.vertical value at the start of every draw cycle. If it
   // changes, delete all of the cached rendering element information so that we
