@@ -13,7 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/widgets.dart' show hashValues;
 import 'package:nimble_charts/src/behaviors/chart_behavior.dart'
     show ChartBehavior, GestureType;
 import 'package:nimble_charts_common/common.dart' as common
@@ -110,7 +109,7 @@ class DomainA11yExploreBehavior<D> extends ChartBehavior<D> {
       exploreModeDisabledAnnouncement == other.exploreModeDisabledAnnouncement;
 
   @override
-  int get hashCode => hashValues(
+  int get hashCode => Object.hash(
         minimumWidth,
         vocalizationCallback,
         exploreModeTrigger,

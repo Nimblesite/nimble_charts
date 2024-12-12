@@ -279,7 +279,7 @@ class DatumLegend<D> extends ChartBehavior<D> {
       entryTextStyle == other.entryTextStyle;
 
   @override
-  int get hashCode => hashValues(
+  int get hashCode => Object.hash(
         selectionModelType,
         contentBuilder,
         position,

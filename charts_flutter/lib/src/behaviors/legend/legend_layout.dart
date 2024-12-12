@@ -99,7 +99,7 @@ class TabularLegendLayout implements LegendLayout {
       cellPadding == other.cellPadding;
 
   @override
-  int get hashCode => hashValues(
+  int get hashCode => Object.hash(
         desiredMaxRows,
         desiredMaxColumns,
         isHorizontalFirst,

@@ -14,7 +14,6 @@
 // limitations under the License.
 
 import 'package:collection/collection.dart' show ListEquality;
-import 'package:flutter/widgets.dart' show hashValues;
 import 'package:meta/meta.dart' show immutable;
 import 'package:nimble_charts/src/behaviors/chart_behavior.dart'
     show ChartBehavior, GestureType;
@@ -115,7 +114,7 @@ class RangeAnnotation<D> extends ChartBehavior<D> {
       layoutPaintOrder == other.layoutPaintOrder;
 
   @override
-  int get hashCode => hashValues(
+  int get hashCode => Object.hash(
         annotations,
         defaultColor,
         extendAxis,

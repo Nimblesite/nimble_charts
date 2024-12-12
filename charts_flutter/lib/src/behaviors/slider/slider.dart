@@ -15,7 +15,6 @@
 
 import 'dart:math' show Rectangle;
 
-import 'package:flutter/widgets.dart' show hashValues;
 import 'package:meta/meta.dart' show immutable;
 import 'package:nimble_charts/src/behaviors/chart_behavior.dart'
     show ChartBehavior, GestureType;
@@ -197,7 +196,7 @@ class Slider<D> extends ChartBehavior<D> {
       layoutPaintOrder == other.layoutPaintOrder;
 
   @override
-  int get hashCode => hashValues(
+  int get hashCode => Object.hash(
         eventTrigger,
         handleRenderer,
         initialDomainValue,

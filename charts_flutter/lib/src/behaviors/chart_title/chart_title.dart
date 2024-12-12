@@ -13,7 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/widgets.dart' show hashValues;
 import 'package:meta/meta.dart' show immutable;
 import 'package:nimble_charts/src/behaviors/chart_behavior.dart'
     show ChartBehavior, GestureType;
@@ -184,7 +183,7 @@ class ChartTitle<D> extends ChartBehavior<D> {
       outerPadding == other.outerPadding;
 
   @override
-  int get hashCode => hashValues(
+  int get hashCode => Object.hash(
         behaviorPosition,
         layoutMinSize,
         layoutPreferredSize,

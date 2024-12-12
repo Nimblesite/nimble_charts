@@ -107,7 +107,7 @@ class LinePointHighlighter<D> extends ChartBehavior<D> {
       drawFollowLinesAcrossChart == other.drawFollowLinesAcrossChart;
 
   @override
-  int get hashCode => hashValues(
+  int get hashCode => Object.hash(
         selectionModelType,
         defaultRadiusPx,
         radiusPaddingPx,

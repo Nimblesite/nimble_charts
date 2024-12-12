@@ -98,5 +98,5 @@ class TabularLegendContentBuilder extends BaseLegendContentBuilder {
       legendLayout == other.legendLayout;
 
   @override
-  int get hashCode => hashValues(legendEntryLayout, legendLayout);
+  int get hashCode => Object.hash(legendEntryLayout, legendLayout);
 }
