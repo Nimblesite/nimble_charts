@@ -14,7 +14,7 @@
 // limitations under the License.
 
 /// Example of a line chart with pan and zoom enabled via
-/// [Charts.PanAndZoomBehavior].
+/// [charts.PanAndZoomBehavior].
 library;
 
 // EXCLUDE_FROM_GALLERY_DOCS_START

@@ -20,7 +20,7 @@
 /// flag. This can be set to false to disable range extension.
 ///
 /// Additional annotations may be added simply by adding additional
-/// [Charts.RangeAnnotationSegment] items to the list.
+/// [charts.RangeAnnotationSegment] items to the list.
 library;
 
 // EXCLUDE_FROM_GALLERY_DOCS_START
