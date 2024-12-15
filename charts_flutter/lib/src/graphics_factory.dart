@@ -21,34 +21,61 @@ import 'package:nimble_charts/src/text_style.dart' show TextStyle;
 import 'package:nimble_charts_common/common.dart' as common
     show GraphicsFactory, LineStyle, TextElement, TextStyle;
 
+/// A Flutter implementation of [common.GraphicsFactory] that creates graphics 
+/// elements for chart rendering.
+///
+/// This factory creates text elements, text styles, and line styles that are 
+/// used to render various chart components in a Flutter environment.
 class GraphicsFactory implements common.GraphicsFactory {
+  /// Creates a new [GraphicsFactory] with the given build context.
+  ///
+  /// [context] The build context used to access text styling information.
+  /// [helper] Optional helper for accessing MediaQuery information.
   GraphicsFactory(
     BuildContext context, {
     GraphicsFactoryHelper helper = const GraphicsFactoryHelper(),
   })  : textScaleFactor = helper.getTextScaleFactorOf(context),
         defaultTextStyle = DefaultTextStyle.of(context);
+
+  /// The text scale factor from the MediaQuery.
   final double textScaleFactor;
+
+  /// The default text style from the build context.
   final DefaultTextStyle defaultTextStyle;
 
-  /// Returns a [TextStyle] object.
+  /// Creates a new [TextStyle] with default properties.
+  ///
+  /// The text style will inherit the font family from the default text style.
   @override
   common.TextStyle createTextPaint() =>
       TextStyle()..fontFamily = defaultTextStyle.style.fontFamily;
 
-  /// Returns a text element from [text].
+  /// Creates a new [TextElement] with the given text.
+  ///
+  /// [text] The text content for the element.
+  /// The text element will use the current text scale factor and default text 
+  /// style.
   @override
   common.TextElement createTextElement(String text) =>
       TextElement(text, textScaleFactor: textScaleFactor)
         ..textStyle = createTextPaint();
 
+  /// Creates a new [LineStyle] with default properties.
   @override
   common.LineStyle createLinePaint() => LineStyle();
 }
 
-/// Wraps the MediaQuery function to allow for testing.
+/// Helper class for accessing MediaQuery information.
+///
+/// This class wraps MediaQuery functionality to allow for testing and
+/// dependency injection.
 class GraphicsFactoryHelper {
+  /// Creates a new [GraphicsFactoryHelper].
   const GraphicsFactoryHelper();
 
+  /// Gets the text scale factor from the MediaQuery of the given context.
+  ///
+  /// [context] The build context to get the text scale factor from.
   double getTextScaleFactorOf(BuildContext context) =>
       MediaQuery.textScaleFactorOf(context);
 }

@@ -40,17 +40,42 @@ import 'package:nimble_charts_common/common.dart' as common
         TextDirection,
         TextElement;
 
+/// A Flutter implementation of [common.ChartCanvas] that delegates drawing to 
+/// a [Canvas].
+///
+/// This class provides the core drawing functionality for charts in Flutter,
+/// implementing various drawing methods for shapes, lines, text, and other 
+/// chart elements.
 class ChartCanvas implements common.ChartCanvas {
+  /// Creates a new [ChartCanvas] that will draw on the given [canvas].
+  ///
+  /// [canvas] The Flutter canvas to draw on.
+  /// [graphicsFactory] Factory used to create graphics elements.
   ChartCanvas(this.canvas, this.graphicsFactory);
 
   /// Pixels to allow to overdraw above the draw area that fades to transparent.
   static const double rect_top_gradient_pixels = 5;
 
+  /// The Flutter canvas to draw on.
   final Canvas canvas;
+
+  /// Factory used to create graphics elements.
   @override
   final common.GraphicsFactory graphicsFactory;
+
+  /// Paint object used for all drawing operations.
   final _paint = Paint();
 
+  /// Draws a sector of a circle, with optional fill and stroke.
+  ///
+  /// [center] The center point of the circle.
+  /// [radius] The radius of the circle.
+  /// [innerRadius] The inner radius for hollow circles.
+  /// [startAngle] The starting angle in radians.
+  /// [endAngle] The ending angle in radians.
+  /// [fill] The fill color.
+  /// [stroke] The stroke color.
+  /// [strokeWidthPx] The stroke width in pixels.
   @override
   void drawCircleSector(
     Point center,
@@ -84,6 +109,15 @@ class ChartCanvas implements common.ChartCanvas {
     throw UnimplementedError('Flutter drawLink() has not been implemented.');
   }
 
+  /// Draws a line with the specified style and points.
+  ///
+  /// [points] The points to draw the line through.
+  /// [clipBounds] The clip bounds to apply.
+  /// [fill] The fill color.
+  /// [stroke] The stroke color.
+  /// [roundEndCaps] Whether to use round end caps.
+  /// [strokeWidthPx] The stroke width in pixels.
+  /// [dashPattern] The dash pattern to use.
   @override
   void drawLine({
     required List<Point> points,
@@ -107,11 +141,22 @@ class ChartCanvas implements common.ChartCanvas {
     );
   }
 
+  /// Draws a pie chart segment.
+  ///
+  /// [canvasPie] The pie segment to draw.
   @override
   void drawPie(common.CanvasPie canvasPie) {
     PiePainter.draw(canvas, _paint, canvasPie);
   }
 
+  /// Draws a point at the specified location.
+  ///
+  /// [point] The point location.
+  /// [radius] The radius of the point.
+  /// [fill] The fill color.
+  /// [stroke] The stroke color.
+  /// [strokeWidthPx] The stroke width in pixels.
+  /// [blendMode] The blend mode to use.
   @override
   void drawPoint({
     required Point point,
@@ -162,6 +207,14 @@ class ChartCanvas implements common.ChartCanvas {
         ],
       );
 
+  /// Draws a rectangle with the specified bounds and style.
+  ///
+  /// [bounds] The bounds of the rectangle.
+  /// [fill] The fill color.
+  /// [pattern] The fill pattern type.
+  /// [stroke] The stroke color.
+  /// [strokeWidthPx] The stroke width in pixels.
+  /// [drawAreaBounds] Optional bounds for gradient drawing area.
   @override
   void drawRect(
     Rectangle<num> bounds, {
@@ -242,6 +295,20 @@ class ChartCanvas implements common.ChartCanvas {
     _paint.shader = null;
   }
 
+  /// Draws a rounded rectangle with the specified bounds and style.
+  ///
+  /// [bounds] The bounds of the rectangle.
+  /// [fill] The fill color.
+  /// [stroke] The stroke color.
+  /// [patternColor] The pattern color.
+  /// [fillPattern] The fill pattern type.
+  /// [patternStrokeWidthPx] The pattern stroke width in pixels.
+  /// [strokeWidthPx] The stroke width in pixels.
+  /// [radius] The corner radius.
+  /// [roundTopLeft] Whether to round the top left corner.
+  /// [roundTopRight] Whether to round the top right corner.
+  /// [roundBottomLeft] Whether to round the bottom left corner.
+  /// [roundBottomRight] Whether to round the bottom right corner.
   @override
   void drawRRect(
     Rectangle<num> bounds, {
@@ -275,6 +342,10 @@ class ChartCanvas implements common.ChartCanvas {
     );
   }
 
+  /// Draws a stack of bars with the specified configuration.
+  ///
+  /// [barStack] The stack of bars to draw.
+  /// [drawAreaBounds] Optional bounds for gradient drawing area.
   @override
   void drawBarStack(
     common.CanvasBarStack barStack, {
@@ -320,6 +391,12 @@ class ChartCanvas implements common.ChartCanvas {
     }
   }
 
+  /// Draws text with the specified configuration.
+  ///
+  /// [textElement] The text element to draw.
+  /// [offsetX] The x offset.
+  /// [offsetY] The y offset.
+  /// [rotation] The rotation angle in radians.
   @override
   void drawText(
     common.TextElement textElement,

@@ -22,13 +22,26 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:nimble_charts/flutter.dart' as charts;
 
+/// A bar chart example demonstrating a series legend with a default hidden
+/// series.
+///
+/// The chart displays multiple series of data with a legend, where one series
+/// is hidden by default when the chart is first rendered.
 class DefaultHiddenSeriesLegend extends StatelessWidget {
+  /// Creates a [DefaultHiddenSeriesLegend] with the given series list.
+  ///
+  /// [seriesList] The list of series to display in the chart.
+  /// [animate] Determines whether the chart will animate when data changes.
   const DefaultHiddenSeriesLegend(
     this.seriesList, {
     super.key,
     this.animate = true,
   });
 
+  /// Creates a [DefaultHiddenSeriesLegend] with sample data.
+  ///
+  /// Creates a bar chart with sample data that demonstrates the default hidden
+  /// series behavior.
   factory DefaultHiddenSeriesLegend.withSampleData() =>
       DefaultHiddenSeriesLegend(
         _createSampleData(),
@@ -178,9 +191,20 @@ class DefaultHiddenSeriesLegend extends StatelessWidget {
   }
 }
 
-/// Sample ordinal data type.
+/// Sample ordinal data type representing sales data for a given year.
+///
+/// This class is used to represent a single data point in the chart,
+/// containing a year and its corresponding sales value.
 class OrdinalSales {
+  /// Creates a new [OrdinalSales] data point.
+  ///
+  /// [year] The year for this sales data point.
+  /// [sales] The sales amount for this data point.
   OrdinalSales(this.year, this.sales);
+
+  /// The year of this sales data point.
   final String year;
+
+  /// The sales amount for this data point.
   final int sales;
 }

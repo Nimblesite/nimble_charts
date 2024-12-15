@@ -114,9 +114,17 @@ class TimeSeriesLineAnnotationChart extends StatelessWidget {
   }
 }
 
-/// Sample time series data type.
+/// Sample time series data type representing sales data over time.
 class TimeSeriesSales {
+  /// Creates a new sales data point with time and sales amount.
+  ///
+  /// [time] The datetime of this sales data point.
+  /// [sales] The sales amount for this data point.
   TimeSeriesSales(this.time, this.sales);
+
+  /// The datetime of this sales data point.
   final DateTime time;
+
+  /// The sales amount for this data point.
   final int sales;
 }

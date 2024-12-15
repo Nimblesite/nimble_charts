@@ -61,18 +61,41 @@ class ChartContainer<D> extends CustomPaint {
   }
 }
 
-/// [RenderCustomPaint] that implements common [common.ChartContext].
+/// A [RenderCustomPaint] that implements [common.ChartContext] for rendering 
+/// charts.
+///
+/// This class is responsible for managing the rendering state of a chart and
+/// providing the necessary context for chart behaviors and interactions.
 class ChartContainerRenderObject<D> extends RenderCustomPaint
     implements common.ChartContext {
+  /// The underlying common chart implementation.
   common.BaseChart<D>? _chart;
+
+  /// The list of series to be rendered.
   List<common.Series<dynamic, D>>? _seriesList;
+
+  /// The state of the chart.
   late BaseChartState<D> _chartState;
+
+  /// Whether the chart container is in RTL mode.
   bool _chartContainerIsRtl = false;
+
+  /// RTL specification for the chart.
   common.RTLSpec? _rtlSpec;
+
+  /// Factory for creating DateTime objects.
   common.DateTimeFactory? _dateTimeFactory;
+
+  /// Whether the chart is in explore mode.
   bool _exploreMode = false;
+
+  /// List of accessibility nodes.
   List<common.A11yNode>? _a11yNodes;
 
+  /// Reconfigures the chart container with new configuration.
+  ///
+  /// [config] The new configuration.
+  /// [context] The build context.
   void reconfigure(ChartContainer<D> config, BuildContext context) {
     _chartState = config.chartState;
 
@@ -299,6 +322,7 @@ class ChartContainerRenderObject<D> extends RenderCustomPaint
     }
   }
 
+  /// Sets a new painter for the chart container.
   void _setNewPainter() {
     painter = ChartContainerCustomPaint(
       oldPainter: painter as ChartContainerCustomPaint?,
@@ -310,7 +334,19 @@ class ChartContainerRenderObject<D> extends RenderCustomPaint
   }
 }
 
+/// A custom painter for chart containers.
+///
+/// This class is responsible for painting the chart and managing its state.
 class ChartContainerCustomPaint extends CustomPainter {
+  /// Creates a new [ChartContainerCustomPaint].
+  ///
+  /// If an [oldPainter] is provided with matching properties, returns the old 
+  /// painter instead of creating a new one.
+  ///
+  /// [chart] The chart to paint.
+  /// [exploreMode] Whether the chart is in explore mode.
+  /// [a11yNodes] List of accessibility nodes.
+  /// [textDirection] The text direction for the chart.
   factory ChartContainerCustomPaint({
     required common.BaseChart chart,
     ChartContainerCustomPaint? oldPainter,
@@ -333,17 +369,27 @@ class ChartContainerCustomPaint extends CustomPainter {
     }
   }
 
+  /// Internal constructor for [ChartContainerCustomPaint].
   ChartContainerCustomPaint._internal({
     required this.chart,
     required this.exploreMode,
     required this.a11yNodes,
     required this.textDirection,
   });
+
+  /// The chart to paint.
   final common.BaseChart chart;
+
+  /// Whether the chart is in explore mode.
   final bool exploreMode;
+
+  /// List of accessibility nodes.
   final List<common.A11yNode> a11yNodes;
+
+  /// The text direction for the chart.
   final TextDirection textDirection;
 
+  /// Paints the chart on the canvas.
   @override
   void paint(Canvas canvas, Size size) {
     common.Performance.time('chartsPaint');
@@ -352,20 +398,22 @@ class ChartContainerCustomPaint extends CustomPainter {
     common.Performance.timeEnd('chartsPaint');
   }
 
-  /// Common chart requests rebuild that handle repaint requests.
+  /// Whether the chart should be repainted.
   @override
   bool shouldRepaint(ChartContainerCustomPaint oldPainter) => false;
 
-  /// Rebuild semantics when explore mode is toggled semantic properties change.
+  /// Whether the semantics should be rebuilt.
   @override
   bool shouldRebuildSemantics(ChartContainerCustomPaint oldDelegate) =>
       exploreMode != oldDelegate.exploreMode ||
       a11yNodes != oldDelegate.a11yNodes ||
       textDirection != textDirection;
 
+  /// Builds the semantics for the chart.
   @override
   SemanticsBuilderCallback get semanticsBuilder => _buildSemantics;
 
+  /// Builds the semantic nodes for the chart.
   List<CustomPainterSemantics> _buildSemantics(Size size) {
     final nodes = <CustomPainterSemantics>[];
 
