@@ -29,6 +29,7 @@ class SlidingViewport<D> extends ChartBehavior<D> {
   @override
   final desiredGestures = <GestureType>{};
 
+  /// The type of selection model to monitor for viewport changes.
   final common.SelectionModelType selectionModelType;
 
   @override

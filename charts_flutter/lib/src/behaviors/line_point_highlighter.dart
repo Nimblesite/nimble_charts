@@ -40,6 +40,7 @@ class LinePointHighlighter<D> extends ChartBehavior<D> {
   @override
   final desiredGestures = <GestureType>{};
 
+  /// The type of selection model to monitor for highlighting.
   final common.SelectionModelType? selectionModelType;
 
   /// Default radius of the dots if the series has no radius mapping function.
@@ -54,8 +55,10 @@ class LinePointHighlighter<D> extends ChartBehavior<D> {
   /// defined.
   final double? radiusPaddingPx;
 
+  /// Type of horizontal follow line to draw for highlighted points.
   final common.LinePointHighlighterFollowLineType? showHorizontalFollowLine;
 
+  /// Type of vertical follow line to draw for highlighted points.
   final common.LinePointHighlighterFollowLineType? showVerticalFollowLine;
 
   /// The dash pattern to be used for drawing the line.

@@ -30,6 +30,7 @@ class DomainHighlighter<D> extends ChartBehavior<D> {
   @override
   final desiredGestures = <GestureType>{};
 
+  /// The type of selection model to monitor for highlighting.
   final common.SelectionModelType selectionModelType;
 
   @override

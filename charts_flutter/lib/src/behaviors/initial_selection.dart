@@ -32,9 +32,16 @@ class InitialSelection<D> extends ChartBehavior<D> {
   @override
   final desiredGestures = <GestureType>{};
 
+  /// The type of selection model to set initial selection for.
   final common.SelectionModelType selectionModelType;
+
+  /// List of series IDs that should be initially selected.
   final List<String>? selectedSeriesConfig;
+
+  /// List of specific data points that should be initially selected.
   final List<common.SeriesDatumConfig<D>>? selectedDataConfig;
+
+  /// Whether to preserve the selection when the chart is redrawn.
   final bool shouldPreserveSelectionOnDraw;
 
   @override

@@ -73,13 +73,25 @@ class SelectNearest<D> extends ChartBehavior<D> {
   @override
   final Set<GestureType> desiredGestures;
 
+  /// The type of selection model to update.
   final common.SelectionModelType selectionModelType;
+
+  /// The type of input event that triggers selection.
   final common.SelectionTrigger eventTrigger;
+
+  /// The mode for expanding selection beyond the nearest datum.
   final common.SelectionMode selectionMode;
+
+  /// Whether to select across all draw area components.
   final bool selectAcrossAllDrawAreaComponents;
+
+  /// Whether to mark the series for the closest data point as selected.
   final bool selectClosestSeries;
+
+  /// Maximum pixel distance to search for nearest datum.
   final int? maximumDomainDistancePx;
 
+  /// Gets the desired gestures based on the event trigger type.
   static Set<GestureType> _getDesiredGestures(
     common.SelectionTrigger eventTrigger,
   ) {
