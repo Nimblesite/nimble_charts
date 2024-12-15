@@ -40,11 +40,11 @@ import 'package:nimble_charts_common/common.dart' as common
         TextDirection,
         TextElement;
 
-/// A Flutter implementation of [common.ChartCanvas] that delegates drawing to 
+/// A Flutter implementation of [common.ChartCanvas] that delegates drawing to
 /// a [Canvas].
 ///
 /// This class provides the core drawing functionality for charts in Flutter,
-/// implementing various drawing methods for shapes, lines, text, and other 
+/// implementing various drawing methods for shapes, lines, text, and other
 /// chart elements.
 class ChartCanvas implements common.ChartCanvas {
   /// Creates a new [ChartCanvas] that will draw on the given [canvas].

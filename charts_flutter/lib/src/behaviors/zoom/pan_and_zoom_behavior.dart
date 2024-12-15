@@ -24,7 +24,7 @@ import 'package:nimble_charts_common/common.dart' as common
 /// Chart behavior that adds pan and zoom functionality.
 ///
 /// This behavior allows users to pan and zoom the chart using drag gestures.
-/// It can be configured with a callback to be notified when panning is 
+/// It can be configured with a callback to be notified when panning is
 /// completed.
 @immutable
 class PanAndZoomBehavior<D> extends ChartBehavior<D> {

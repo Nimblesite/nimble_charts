@@ -25,7 +25,7 @@ import 'package:nimble_charts_common/common.dart' as common
 ///
 /// A cartesian chart is a chart that uses a cartesian coordinate system
 /// (i.e. an x and y axis). This class provides the foundation for building
-/// various types of cartesian charts with different configurations and 
+/// various types of cartesian charts with different configurations and
 /// behaviors.
 @immutable
 abstract class CartesianChart<D> extends BaseChart<D> {
@@ -35,7 +35,7 @@ abstract class CartesianChart<D> extends BaseChart<D> {
   /// [domainAxis] Specification for the domain axis.
   /// [primaryMeasureAxis] Specification for the primary measure axis.
   /// [secondaryMeasureAxis] Specification for the secondary measure axis.
-  /// [disjointMeasureAxes] Map of axis IDs to axis specs for disjoint measure 
+  /// [disjointMeasureAxes] Map of axis IDs to axis specs for disjoint measure
   /// axes.
   /// [defaultRenderer] Default renderer used to draw series data.
   /// [customSeriesRenderers] Custom series renderers used to draw series data.

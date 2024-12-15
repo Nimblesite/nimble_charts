@@ -21,10 +21,10 @@ import 'package:nimble_charts/src/text_style.dart' show TextStyle;
 import 'package:nimble_charts_common/common.dart' as common
     show GraphicsFactory, LineStyle, TextElement, TextStyle;
 
-/// A Flutter implementation of [common.GraphicsFactory] that creates graphics 
+/// A Flutter implementation of [common.GraphicsFactory] that creates graphics
 /// elements for chart rendering.
 ///
-/// This factory creates text elements, text styles, and line styles that are 
+/// This factory creates text elements, text styles, and line styles that are
 /// used to render various chart components in a Flutter environment.
 class GraphicsFactory implements common.GraphicsFactory {
   /// Creates a new [GraphicsFactory] with the given build context.
@@ -53,7 +53,7 @@ class GraphicsFactory implements common.GraphicsFactory {
   /// Creates a new [TextElement] with the given text.
   ///
   /// [text] The text content for the element.
-  /// The text element will use the current text scale factor and default text 
+  /// The text element will use the current text scale factor and default text
   /// style.
   @override
   common.TextElement createTextElement(String text) =>

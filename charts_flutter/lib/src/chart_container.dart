@@ -61,7 +61,7 @@ class ChartContainer<D> extends CustomPaint {
   }
 }
 
-/// A [RenderCustomPaint] that implements [common.ChartContext] for rendering 
+/// A [RenderCustomPaint] that implements [common.ChartContext] for rendering
 /// charts.
 ///
 /// This class is responsible for managing the rendering state of a chart and
@@ -340,7 +340,7 @@ class ChartContainerRenderObject<D> extends RenderCustomPaint
 class ChartContainerCustomPaint extends CustomPainter {
   /// Creates a new [ChartContainerCustomPaint].
   ///
-  /// If an [oldPainter] is provided with matching properties, returns the old 
+  /// If an [oldPainter] is provided with matching properties, returns the old
   /// painter instead of creating a new one.
   ///
   /// [chart] The chart to paint.
