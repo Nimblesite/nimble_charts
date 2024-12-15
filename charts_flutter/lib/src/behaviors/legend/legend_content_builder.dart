@@ -22,8 +22,15 @@ import 'package:nimble_charts_common/common.dart' as common
 
 /// Strategy for building a legend content widget.
 abstract class LegendContentBuilder {
+  /// Creates a new [LegendContentBuilder].
   const LegendContentBuilder();
 
+  /// Builds a widget that represents the legend content.
+  ///
+  /// [context] The build context.
+  /// [legendState] The current state of the legend.
+  /// [legend] The legend behavior.
+  /// [showMeasures] Whether to show measure values in the legend.
   Widget build(
     BuildContext context,
     common.LegendState legendState,
@@ -80,14 +87,22 @@ abstract class BaseLegendContentBuilder implements LegendContentBuilder {
 /// [legendLayout] custom strategy for creating legend widget from list of
 /// widgets that represent a legend entry.
 class TabularLegendContentBuilder extends BaseLegendContentBuilder {
+  /// Creates a new [TabularLegendContentBuilder].
+  ///
+  /// [legendEntryLayout] Strategy for creating widgets for each legend entry.
+  /// [legendLayout] Strategy for creating legend widget from list of widgets.
   TabularLegendContentBuilder({
     LegendEntryLayout? legendEntryLayout,
     LegendLayout? legendLayout,
   })  : legendEntryLayout =
             legendEntryLayout ?? const SimpleLegendEntryLayout(),
         legendLayout = legendLayout ?? TabularLegendLayout.horizontalFirst();
+
+  /// Strategy for creating widgets for each legend entry.
   @override
   final LegendEntryLayout legendEntryLayout;
+
+  /// Strategy for creating legend widget from list of widgets.
   @override
   final LegendLayout legendLayout;
 

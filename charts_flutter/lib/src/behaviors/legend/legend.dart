@@ -16,6 +16,7 @@
 import 'package:nimble_charts_common/common.dart'
     show LegendEntry, LegendTapHandling;
 
+/// Interface for legends that can handle tap events.
 abstract class TappableLegend<T, D> {
   /// Delegates handling of legend entry clicks according to the configured
   /// [LegendTapHandling] strategy.

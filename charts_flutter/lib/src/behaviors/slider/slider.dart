@@ -142,6 +142,9 @@ class Slider<D> extends ChartBehavior<D> {
   /// Renderer for the handle. Defaults to a rectangle.
   final common.SymbolRenderer? handleRenderer;
 
+  /// Gets the desired gestures based on the event trigger type.
+  ///
+  /// [eventTrigger] The type of input event for the slider.
   static Set<GestureType> _getDesiredGestures(
     common.SelectionTrigger eventTrigger,
   ) {

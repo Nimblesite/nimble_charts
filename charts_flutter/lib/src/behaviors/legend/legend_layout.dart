@@ -72,11 +72,22 @@ class TabularLegendLayout implements LegendLayout {
   /// Default EdgeInsets for padding rows to the max column count
   static const defaultCellPadding = EdgeInsets.all(8);
 
+  /// Whether to lay out items horizontally first before vertically.
   final bool isHorizontalFirst;
+
+  /// Maximum number of rows before starting a new column.
   final int desiredMaxRows;
+
+  /// Maximum number of columns before starting a new row.
   final int desiredMaxColumns;
+
+  /// Padding around each cell in the table.
   final EdgeInsets? cellPadding;
 
+  /// Builds a widget that represents the legend layout.
+  ///
+  /// [context] The build context.
+  /// [legendEntries] The list of legend entry widgets to lay out.
   @override
   Widget build(BuildContext context, List<Widget> legendEntries) {
     final paddedLegendEntries = ((cellPadding == null)
@@ -106,6 +117,9 @@ class TabularLegendLayout implements LegendLayout {
         cellPadding,
       );
 
+  /// Builds the legend layout horizontally first.
+  ///
+  /// [legendEntries] The list of legend entry widgets to lay out.
   Widget _buildHorizontalFirst(List<Widget> legendEntries) {
     final maxColumns = (desiredMaxColumns == _noLimit)
         ? legendEntries.length
@@ -125,6 +139,9 @@ class TabularLegendLayout implements LegendLayout {
     return _buildTableFromRows(rows);
   }
 
+  /// Builds the legend layout vertically first.
+  ///
+  /// [legendEntries] The list of legend entry widgets to lay out.
   Widget _buildVerticalFirst(List<Widget> legendEntries) {
     final maxRows = (desiredMaxRows == _noLimit)
         ? legendEntries.length
@@ -141,6 +158,9 @@ class TabularLegendLayout implements LegendLayout {
     return _buildTableFromRows(rows);
   }
 
+  /// Builds a table from the given rows.
+  ///
+  /// [rows] The list of table rows to build the table from.
   Table _buildTableFromRows(List<TableRow> rows) {
     final padWidget = Padding(padding: cellPadding ?? defaultCellPadding);
 

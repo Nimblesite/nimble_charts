@@ -24,6 +24,13 @@ import 'package:nimble_charts_common/common.dart' as common;
 
 /// Strategy for building one widget from one [common.LegendEntry].
 abstract class LegendEntryLayout {
+  /// Builds a widget that represents a single legend entry.
+  ///
+  /// [context] The build context.
+  /// [legendEntry] The legend entry to build a widget for.
+  /// [legend] The legend behavior.
+  /// [isHidden] Whether this legend entry is hidden.
+  /// [showMeasures] Whether to show measure values in the legend entry.
   Widget build(
     BuildContext context,
     common.LegendEntry legendEntry,
@@ -38,8 +45,15 @@ abstract class LegendEntryLayout {
 /// If directionality from the chart context indicates RTL, the symbol is placed
 /// to the right of the text instead of the left of the text.
 class SimpleLegendEntryLayout implements LegendEntryLayout {
+  /// Creates a new [SimpleLegendEntryLayout].
   const SimpleLegendEntryLayout();
 
+  /// Creates a symbol widget for the legend entry.
+  ///
+  /// [context] The build context.
+  /// [legendEntry] The legend entry to create a symbol for.
+  /// [legend] The legend behavior.
+  /// [isHidden] Whether this legend entry is hidden.
   Widget createSymbol(
     BuildContext context,
     common.LegendEntry legendEntry,
@@ -70,6 +84,12 @@ class SimpleLegendEntryLayout implements LegendEntryLayout {
     );
   }
 
+  /// Creates a label widget for the legend entry.
+  ///
+  /// [context] The build context.
+  /// [legendEntry] The legend entry to create a label for.
+  /// [legend] The legend behavior.
+  /// [isHidden] Whether this legend entry is hidden.
   Widget createLabel(
     BuildContext context,
     common.LegendEntry legendEntry,
@@ -84,6 +104,12 @@ class SimpleLegendEntryLayout implements LegendEntryLayout {
     );
   }
 
+  /// Creates a measure value widget for the legend entry.
+  ///
+  /// [context] The build context.
+  /// [legendEntry] The legend entry to create a measure value for.
+  /// [legend] The legend behavior.
+  /// [isHidden] Whether this legend entry is hidden.
   Widget createMeasureValue(
     BuildContext context,
     common.LegendEntry legendEntry,
@@ -128,6 +154,11 @@ class SimpleLegendEntryLayout implements LegendEntryLayout {
     return Row(children: rowChildren);
   }
 
+  /// Creates a tap callback for the legend entry.
+  ///
+  /// [context] The build context.
+  /// [legendEntry] The legend entry to create a callback for.
+  /// [legend] The legend behavior.
   GestureTapUpCallback makeTapUpCallback(
     BuildContext context,
     common.LegendEntry legendEntry,

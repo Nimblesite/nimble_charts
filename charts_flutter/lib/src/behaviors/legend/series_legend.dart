@@ -220,6 +220,7 @@ class SeriesLegend<D> extends ChartBehavior<D> {
   @override
   final desiredGestures = <GestureType>{};
 
+  /// The type of selection model to monitor for legend updates.
   final common.SelectionModelType? selectionModelType;
 
   /// Builder for creating custom legend content.
@@ -230,6 +231,8 @@ class SeriesLegend<D> extends ChartBehavior<D> {
 
   /// Justification of the legend relative to the chart
   final common.OutsideJustification outsideJustification;
+
+  /// Justification of the legend relative to the chart if position is inside.
   final common.InsideJustification insideJustification;
 
   /// Whether or not the legend should show measures.
@@ -259,6 +262,10 @@ class SeriesLegend<D> extends ChartBehavior<D> {
   /// Styles for legend entry label text.
   final common.TextStyleSpec? entryTextStyle;
 
+  /// List of series IDs that should be hidden on first chart draw.
+  final List<String>? defaultHiddenSeries;
+
+  /// Default padding around each legend cell.
   static const defaultCellPadding = EdgeInsets.all(8);
 
   final List<String>? defaultHiddenSeries;
