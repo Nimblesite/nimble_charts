@@ -37,21 +37,20 @@ import 'package:nimble_charts/flutter.dart' as charts;
 class SliderLine extends StatefulWidget {
   const SliderLine(this.seriesList, {super.key, this.animate = true});
 
-  /// Creates a [charts.LineChart] with sample data and no transition.
+  /// Creates a [LineChart] with sample data and no transition.
   factory SliderLine.withSampleData() => SliderLine(
         _createSampleData(),
       );
 
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory SliderLine.withRandomData() => SliderLine(_createRandomData());
-  final List<charts.Series<dynamic, num>> seriesList;
+  final List<charts.Series<LinearSales, int>> seriesList;
   final bool animate;
 
+  @override
+  State<StatefulWidget> createState() => _SliderCallbackState();
+
   /// Create random data.
-  static List<charts.Series<LinearSales, num>> _createRandomData() {
+  static List<charts.Series<LinearSales, int>> _createRandomData() {
     final random = Random();
 
     final data = [
@@ -70,12 +69,6 @@ class SliderLine extends StatefulWidget {
       ),
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
-
-  // We need a Stateful widget to build the selection details with the current
-  // selection as the state.
-  @override
-  State<StatefulWidget> createState() => _SliderCallbackState();
 
   /// Create one series with sample hard coded data.
   static List<charts.Series<LinearSales, int>> _createSampleData() {
@@ -102,18 +95,15 @@ class _SliderCallbackState extends State<SliderLine> {
   String? _sliderDragState;
   Point<int>? _sliderPosition;
 
-  // Handles callbacks when the user drags the slider.
-  void _onSliderChange(
+  void _onSliderChange<T extends num>(
     Point<int> point,
-    dynamic domain,
+    T? domain,
     String roleId,
     charts.SliderListenerDragState dragState,
   ) {
-    // Request a build.
     void rebuild(_) {
       setState(() {
-        //TODO: casting
-        _sliderDomainValue = (domain * 10).round() / 10 as num;
+        _sliderDomainValue = domain;
         _sliderDragState = dragState.toString();
         _sliderPosition = point;
       });
@@ -124,51 +114,22 @@ class _SliderCallbackState extends State<SliderLine> {
 
   @override
   Widget build(BuildContext context) {
-    // The children consist of a Chart and Text widgets below to hold the info.
     final children = <Widget>[
       SizedBox(
         height: 150,
         child: charts.LineChart(
           widget.seriesList,
           animate: widget.animate,
-          // Configures a [Slider] behavior.
-          //
-          // Available options include:
-          //
-          // [eventTrigger] configures the type of mouse gesture that controls
-          // the slider.
-          //
-          // [handleRenderer] draws a handle for the slider. Defaults to a
-          // rectangle.
-          //
-          // [initialDomainValue] sets the initial position of the slider in
-          // domain units. The default is the center of the chart.
-          //
-          // [onChangeCallback] will be called when the position of the slider
-          // changes during a drag event.
-          //
-          // [roleId] optional custom role ID for the slider. This can be used to
-          // allow multiple [Slider] behaviors on the same chart. Normally, there can
-          // only be one slider (per event trigger type) on a chart. This setting
-          // allows for configuring multiple independent sliders.
-          //
-          // [snapToDatum] configures the slider to snap snap onto the nearest
-          // datum (by domain distance) when dragged. By default, the slider
-          // can be positioned anywhere along the domain axis.
-          //
-          // [style] takes in a [SliderStyle] configuration object, and
-          // configures the color and sizing of the slider line and handle.
           behaviors: [
-            charts.Slider(
-              initialDomainValue: 1.0,
-              onChangeCallback: _onSliderChange,
+            charts.Slider<int>(
+              initialDomainValue: 1,
+              onChangeCallback: _onSliderChange<int>,
             ),
           ],
         ),
       ),
     ];
 
-    // If there is a slider change event, then include the details.
     if (_sliderDomainValue != null) {
       children.add(
         Padding(

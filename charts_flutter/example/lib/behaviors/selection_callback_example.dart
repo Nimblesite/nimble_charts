@@ -55,7 +55,7 @@ class SelectionCallbackExample extends StatefulWidget {
   // the example app only.
   factory SelectionCallbackExample.withRandomData() =>
       SelectionCallbackExample(_createRandomData());
-  final List<charts.Series<dynamic, DateTime>> seriesList;
+  final List<charts.Series<TimeSeriesSales, DateTime>> seriesList;
   final bool animate;
 
   /// Create random data.
@@ -138,7 +138,7 @@ class _SelectionCallbackState extends State<SelectionCallbackExample> {
   // Listens to the underlying selection changes, and updates the information
   // relevant to building the primitive legend like information under the
   // chart.
-  void _onSelectionChanged(charts.SelectionModel<dynamic> model) {
+  void _onSelectionChanged(charts.SelectionModel<DateTime> model) {
     final selectedDatum = model.selectedDatum;
 
     DateTime? time;
@@ -150,15 +150,18 @@ class _SelectionCallbackState extends State<SelectionCallbackExample> {
     // Walk the selection updating the measures map, storing off the sales and
     // series name for each selection point.
     if (selectedDatum.isNotEmpty) {
-      // TODO: casting
-      time = selectedDatum.first.datum.time as DateTime?;
-      for (final datumPair in selectedDatum) {
-        //TODO: casting
-        measures[datumPair.series.displayName!] = datumPair.datum.sales as num;
+      if (selectedDatum.first.datum is TimeSeriesSales) {
+        final firstDatum = selectedDatum.first.datum as TimeSeriesSales;
+        time = firstDatum.time;
+        for (final datumPair in selectedDatum) {
+          if (datumPair.datum is TimeSeriesSales) {
+            final typedDatum = datumPair.datum as TimeSeriesSales;
+            measures[datumPair.series.displayName!] = typedDatum.sales;
+          }
+        }
       }
     }
 
-    // Request a build.
     setState(() {
       _time = time;
       _measures = measures;

@@ -59,7 +59,7 @@ class DomainA11yExploreBarChart extends StatelessWidget {
   // the example app only.
   factory DomainA11yExploreBarChart.withRandomData() =>
       DomainA11yExploreBarChart(_createRandomData());
-  final List<charts.Series<dynamic, String>> seriesList;
+  final List<charts.Series<OrdinalSales, String>> seriesList;
   final bool animate;
 
   /// Create random data.
@@ -107,22 +107,23 @@ class DomainA11yExploreBarChart extends StatelessWidget {
   /// This example vocalizes the domain, then for each series that has that
   /// domain, it vocalizes the series display name and the measure and a
   /// description of that measure.
-  String vocalizeDomainAndMeasures(
-    List<charts.SeriesDatum<dynamic>> seriesDatums,
+  String vocalizeDomainAndMeasures<T>(
+    List<charts.SeriesDatum<T>> seriesDatums,
   ) {
-    final buffer = StringBuffer()
-      ..
+    final buffer = StringBuffer();
+    
+    if (seriesDatums.first.datum is OrdinalSales) {
+      final typedDatum = seriesDatums.first.datum as OrdinalSales;
+      buffer.write(typedDatum.year);
 
-          // The datum's type in this case is [OrdinalSales].
-          // So we can access year and sales information here.
-          write(seriesDatums.first.datum.year);
-
-    for (final seriesDatum in seriesDatums) {
-      final series = seriesDatum.series;
-      final datum = seriesDatum.datum;
-
-      buffer.write(' ${series.displayName} '
-          '${datum.sales / 1000} thousand dollars');
+      for (final seriesDatum in seriesDatums) {
+        final series = seriesDatum.series;
+        if (seriesDatum.datum is OrdinalSales) {
+          final datum = seriesDatum.datum as OrdinalSales;
+          buffer.write(' ${series.displayName} '
+              '${datum.sales / 1000} thousand dollars');
+        }
+      }
     }
 
     return buffer.toString();
@@ -130,46 +131,20 @@ class DomainA11yExploreBarChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Semantics(
-        // Describe your chart
         label: 'Yearly sales bar chart',
-        // Optionally provide a hint for the user to know how to trigger
-        // explore mode.
         hint: 'Press and hold to enable explore',
         child: charts.BarChart(
           seriesList,
           animate: animate,
-          // To prevent conflict with the select nearest behavior that uses the
-          // tap gesture, turn off default interactions when the user is using
-          // an accessibility service like TalkBack or VoiceOver to interact
-          // with the application.
           defaultInteractions: !MediaQuery.of(context).accessibleNavigation,
           behaviors: [
-            charts.DomainA11yExploreBehavior(
-              // Callback for generating the message that is vocalized.
-              // An example of how to use is in [vocalizeDomainAndMeasures].
-              // If none is set, the default only vocalizes the domain value.
+            charts.DomainA11yExploreBehavior<String>(
               vocalizationCallback: vocalizeDomainAndMeasures,
-              // The following settings are optional, but shown here for
-              // demonstration purchases.
-              // [exploreModeTrigger] Default is press and hold, can be
-              // changed to tap.
               exploreModeTrigger: charts.ExploreModeTrigger.pressHold,
-              // [exploreModeEnabledAnnouncement] Optionally notify the OS
-              // when explore mode is enabled.
               exploreModeEnabledAnnouncement: 'Explore mode enabled',
-              // [exploreModeDisabledAnnouncement] Optionally notify the OS
-              // when explore mode is disabled.
               exploreModeDisabledAnnouncement: 'Explore mode disabled',
-              // [minimumWidth] Default and minimum is 1.0. This is the
-              // minimum width of the screen reader bounding box. The bounding
-              // box width is calculated based on the domain axis step size.
-              // Minimum width will be used if the step size is smaller.
               minimumWidth: 1,
             ),
-            // Optionally include domain highlighter as a behavior.
-            // This behavior is included in this example to show that when an
-            // a11y node has focus, the chart's internal selection model is
-            // also updated.
             charts.DomainHighlighter(),
           ],
         ),

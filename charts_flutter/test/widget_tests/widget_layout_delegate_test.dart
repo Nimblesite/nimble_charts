@@ -116,21 +116,26 @@ void main() {
     }
 
     // Verifies the expected results.
-    void verifyResults(
+    void verifyExpectedLayoutBounds(
       WidgetTester tester,
       Size expectedChartSize,
       Offset expectedChartOffset,
       Offset expectedBehaviorOffset,
     ) {
-      final chartBox =
-          tester.firstRenderObject(find.byKey(chartKey)) as dynamic;
+      final chartBox = switch (tester.firstRenderObject(find.byKey(chartKey))) {
+        final RenderBox box => box,
+        _ => throw StateError('Expected RenderBox for chart'),
+      };
       expect(chartBox.size, equals(expectedChartSize));
 
       final chartOffset = chartBox.localToGlobal(Offset.zero);
       expect(chartOffset, equals(expectedChartOffset));
 
       final behaviorBox =
-          tester.firstRenderObject(find.byKey(behaviorKey)) as dynamic;
+          switch (tester.firstRenderObject(find.byKey(behaviorKey))) {
+        final RenderBox box => box,
+        _ => throw StateError('Expected RenderBox for behavior'),
+      };
       final behaviorOffset = behaviorBox.localToGlobal(Offset.zero);
       expect(behaviorOffset, equals(expectedBehaviorOffset));
     }
@@ -155,7 +160,7 @@ void main() {
         ),
       );
 
-      verifyResults(
+      verifyExpectedLayoutBounds(
         tester,
         expectedChartSize,
         expectedChartOffset,
@@ -185,7 +190,7 @@ void main() {
         ),
       );
 
-      verifyResults(
+      verifyExpectedLayoutBounds(
         tester,
         expectedChartSize,
         expectedChartOffset,
@@ -214,7 +219,7 @@ void main() {
         ),
       );
 
-      verifyResults(
+      verifyExpectedLayoutBounds(
         tester,
         expectedChartSize,
         expectedChartOffset,
@@ -246,7 +251,7 @@ void main() {
         ),
       );
 
-      verifyResults(
+      verifyExpectedLayoutBounds(
         tester,
         expectedChartSize,
         expectedChartOffset,
@@ -276,7 +281,7 @@ void main() {
         ),
       );
 
-      verifyResults(
+      verifyExpectedLayoutBounds(
         tester,
         expectedChartSize,
         expectedChartOffset,
@@ -307,7 +312,7 @@ void main() {
         ),
       );
 
-      verifyResults(
+      verifyExpectedLayoutBounds(
         tester,
         expectedChartSize,
         expectedChartOffset,
@@ -338,7 +343,7 @@ void main() {
         ),
       );
 
-      verifyResults(
+      verifyExpectedLayoutBounds(
         tester,
         expectedChartSize,
         expectedChartOffset,
@@ -369,7 +374,7 @@ void main() {
         ),
       );
 
-      verifyResults(
+      verifyExpectedLayoutBounds(
         tester,
         expectedChartSize,
         expectedChartOffset,
@@ -397,7 +402,7 @@ void main() {
         ),
       );
 
-      verifyResults(
+      verifyExpectedLayoutBounds(
         tester,
         expectedChartSize,
         expectedChartOffset,
@@ -427,7 +432,7 @@ void main() {
         ),
       );
 
-      verifyResults(
+      verifyExpectedLayoutBounds(
         tester,
         expectedChartSize,
         expectedChartOffset,
@@ -457,7 +462,7 @@ void main() {
         ),
       );
 
-      verifyResults(
+      verifyExpectedLayoutBounds(
         tester,
         expectedChartSize,
         expectedChartOffset,
@@ -489,7 +494,7 @@ void main() {
         ),
       );
 
-      verifyResults(
+      verifyExpectedLayoutBounds(
         tester,
         expectedChartSize,
         expectedChartOffset,
@@ -519,7 +524,7 @@ void main() {
         ),
       );
 
-      verifyResults(
+      verifyExpectedLayoutBounds(
         tester,
         expectedChartSize,
         expectedChartOffset,
@@ -550,7 +555,7 @@ void main() {
         ),
       );
 
-      verifyResults(
+      verifyExpectedLayoutBounds(
         tester,
         expectedChartSize,
         expectedChartOffset,
@@ -581,7 +586,7 @@ void main() {
         ),
       );
 
-      verifyResults(
+      verifyExpectedLayoutBounds(
         tester,
         expectedChartSize,
         expectedChartOffset,
@@ -612,7 +617,7 @@ void main() {
         ),
       );
 
-      verifyResults(
+      verifyExpectedLayoutBounds(
         tester,
         expectedChartSize,
         expectedChartOffset,
@@ -644,7 +649,7 @@ void main() {
         ),
       );
 
-      verifyResults(
+      verifyExpectedLayoutBounds(
         tester,
         expectedChartSize,
         expectedChartOffset,
@@ -676,7 +681,7 @@ void main() {
         ),
       );
 
-      verifyResults(
+      verifyExpectedLayoutBounds(
         tester,
         expectedChartSize,
         expectedChartOffset,
@@ -705,7 +710,7 @@ void main() {
         ),
       );
 
-      verifyResults(
+      verifyExpectedLayoutBounds(
         tester,
         expectedChartSize,
         expectedChartOffset,
@@ -736,7 +741,7 @@ void main() {
         ),
       );
 
-      verifyResults(
+      verifyExpectedLayoutBounds(
         tester,
         expectedChartSize,
         expectedChartOffset,

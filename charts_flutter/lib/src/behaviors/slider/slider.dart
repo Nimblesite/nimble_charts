@@ -67,7 +67,7 @@ class Slider<D> extends ChartBehavior<D> {
     common.SymbolRenderer? handleRenderer,
     initialDomainValue,
     String? roleId,
-    common.SliderListenerCallback? onChangeCallback,
+    common.SliderListenerCallback<D>? onChangeCallback,
     bool snapToDatum = false,
     common.SliderStyle? style,
     int layoutPaintOrder = common.LayoutViewPaintOrder.slider,
@@ -127,7 +127,7 @@ class Slider<D> extends ChartBehavior<D> {
   /// changes during a drag event.
   ///
   /// The callback will be given the current domain position of the slider.
-  final common.SliderListenerCallback? onChangeCallback;
+  final common.SliderListenerCallback<D>? onChangeCallback;
 
   /// Custom role ID for this slider
   final String? roleId;
