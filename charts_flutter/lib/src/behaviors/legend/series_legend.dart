@@ -268,8 +268,6 @@ class SeriesLegend<D> extends ChartBehavior<D> {
   /// Default padding around each legend cell.
   static const defaultCellPadding = EdgeInsets.all(8);
 
-  final List<String>? defaultHiddenSeries;
-
   @override
   common.SeriesLegend<D> createCommonBehavior() =>
       _FlutterSeriesLegend<D>(this);
