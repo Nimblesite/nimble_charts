@@ -1,6 +1,5 @@
 .dart_tool/
 .packages
-pubspec.lock
 
 .bundle
 _site
