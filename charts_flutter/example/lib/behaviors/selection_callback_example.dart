@@ -150,13 +150,11 @@ class _SelectionCallbackState extends State<SelectionCallbackExample> {
     // Walk the selection updating the measures map, storing off the sales and
     // series name for each selection point.
     if (selectedDatum.isNotEmpty) {
-      if (selectedDatum.first.datum is TimeSeriesSales) {
-        final firstDatum = selectedDatum.first.datum as TimeSeriesSales;
-        time = firstDatum.time;
+      if (selectedDatum.first.datum case final TimeSeriesSales tss) {
+        time = tss.time;
         for (final datumPair in selectedDatum) {
-          if (datumPair.datum is TimeSeriesSales) {
-            final typedDatum = datumPair.datum as TimeSeriesSales;
-            measures[datumPair.series.displayName!] = typedDatum.sales;
+          if (datumPair.datum case final TimeSeriesSales tssInner) {
+            measures[datumPair.series.displayName!] = tssInner.sales;
           }
         }
       }

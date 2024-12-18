@@ -111,17 +111,14 @@ class DomainA11yExploreBarChart extends StatelessWidget {
     List<charts.SeriesDatum<T>> seriesDatums,
   ) {
     final buffer = StringBuffer();
-    
-    if (seriesDatums.first.datum is OrdinalSales) {
-      final typedDatum = seriesDatums.first.datum as OrdinalSales;
-      buffer.write(typedDatum.year);
+
+    if (seriesDatums.first.datum case final OrdinalSales os) {
+      buffer.write(os.year);
 
       for (final seriesDatum in seriesDatums) {
-        final series = seriesDatum.series;
-        if (seriesDatum.datum is OrdinalSales) {
-          final datum = seriesDatum.datum as OrdinalSales;
-          buffer.write(' ${series.displayName} '
-              '${datum.sales / 1000} thousand dollars');
+        if (seriesDatum.datum case final OrdinalSales osInner) {
+          buffer.write(' ${seriesDatum.series.displayName} '
+              '${osInner.sales / 1000} thousand dollars');
         }
       }
     }
