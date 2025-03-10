@@ -35,7 +35,7 @@ class MaterialPalette {
   static Palette get indigo => const MaterialIndigo();
   static Palette get pink => const MaterialPink();
   static Palette get teal => const MaterialTeal();
-  static MaterialGray get gray => const MaterialGray();
+  static Palette get gray => const MaterialGray();
 
   // Lazily-instantiated iterable, to avoid allocating colors that are not used.
   static final Iterable<Palette> _orderedPalettes = [
