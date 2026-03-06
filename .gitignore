@@ -1,32 +1,38 @@
+# Dart / Flutter tooling
 .dart_tool/
 .packages
 
+# Jekyll (documentation site)
 .bundle
 _site
 
+# Build output
 build/
+
+# iOS Flutter generated files
 **/ios/.generated/
 **/ios/Flutter/Generated.xcconfig
 **/ios/Runner/GeneratedPluginRegistrant.*
 
-charts_flutter/coverage/
-
-charts_flutter/.DS_Store
-
+# Test failure snapshots
 charts_flutter/test/failures/
-
 charts_flutter/test/widget_tests/failures/
-
 charts_flutter/test/example_widget_tests/failures/
 
-charts_flutter/test/.DS_Store
-
+# Code coverage reports
+charts_flutter/coverage/
 charts_common/coverage/
 
+# macOS metadata
+.DS_Store
+charts_flutter/.DS_Store
+charts_flutter/test/.DS_Store
 charts_common/.DS_Store
-
 charts_common/test/chart/.DS_Store
 
-.DS_Store
-
+# IDE / editor
 .idea/
+
+# Vscode extensions
+.commandtree/
+.too_many_cooks/
