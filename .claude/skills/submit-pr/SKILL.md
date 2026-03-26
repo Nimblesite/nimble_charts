@@ -1,6 +1,6 @@
 ---
 name: submit-pr
-description: Submit a pull request following DataProvider project standards
+description: Submit a pull request following nimble_charts project standards
 ---
 
 # Submit Pull Request
