@@ -13,6 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async' show unawaited;
+
 import 'package:flutter/widgets.dart' show AnimationController;
 import 'package:meta/meta.dart' show immutable;
 import 'package:nimble_charts/src/base_chart_state.dart' show BaseChartState;
@@ -88,9 +90,8 @@ class FlutterInitialHintBehavior<D> extends common.InitialHintBehavior<D>
   void startHintAnimation() {
     super.startHintAnimation();
 
-    _hintAnimator!
-      ..duration = hintDuration
-      ..forward(from: 0);
+    _hintAnimator!.duration = hintDuration;
+    unawaited(_hintAnimator!.forward(from: 0));
   }
 
   @override

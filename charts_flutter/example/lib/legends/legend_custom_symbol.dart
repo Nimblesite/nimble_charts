@@ -41,13 +41,14 @@ class IconRenderer extends charts.CustomSymbolRenderer {
   }) {
     // Lighten the color if the symbol is not enabled
     // Example: If user has tapped on a Series deselecting it.
-    if (color != null && !enabled) {
-      color = color.withAlpha(.26);
+    var localColor = color;
+    if (localColor != null && !enabled) {
+      localColor = localColor.withAlpha(.26);
     }
 
     return SizedBox.fromSize(
       size: size,
-      child: Icon(iconData, color: color?.toDartColor(), size: 12),
+      child: Icon(iconData, color: localColor?.toDartColor(), size: 12),
     );
   }
 }

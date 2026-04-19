@@ -308,8 +308,8 @@ class Slider<D> implements ChartBehavior<D> {
     _moveSliderToDomain(_domainValue);
 
     // Move the handle to the current event position.
-    final handleBounds = this._handleBounds!;
-    final domainCenterPoint = this._domainCenterPoint!;
+    final handleBounds = _handleBounds!;
+    final domainCenterPoint = _domainCenterPoint!;
     final element = SliderElement<D>(
       domainCenterPoint: Point<int>(domainCenterPoint.x, domainCenterPoint.y),
       buttonBounds: Rectangle<int>(

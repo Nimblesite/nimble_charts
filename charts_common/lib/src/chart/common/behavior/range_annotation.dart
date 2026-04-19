@@ -425,7 +425,7 @@ class _RangeAnnotationLayoutView<D> extends LayoutView {
 
   @override
   void paint(ChartCanvas canvas, double animationPercent) {
-    final annotationMap = this._annotationMap;
+    final annotationMap = _annotationMap;
     if (annotationMap == null) {
       return;
     }
