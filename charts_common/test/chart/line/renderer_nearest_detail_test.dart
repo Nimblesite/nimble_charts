@@ -13,11 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@Tags(['skip-file'])
 library;
-
-import 'package:test/test.dart';
-/*
 
 import 'dart:math';
 
@@ -43,9 +39,48 @@ class MyRow {
 
 class MockChart extends Mock implements CartesianChart {}
 
-class MockDomainAxis extends Mock implements Axis<int> {}
+class MockDomainAxis extends Mock implements Axis<int> {
+  @override
+  int compareDomainValueToViewport(int domain) {
+    if (domain < 1000) {
+      return -1;
+    }
+    if (domain > 3000) {
+      return 1;
+    }
+    return 0;
+  }
 
-class MockMeasureAxis extends Mock implements Axis<num> {}
+  @override
+  int getDomain(double location) => (((location - 70.0) / 100.0).round() * 1000) + 1000;
+
+  @override
+  double? getLocation(int? domain) =>
+      domain == null ? null : 70.0 + ((domain - 1000) / 1000.0 * 100.0);
+
+  @override
+  double get rangeBand => 100.0;
+
+  @override
+  double get stepSize => 100.0;
+}
+
+class MockMeasureAxis extends Mock implements Axis<num> {
+  @override
+  int compareDomainValueToViewport(num domain) => 0;
+
+  @override
+  num getDomain(double location) => 120.0 - location;
+
+  @override
+  double? getLocation(num? domain) => domain == null ? null : 120.0 - domain;
+
+  @override
+  double get rangeBand => 0.0;
+
+  @override
+  double get stepSize => 1.0;
+}
 
 class MockCanvas extends Mock implements ChartCanvas {}
 
@@ -53,7 +88,7 @@ void main() {
   /////////////////////////////////////////
   // Convenience methods for creating mocks.
   /////////////////////////////////////////
-  MutableSeries<int> makeSeries({String id, int measureOffset = 0}) {
+  MutableSeries<int> makeSeries({required String id, int measureOffset = 0}) {
     final data = <MyRow>[
       MyRow(1000, measureOffset + 10),
       MyRow(2000, measureOffset + 20),
@@ -72,31 +107,18 @@ void main() {
     series.measureOffsetFn = (_) => 0.0;
     series.colorFn = (_) => Color.fromHex(code: '#000000');
 
-    // Mock the Domain axis results.
     final domainAxis = MockDomainAxis();
-    when(domainAxis.rangeBand).thenReturn(100);
-    when(domainAxis.getLocation(1000)).thenReturn(70);
-    when(domainAxis.getLocation(2000)).thenReturn(70.0 + 100);
-    when(domainAxis.getLocation(3000)).thenReturn(70.0 + 200.0);
     series.setAttr(domainAxisKey, domainAxis);
 
-    // Mock the Measure axis results.
     final measureAxis = MockMeasureAxis();
-    for (var i = 0; i <= 100; i++) {
-      when(measureAxis.getLocation(i.toDouble()))
-          .thenReturn(20.0 + 100.0 - i.toDouble());
-    }
-    // Special case where measure is above drawArea.
-    when(measureAxis.getLocation(500)).thenReturn(20.0 + 100.0 - 500);
-
     series.setAttr(measureAxisKey, measureAxis);
 
     return series;
   }
 
-  LineRenderer<int> renderer;
+  late LineRenderer<int> renderer;
 
-  bool selectNearestByDomain;
+  late bool selectNearestByDomain;
 
   setUp(() {
     selectNearestByDomain = true;
@@ -134,7 +156,7 @@ void main() {
 
       final closest = details[0];
       expect(closest.domain, equals(1000));
-      expect(closest.series.id, equals('bar'));
+      expect(closest.series!.id, equals('bar'));
       expect(closest.datum, equals(seriesList[1].data[0]));
       expect(closest.domainDistance, equals(10));
       expect(closest.measureDistance, equals(5));
@@ -185,7 +207,7 @@ void main() {
 
       final closest = details[0];
       expect(closest.domain, equals(1000));
-      expect(closest.series.id, equals('bar'));
+      expect(closest.series!.id, equals('bar'));
       expect(closest.datum, equals(seriesList[1].data[0]));
       expect(closest.domainDistance, equals(10));
       expect(closest.measureDistance, equals(5));
@@ -263,14 +285,14 @@ void main() {
 
       final closest = details[0];
       expect(closest.domain, equals(1000));
-      expect(closest.series.id, equals('foo'));
+      expect(closest.series!.id, equals('foo'));
       expect(closest.datum, equals(seriesList[0].data[0]));
       expect(closest.domainDistance, equals(10));
       expect(closest.measureDistance, equals(5));
 
       final next = details[1];
       expect(next.domain, equals(1000));
-      expect(next.series.id, equals('bar'));
+      expect(next.series!.id, equals('bar'));
       expect(next.datum, equals(seriesList[1].data[0]));
       expect(next.domainDistance, equals(10));
       expect(next.measureDistance, equals(25)); // 20offset + 10measure - 5pt
@@ -300,7 +322,7 @@ void main() {
 
       final closest = details[0];
       expect(closest.domain, equals(2000));
-      expect(closest.series.id, equals('foo'));
+      expect(closest.series!.id, equals('foo'));
       expect(closest.datum, equals(seriesList[0].data[1]));
       expect(closest.domainDistance, equals(10));
       expect(closest.measureDistance, equals(15));
@@ -308,7 +330,7 @@ void main() {
       // bar series jumps to last point since it is missing middle.
       final next = details[1];
       expect(next.domain, equals(3000));
-      expect(next.series.id, equals('bar'));
+      expect(next.series!.id, equals('bar'));
       expect(next.datum, equals(seriesList[1].data[1]));
       expect(next.domainDistance, equals(90));
       expect(next.measureDistance, equals(45.0));
@@ -403,7 +425,7 @@ void main() {
       expect(details, hasLength(3));
 
       final closest = details[1];
-      expect(closest.series.id, equals('middle'));
+      expect(closest.series!.id, equals('middle'));
       expect(closest.domain, equals(1000));
       expect(closest.datum, equals(seriesList[1].data[0]));
       expect(closest.domainDistance, equals(10));
@@ -411,5 +433,3 @@ void main() {
     });
   });
 }
-
-*/

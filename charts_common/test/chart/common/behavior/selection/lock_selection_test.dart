@@ -13,11 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@Tags(['skip-file'])
 library;
-
-import 'package:test/test.dart';
-/*
 
 import 'dart:math';
 
@@ -119,7 +115,7 @@ void main() {
 
       when(hoverSelectionModel.hasAnySelection).thenReturn(true);
 
-      //TODO: this makes the test pass, but not sure if it's the 
+      //TODO: this makes the test pass, but not sure if it's the
       //right way to do it
       //when(hoverSelectionModel.clearSelection()).thenReturn(true);
 
@@ -178,5 +174,3 @@ void main() {
     });
   });
 }
-
-*/

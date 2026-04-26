@@ -13,11 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@Tags(['skip-file'])
 library;
-
-import 'package:test/test.dart';
-/*
 
 import 'package:mockito/mockito.dart';
 import 'package:nimble_charts_common/src/chart/common/processed_series.dart'
@@ -44,7 +40,7 @@ class MyRow {
   final int campaign;
   final int clickCount;
   final Color color;
-  final List<int> dashPattern;
+  final List<int>? dashPattern;
   final double strokeWidthPx;
 }
 
@@ -757,5 +753,3 @@ void main() {
     });
   });
 }
-
-*/
