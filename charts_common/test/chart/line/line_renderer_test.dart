@@ -13,8 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library;
-
 import 'package:mockito/mockito.dart';
 import 'package:nimble_charts_common/src/chart/common/processed_series.dart'
     show ImmutableSeries, MutableSeries;
@@ -53,7 +51,6 @@ class MockImmutableSeries<D> extends Mock implements ImmutableSeries<D> {
 }
 
 void main() {
-  late LineRenderer renderer;
   late List<MutableSeries<int>> numericSeriesList;
   late List<MutableSeries<String>> ordinalSeriesList;
 
@@ -212,7 +209,7 @@ void main() {
 
   group('preprocess', () {
     test('with numeric data and simple lines', () {
-      renderer = LineRenderer<num>(config: LineRendererConfig())
+      LineRenderer<num>(config: LineRendererConfig())
         ..configureSeries(numericSeriesList)
         ..preprocessSeries(numericSeriesList);
 
@@ -274,7 +271,7 @@ void main() {
     });
 
     test('with numeric data and stacked lines', () {
-      renderer = LineRenderer<num>(
+      LineRenderer<num>(
         config: LineRendererConfig(stacked: true),
       )
         ..configureSeries(numericSeriesList)
@@ -377,7 +374,7 @@ void main() {
         ),
       ];
 
-      renderer = LineRenderer<num>(config: LineRendererConfig())
+      LineRenderer<num>(config: LineRendererConfig())
         ..configureSeries(numericSeriesList)
         ..preprocessSeries(numericSeriesList);
 
@@ -563,7 +560,7 @@ void main() {
         ),
       ];
 
-      renderer = LineRenderer<num>(config: LineRendererConfig())
+      LineRenderer<num>(config: LineRendererConfig())
         ..configureSeries(numericSeriesList)
         ..preprocessSeries(numericSeriesList);
 
@@ -617,7 +614,7 @@ void main() {
     });
 
     test('with ordinal data and simple lines', () {
-      renderer = LineRenderer<String>(config: LineRendererConfig())
+      LineRenderer<String>(config: LineRendererConfig())
         ..configureSeries(ordinalSeriesList)
         ..preprocessSeries(ordinalSeriesList);
 
@@ -712,10 +709,9 @@ void main() {
     });
 
     test('simple end addition', () {
-      final tester = LineRendererTester(LineRenderer<num>());
-
-      tester.setSeriesKeys(['a', 'b', 'c']);
-      tester.merge(series(['a', 'b', 'c', 'd']));
+      final tester = LineRendererTester(LineRenderer<num>())
+        ..setSeriesKeys(['a', 'b', 'c'])
+        ..merge(series(['a', 'b', 'c', 'd']));
 
       expect(tester.seriesKeys, equals(['a', 'b', 'c', 'd']));
     });

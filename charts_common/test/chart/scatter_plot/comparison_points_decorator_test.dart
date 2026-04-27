@@ -13,8 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library;
-
 import 'dart:math' show Point, Rectangle;
 
 import 'package:nimble_charts_common/src/chart/scatter_plot/comparison_points_decorator.dart';

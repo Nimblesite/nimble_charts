@@ -13,8 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library;
-
 import 'dart:math';
 
 import 'package:mockito/mockito.dart';
@@ -63,8 +61,9 @@ void main() {
   LockSelection<dynamic> makeLockSelectionBehavior(
     SelectionModelType selectionModelType,
   ) {
-    final behavior = LockSelection(selectionModelType: selectionModelType)
-      ..attachTo(chart);
+    final behavior = LockSelection<dynamic>(
+      selectionModelType: selectionModelType,
+    )..attachTo(chart);
 
     return behavior;
   }

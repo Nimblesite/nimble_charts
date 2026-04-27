@@ -13,13 +13,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library;
-
 import 'dart:math';
 
 import 'package:mockito/mockito.dart';
 import 'package:nimble_charts_common/src/chart/cartesian/axis/axis.dart';
-import 'package:nimble_charts_common/src/chart/cartesian/cartesian_chart.dart';
 import 'package:nimble_charts_common/src/chart/common/chart_canvas.dart';
 import 'package:nimble_charts_common/src/chart/common/processed_series.dart';
 import 'package:nimble_charts_common/src/chart/line/line_renderer.dart';
@@ -37,8 +34,6 @@ class MyRow {
 
 // TODO: Test in RTL context as well.
 
-class MockChart extends Mock implements CartesianChart {}
-
 class MockDomainAxis extends Mock implements Axis<int> {
   @override
   int compareDomainValueToViewport(int domain) {
@@ -52,17 +47,18 @@ class MockDomainAxis extends Mock implements Axis<int> {
   }
 
   @override
-  int getDomain(double location) => (((location - 70.0) / 100.0).round() * 1000) + 1000;
+  int getDomain(double location) =>
+      (((location - 70.0) / 100.0).round() * 1000) + 1000;
 
   @override
   double? getLocation(int? domain) =>
       domain == null ? null : 70.0 + ((domain - 1000) / 1000.0 * 100.0);
 
   @override
-  double get rangeBand => 100.0;
+  double get rangeBand => 100;
 
   @override
-  double get stepSize => 100.0;
+  double get stepSize => 100;
 }
 
 class MockMeasureAxis extends Mock implements Axis<num> {
@@ -76,10 +72,10 @@ class MockMeasureAxis extends Mock implements Axis<num> {
   double? getLocation(num? domain) => domain == null ? null : 120.0 - domain;
 
   @override
-  double get rangeBand => 0.0;
+  double get rangeBand => 0;
 
   @override
-  double get stepSize => 1.0;
+  double get stepSize => 1;
 }
 
 class MockCanvas extends Mock implements ChartCanvas {}
@@ -104,8 +100,12 @@ void main() {
       ),
     );
 
-    series.measureOffsetFn = (_) => 0.0;
-    series.colorFn = (_) => Color.fromHex(code: '#000000');
+    num zeroMeasureOffset(int? _) => 0;
+    Color color(int? _) => Color.fromHex(code: '#000000');
+
+    series
+      ..measureOffsetFn = zeroMeasureOffset
+      ..colorFn = color;
 
     final domainAxis = MockDomainAxis();
     series.setAttr(domainAxisKey, domainAxis);
@@ -139,10 +139,11 @@ void main() {
         makeSeries(id: 'foo')..data.clear(),
         makeSeries(id: 'bar'),
       ];
-      renderer.configureSeries(seriesList);
-      renderer.preprocessSeries(seriesList);
-      renderer.update(seriesList, false);
-      renderer.paint(MockCanvas(), 1);
+      renderer
+        ..configureSeries(seriesList)
+        ..preprocessSeries(seriesList)
+        ..update(seriesList, false)
+        ..paint(MockCanvas(), 1);
 
       // Act Point just below barSeries.data[0]
       final details = renderer.getNearestDatumDetailPerSeries(
@@ -168,10 +169,11 @@ void main() {
         makeSeries(id: 'foo')..data.clear(),
         makeSeries(id: 'bar')..data.clear(),
       ];
-      renderer.configureSeries(seriesList);
-      renderer.preprocessSeries(seriesList);
-      renderer.update(seriesList, false);
-      renderer.paint(MockCanvas(), 1);
+      renderer
+        ..configureSeries(seriesList)
+        ..preprocessSeries(seriesList)
+        ..update(seriesList, false)
+        ..paint(MockCanvas(), 1);
 
       // Act
       final details = renderer.getNearestDatumDetailPerSeries(
@@ -190,10 +192,11 @@ void main() {
         makeSeries(id: 'foo')..overlaySeries = true,
         makeSeries(id: 'bar'),
       ];
-      renderer.configureSeries(seriesList);
-      renderer.preprocessSeries(seriesList);
-      renderer.update(seriesList, false);
-      renderer.paint(MockCanvas(), 1);
+      renderer
+        ..configureSeries(seriesList)
+        ..preprocessSeries(seriesList)
+        ..update(seriesList, false)
+        ..paint(MockCanvas(), 1);
 
       // Act
       final details = renderer.getNearestDatumDetailPerSeries(
@@ -219,10 +222,11 @@ void main() {
         makeSeries(id: 'foo')..overlaySeries = true,
         makeSeries(id: 'bar')..overlaySeries = true,
       ];
-      renderer.configureSeries(seriesList);
-      renderer.preprocessSeries(seriesList);
-      renderer.update(seriesList, false);
-      renderer.paint(MockCanvas(), 1);
+      renderer
+        ..configureSeries(seriesList)
+        ..preprocessSeries(seriesList)
+        ..update(seriesList, false)
+        ..paint(MockCanvas(), 1);
 
       // Act
       final details = renderer.getNearestDatumDetailPerSeries(
@@ -240,10 +244,11 @@ void main() {
     test('hit test works', () {
       // Setup
       final seriesList = <MutableSeries<int>>[makeSeries(id: 'foo')];
-      renderer.configureSeries(seriesList);
-      renderer.preprocessSeries(seriesList);
-      renderer.update(seriesList, false);
-      renderer.paint(MockCanvas(), 1);
+      renderer
+        ..configureSeries(seriesList)
+        ..preprocessSeries(seriesList)
+        ..update(seriesList, false)
+        ..paint(MockCanvas(), 1);
 
       // Act
       final details = renderer.getNearestDatumDetailPerSeries(
@@ -268,10 +273,11 @@ void main() {
         makeSeries(id: 'foo'),
         makeSeries(id: 'bar', measureOffset: 20),
       ];
-      renderer.configureSeries(seriesList);
-      renderer.preprocessSeries(seriesList);
-      renderer.update(seriesList, false);
-      renderer.paint(MockCanvas(), 1);
+      renderer
+        ..configureSeries(seriesList)
+        ..preprocessSeries(seriesList)
+        ..update(seriesList, false)
+        ..paint(MockCanvas(), 1);
 
       // Act
       final details = renderer.getNearestDatumDetailPerSeries(
@@ -305,10 +311,11 @@ void main() {
         makeSeries(id: 'foo'),
         makeSeries(id: 'bar', measureOffset: 20)..data.removeAt(1),
       ];
-      renderer.configureSeries(seriesList);
-      renderer.preprocessSeries(seriesList);
-      renderer.update(seriesList, false);
-      renderer.paint(MockCanvas(), 1);
+      renderer
+        ..configureSeries(seriesList)
+        ..preprocessSeries(seriesList)
+        ..update(seriesList, false)
+        ..paint(MockCanvas(), 1);
 
       // Act
       final details = renderer.getNearestDatumDetailPerSeries(
@@ -338,13 +345,16 @@ void main() {
 
     test('hit test works for points above drawArea', () {
       // Setup
+      final fooSeries = makeSeries(id: 'foo');
+      (fooSeries.data[1] as MyRow).clickCount = 500;
       final seriesList = <MutableSeries<int>>[
-        makeSeries(id: 'foo')..data[1].clickCount = 500,
+        fooSeries,
       ];
-      renderer.configureSeries(seriesList);
-      renderer.preprocessSeries(seriesList);
-      renderer.update(seriesList, false);
-      renderer.paint(MockCanvas(), 1);
+      renderer
+        ..configureSeries(seriesList)
+        ..preprocessSeries(seriesList)
+        ..update(seriesList, false)
+        ..paint(MockCanvas(), 1);
 
       // Act
       final details = renderer.getNearestDatumDetailPerSeries(
@@ -368,10 +378,11 @@ void main() {
       final seriesList = <MutableSeries<int>>[
         makeSeries(id: 'foo')..data.add(MyRow(-1000, 20)),
       ];
-      renderer.configureSeries(seriesList);
-      renderer.preprocessSeries(seriesList);
-      renderer.update(seriesList, false);
-      renderer.paint(MockCanvas(), 1);
+      renderer
+        ..configureSeries(seriesList)
+        ..preprocessSeries(seriesList)
+        ..update(seriesList, false)
+        ..paint(MockCanvas(), 1);
 
       // Act
       // Note: point is in the axis, over a bar outside of the viewport.
@@ -409,10 +420,11 @@ void main() {
         makeSeries(id: 'middle', measureOffset: 20),
         makeSeries(id: 'high', measureOffset: 40),
       ];
-      renderer.configureSeries(seriesList);
-      renderer.preprocessSeries(seriesList);
-      renderer.update(seriesList, false);
-      renderer.paint(MockCanvas(), 1);
+      renderer
+        ..configureSeries(seriesList)
+        ..preprocessSeries(seriesList)
+        ..update(seriesList, false)
+        ..paint(MockCanvas(), 1);
 
       // Act
       final details = renderer.getNearestDatumDetailPerSeries(

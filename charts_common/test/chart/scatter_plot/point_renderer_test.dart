@@ -13,8 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library;
-
 import 'package:nimble_charts_common/src/chart/common/processed_series.dart'
     show MutableSeries;
 import 'package:nimble_charts_common/src/chart/scatter_plot/point_renderer.dart';
@@ -26,15 +24,13 @@ import 'package:test/test.dart';
 
 class MyRow {
   MyRow(
-    this.campaignString,
+    String _,
     this.campaign,
     this.clickCount,
     this.radius,
     this.boundsRadius,
     this.shape,
   );
-
-  final String campaignString;
   final int campaign;
   final int clickCount;
   final double? radius;
@@ -76,11 +72,14 @@ void main() {
         data: myFakeDesktopData,
       ),
     );
-    series.radiusPxFn = (index) => myFakeDesktopData[index!].radius;
-    series.setAttr(
-      boundsLineRadiusPxFnKey,
-      (index) => myFakeDesktopData[index!].boundsRadius,
-    );
+
+    double? radiusPx(int? index) => myFakeDesktopData[index!].radius;
+    double? boundsLineRadiusPx(int? index) =>
+        myFakeDesktopData[index!].boundsRadius;
+
+    series
+      ..radiusPxFn = radiusPx
+      ..setAttr(boundsLineRadiusPxFnKey, boundsLineRadiusPx);
 
     numericSeriesList = [
       series,
@@ -89,9 +88,8 @@ void main() {
 
   group('preprocess', () {
     test('with numeric data and simple points', () {
-      renderer = PointRenderer<int>(config: PointRendererConfig<int>());
-
-      renderer.preprocessSeries(numericSeriesList);
+      renderer = PointRenderer<int>(config: PointRendererConfig<int>())
+        ..preprocessSeries(numericSeriesList);
 
       expect(numericSeriesList.length, equals(1));
 
@@ -161,9 +159,12 @@ void main() {
     test('with custom symbol renderer id in data', () {
       renderer = PointRenderer<int>(config: PointRendererConfig<int>());
 
+      String? pointSymbolRenderer(int? index) =>
+          (numericSeriesList[0].data[index!] as MyRow).shape;
+
       numericSeriesList[0].setAttr(
         pointSymbolRendererFnKey,
-        (int? index) => (numericSeriesList[0].data[index!] as MyRow).shape,
+        pointSymbolRenderer,
       );
 
       renderer.preprocessSeries(numericSeriesList);
@@ -185,9 +186,12 @@ void main() {
     test('with custom symbol renderer id in series and data', () {
       renderer = PointRenderer<int>(config: PointRendererConfig<int>());
 
+      String? pointSymbolRenderer(int? index) =>
+          (numericSeriesList[0].data[index!] as MyRow).shape;
+
       numericSeriesList[0].setAttr(
         pointSymbolRendererFnKey,
-        (int? index) => (numericSeriesList[0].data[index!] as MyRow).shape,
+        pointSymbolRenderer,
       );
       numericSeriesList[0].setAttr(pointSymbolRendererIdKey, 'shape 0');
 
