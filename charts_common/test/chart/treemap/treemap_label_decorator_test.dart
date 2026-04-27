@@ -17,6 +17,8 @@
 library;
 
 import 'package:test/test.dart';
+
+void main() {}
 /*
 
 import 'dart:math' show Rectangle, pi;
