@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async' show unawaited;
 import 'dart:ui' show TextDirection;
 
 import 'package:flutter/material.dart'
@@ -180,9 +181,12 @@ class BaseChartState<D> extends State<BaseChart<D>>
   }
 
   void _playAnimation(Duration duration) {
-    _animationController
-      ..duration = duration
-      ..forward(from: (duration == Duration.zero) ? 1.0 : 0.0);
+    _animationController.duration = duration;
+    unawaited(
+      _animationController.forward(
+        from: (duration == Duration.zero) ? 1.0 : 0.0,
+      ),
+    );
     _animationValue = _animationController.value;
   }
 

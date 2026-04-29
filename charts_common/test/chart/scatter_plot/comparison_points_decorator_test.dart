@@ -13,36 +13,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@Tags(['skip-file'])
-library;
-
-import 'package:test/test.dart';
-/*
-
 import 'dart:math' show Point, Rectangle;
+
 import 'package:nimble_charts_common/src/chart/scatter_plot/comparison_points_decorator.dart';
 import 'package:nimble_charts_common/src/chart/scatter_plot/point_renderer.dart';
-
 import 'package:test/test.dart';
 
-/// Datum/Row for the chart.
-class MyRow {
-  MyRow(this.campaign, this.clickCount);
-  final int campaign;
-  final int clickCount;
-}
-
 class TestComparisonPointsDecorator<D> extends ComparisonPointsDecorator<D> {
-  List<Point<double>> testComputeBoundedPointsForElement(
+  List<Point<double>>? testComputeBoundedPointsForElement(
     PointRendererElement<D> pointElement,
-    Rectangle drawBounds,
+    Rectangle<num> drawBounds,
   ) =>
       computeBoundedPointsForElement(pointElement, drawBounds);
 }
 
 void main() {
-  TestComparisonPointsDecorator decorator;
-  Rectangle bounds;
+  late TestComparisonPointsDecorator<num> decorator;
+  late Rectangle<int> bounds;
 
   setUp(() {
     decorator = TestComparisonPointsDecorator<num>();
@@ -68,11 +55,10 @@ void main() {
       final points =
           decorator.testComputeBoundedPointsForElement(element, bounds);
 
-      expect(points.length, equals(2));
-
+      expect(points, isNotNull);
+      expect(points!.length, equals(2));
       expect(points[0].x, equals(5.0));
       expect(points[0].y, equals(20.0));
-
       expect(points[1].x, equals(50.0));
       expect(points[1].y, equals(20.0));
     });
@@ -179,11 +165,10 @@ void main() {
       final points =
           decorator.testComputeBoundedPointsForElement(element, bounds);
 
-      expect(points.length, equals(2));
-
+      expect(points, isNotNull);
+      expect(points!.length, equals(2));
       expect(points[0].x, equals(0.0));
       expect(points[0].y, equals(20.0));
-
       expect(points[1].x, equals(100.0));
       expect(points[1].y, equals(20.0));
     });
@@ -206,11 +191,10 @@ void main() {
       final points =
           decorator.testComputeBoundedPointsForElement(element, bounds);
 
-      expect(points.length, equals(2));
-
+      expect(points, isNotNull);
+      expect(points!.length, equals(2));
       expect(points[0].x, equals(20.0));
       expect(points[0].y, equals(0.0));
-
       expect(points[1].x, equals(20.0));
       expect(points[1].y, equals(100.0));
     });
@@ -233,11 +217,10 @@ void main() {
       final points =
           decorator.testComputeBoundedPointsForElement(element, bounds);
 
-      expect(points.length, equals(2));
-
+      expect(points, isNotNull);
+      expect(points!.length, equals(2));
       expect(points[0].x, equals(0.0));
       expect(points[0].y, equals(0.0));
-
       expect(points[1].x, equals(100.0));
       expect(points[1].y, equals(100.0));
     });
@@ -260,15 +243,12 @@ void main() {
       final points =
           decorator.testComputeBoundedPointsForElement(element, bounds);
 
-      expect(points.length, equals(2));
-
+      expect(points, isNotNull);
+      expect(points!.length, equals(2));
       expect(points[0].x, equals(0.0));
       expect(points[0].y, equals(100.0));
-
       expect(points[1].x, equals(100.0));
       expect(points[1].y, equals(0.0));
     });
   });
 }
-
-*/

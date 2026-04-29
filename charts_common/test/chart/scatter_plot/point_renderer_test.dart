@@ -13,12 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@Tags(['skip-file'])
-library;
-
-import 'package:test/test.dart';
-/*
-
 import 'package:nimble_charts_common/src/chart/common/processed_series.dart'
     show MutableSeries;
 import 'package:nimble_charts_common/src/chart/scatter_plot/point_renderer.dart';
@@ -26,89 +20,86 @@ import 'package:nimble_charts_common/src/chart/scatter_plot/point_renderer_confi
 import 'package:nimble_charts_common/src/common/material_palette.dart'
     show MaterialPalette;
 import 'package:nimble_charts_common/src/data/series.dart' show Series;
-
 import 'package:test/test.dart';
 
-/// Datum/Row for the chart.
 class MyRow {
   MyRow(
-    this.campaignString,
+    String _,
     this.campaign,
     this.clickCount,
     this.radius,
     this.boundsRadius,
     this.shape,
   );
-  final String campaignString;
   final int campaign;
   final int clickCount;
-  final double radius;
-  final double boundsRadius;
-  final String shape;
+  final double? radius;
+  final double? boundsRadius;
+  final String? shape;
 }
 
 void main() {
-  PointRenderer renderer;
-  List<MutableSeries<int>> numericSeriesList;
+  late PointRenderer<int> renderer;
+  late List<MutableSeries<int>> numericSeriesList;
 
   setUp(() {
     final myFakeDesktopData = [
-      // This datum should get a default bounds line radius value.
       MyRow('MyCampaign1', 0, 5, 3, null, null),
       MyRow('MyCampaign2', 10, 25, 5, 4, 'shape 1'),
       MyRow('MyCampaign3', 12, 75, 4, 4, 'shape 2'),
-      // This datum should always get default radius values.
       MyRow('MyCampaign4', 13, 225, null, null, null),
     ];
 
     const maxMeasure = 300;
 
-    numericSeriesList = [
-      MutableSeries<int>(
-        Series<MyRow, int>(
-          id: 'Desktop',
-          colorFn: (row, _) {
-            // Color bucket the measure column value into 3 distinct colors.
-            final bucket = row.clickCount / maxMeasure;
+    final series = MutableSeries<int>(
+      Series<MyRow, int>(
+        id: 'Desktop',
+        colorFn: (row, _) {
+          final bucket = row.clickCount / maxMeasure;
 
-            if (bucket < 1 / 3) {
-              return MaterialPalette.blue.shadeDefault;
-            } else if (bucket < 2 / 3) {
-              return MaterialPalette.red.shadeDefault;
-            } else {
-              return MaterialPalette.green.shadeDefault;
-            }
-          },
-          domainFn: (row, _) => row.campaign,
-          measureFn: (row, _) => row.clickCount,
-          measureOffsetFn: (row, _) => 0,
-          radiusPxFn: (row, _) => row.radius,
-          data: myFakeDesktopData,
-        )
-          // Define a bounds line radius function.
-          ..setAttribute(
-            boundsLineRadiusPxFnKey,
-            (index) => myFakeDesktopData[index].boundsRadius,
-          ),
+          if (bucket < 1 / 3) {
+            return MaterialPalette.blue.shadeDefault;
+          } else if (bucket < 2 / 3) {
+            return MaterialPalette.red.shadeDefault;
+          } else {
+            return MaterialPalette.green.shadeDefault;
+          }
+        },
+        domainFn: (row, _) => row.campaign,
+        measureFn: (row, _) => row.clickCount,
+        measureOffsetFn: (row, _) => 0,
+        data: myFakeDesktopData,
       ),
+    );
+
+    double? radiusPx(int? index) => myFakeDesktopData[index!].radius;
+    double? boundsLineRadiusPx(int? index) =>
+        myFakeDesktopData[index!].boundsRadius;
+
+    series
+      ..radiusPxFn = radiusPx
+      ..setAttr(boundsLineRadiusPxFnKey, boundsLineRadiusPx);
+
+    numericSeriesList = [
+      series,
     ];
   });
 
   group('preprocess', () {
     test('with numeric data and simple points', () {
-      renderer = PointRenderer<int>(config: PointRendererConfig());
-
-      renderer.preprocessSeries(numericSeriesList);
+      renderer = PointRenderer<int>(config: PointRendererConfig<int>())
+        ..preprocessSeries(numericSeriesList);
 
       expect(numericSeriesList.length, equals(1));
 
-      // Validate Desktop series.
       final series = numericSeriesList[0];
-
       final keyFn = series.keyFn;
-
       final elementsList = series.getAttr(pointElementsKey);
-      expect(elementsList.length, equals(4));
+
+      expect(keyFn, isNotNull);
+      expect(elementsList, isNotNull);
+      expect(elementsList!.length, equals(4));
 
       expect(elementsList[0].index, equals(0));
       expect(elementsList[1].index, equals(1));
@@ -130,7 +121,7 @@ void main() {
       expect(elementsList[2].symbolRendererId, equals(defaultSymbolRendererId));
       expect(elementsList[3].symbolRendererId, equals(defaultSymbolRendererId));
 
-      expect(keyFn(0), equals('Desktop__0__5'));
+      expect(keyFn!(0), equals('Desktop__0__5'));
       expect(keyFn(1), equals('Desktop__10__25'));
       expect(keyFn(2), equals('Desktop__12__75'));
       expect(keyFn(3), equals('Desktop__13__225'));
@@ -138,10 +129,9 @@ void main() {
 
     test('with numeric data and missing radiusPxFn', () {
       renderer = PointRenderer<int>(
-        config: PointRendererConfig(radiusPx: 2, boundsLineRadiusPx: 1.5),
+        config: PointRendererConfig<int>(radiusPx: 2, boundsLineRadiusPx: 1.5),
       );
 
-      // Remove the radius functions to test configured defaults.
       numericSeriesList[0].radiusPxFn = null;
       numericSeriesList[0].setAttr(boundsLineRadiusPxFnKey, null);
 
@@ -149,11 +139,11 @@ void main() {
 
       expect(numericSeriesList.length, equals(1));
 
-      // Validate Desktop series.
       final series = numericSeriesList[0];
-
       final elementsList = series.getAttr(pointElementsKey);
-      expect(elementsList.length, equals(4));
+
+      expect(elementsList, isNotNull);
+      expect(elementsList!.length, equals(4));
 
       expect(elementsList[0].radiusPx, equals(2.0));
       expect(elementsList[1].radiusPx, equals(2.0));
@@ -166,23 +156,26 @@ void main() {
       expect(elementsList[3].boundsLineRadiusPx, equals(1.5));
     });
 
-    test('with custom symbol renderer ID in data', () {
-      renderer = PointRenderer<int>(config: PointRendererConfig());
+    test('with custom symbol renderer id in data', () {
+      renderer = PointRenderer<int>(config: PointRendererConfig<int>());
+
+      String? pointSymbolRenderer(int? index) =>
+          (numericSeriesList[0].data[index!] as MyRow).shape;
 
       numericSeriesList[0].setAttr(
         pointSymbolRendererFnKey,
-        (index) => numericSeriesList[0].data[index].shape as String,
+        pointSymbolRenderer,
       );
 
       renderer.preprocessSeries(numericSeriesList);
 
       expect(numericSeriesList.length, equals(1));
 
-      // Validate Desktop series.
       final series = numericSeriesList[0];
-
       final elementsList = series.getAttr(pointElementsKey);
-      expect(elementsList.length, equals(4));
+
+      expect(elementsList, isNotNull);
+      expect(elementsList!.length, equals(4));
 
       expect(elementsList[0].symbolRendererId, equals(defaultSymbolRendererId));
       expect(elementsList[1].symbolRendererId, equals('shape 1'));
@@ -190,12 +183,15 @@ void main() {
       expect(elementsList[3].symbolRendererId, equals(defaultSymbolRendererId));
     });
 
-    test('with custom symbol renderer ID in series and data', () {
-      renderer = PointRenderer<int>(config: PointRendererConfig());
+    test('with custom symbol renderer id in series and data', () {
+      renderer = PointRenderer<int>(config: PointRendererConfig<int>());
+
+      String? pointSymbolRenderer(int? index) =>
+          (numericSeriesList[0].data[index!] as MyRow).shape;
 
       numericSeriesList[0].setAttr(
         pointSymbolRendererFnKey,
-        (index) => numericSeriesList[0].data[index].shape as String,
+        pointSymbolRenderer,
       );
       numericSeriesList[0].setAttr(pointSymbolRendererIdKey, 'shape 0');
 
@@ -203,11 +199,11 @@ void main() {
 
       expect(numericSeriesList.length, equals(1));
 
-      // Validate Desktop series.
       final series = numericSeriesList[0];
-
       final elementsList = series.getAttr(pointElementsKey);
-      expect(elementsList.length, equals(4));
+
+      expect(elementsList, isNotNull);
+      expect(elementsList!.length, equals(4));
 
       expect(elementsList[0].symbolRendererId, equals('shape 0'));
       expect(elementsList[1].symbolRendererId, equals('shape 1'));
@@ -216,5 +212,3 @@ void main() {
     });
   });
 }
-
-*/

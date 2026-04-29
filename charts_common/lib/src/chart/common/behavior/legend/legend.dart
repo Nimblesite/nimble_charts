@@ -180,7 +180,7 @@ abstract class Legend<D> implements ChartBehavior<D>, LayoutView {
     // Also update legend entries if the series list has changed.
     if (legendState._selectionModel != selectionModel ||
         _postProcessSeriesList != seriesList) {
-      final customEntryOrder = this._customEntryOrder;
+      final customEntryOrder = _customEntryOrder;
       if (customEntryOrder != null) {
         _currentSeriesList.sort((a, b) {
           final aIndex = customEntryOrder.indexOf(a.id);

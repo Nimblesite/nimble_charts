@@ -203,7 +203,7 @@ abstract class KeyboardDomainNavigator<D> implements ChartBehavior<D> {
   int _getActiveHoverDomainIndex() {
     // If enter is pressed before an arrow key, we don't have any selection
     // domains available. Bail out.
-    final domains = this._domains;
+    final domains = _domains;
     if (domains == null || domains.isEmpty) {
       return NO_SELECTION;
     }
