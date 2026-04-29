@@ -1,3 +1,5 @@
+import 'dart:async' show unawaited;
+
 import 'package:example/picker/tag_item_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -30,16 +32,15 @@ class _AnimatedItemGridState<T> extends State<AnimatedItemGrid<T>>
       vsync: this,
       duration: const Duration(milliseconds: 200),
     );
-    _controller.forward();
+    unawaited(_controller.forward());
   }
 
   @override
   void didUpdateWidget(AnimatedItemGrid<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (!_areItemListsEqual(widget.items, oldWidget.items)) {
-      _controller
-        ..reset()
-        ..forward();
+      _controller.reset();
+      unawaited(_controller.forward());
     }
   }
 

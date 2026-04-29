@@ -19,6 +19,8 @@
 library;
 
 import 'package:test/test.dart';
+
+void main() {}
 /*
 
 import 'dart:math';

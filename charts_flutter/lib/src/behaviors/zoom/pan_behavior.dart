@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async' show unawaited;
 import 'dart:math' show Point, max, pow;
 import 'dart:ui' show lerpDouble;
 
@@ -97,8 +98,8 @@ mixin FlutterPanBehaviorMixin<D> on common.PanBehavior<D>
   }
 
   @override
-  bool onTapTest(Point<double> chartPoint) {
-    super.onTapTest(chartPoint);
+  bool onTapTest(Point<double> localPosition) {
+    super.onTapTest(localPosition);
 
     stopFlingAnimation();
 
@@ -137,9 +138,8 @@ mixin FlutterPanBehaviorMixin<D> on common.PanBehavior<D>
           max(200, (pixelsPerSec * flingDurationMultiplier).abs().round()),
     );
 
-    _flingAnimator!
-      ..duration = flingDuration
-      ..forward(from: 0);
+    _flingAnimator!.duration = flingDuration;
+    unawaited(_flingAnimator!.forward(from: 0));
     _isFlinging = true;
   }
 

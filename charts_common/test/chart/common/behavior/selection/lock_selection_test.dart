@@ -13,12 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@Tags(['skip-file'])
-library;
-
-import 'package:test/test.dart';
-/*
-
 import 'dart:math';
 
 import 'package:mockito/mockito.dart';
@@ -67,8 +61,9 @@ void main() {
   LockSelection<dynamic> makeLockSelectionBehavior(
     SelectionModelType selectionModelType,
   ) {
-    final behavior = LockSelection(selectionModelType: selectionModelType)
-      ..attachTo(chart);
+    final behavior = LockSelection<dynamic>(
+      selectionModelType: selectionModelType,
+    )..attachTo(chart);
 
     return behavior;
   }
@@ -119,7 +114,7 @@ void main() {
 
       when(hoverSelectionModel.hasAnySelection).thenReturn(true);
 
-      //TODO: this makes the test pass, but not sure if it's the 
+      //TODO: this makes the test pass, but not sure if it's the
       //right way to do it
       //when(hoverSelectionModel.clearSelection()).thenReturn(true);
 
@@ -178,5 +173,3 @@ void main() {
     });
   });
 }
-
-*/

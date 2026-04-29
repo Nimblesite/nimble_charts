@@ -318,7 +318,7 @@ class _LinePointLayoutView<D> extends LayoutView {
 
   @override
   void paint(ChartCanvas canvas, double animationPercent) {
-    final seriesPointMap = this._seriesPointMap;
+    final seriesPointMap = _seriesPointMap;
     if (seriesPointMap == null) {
       return;
     }
