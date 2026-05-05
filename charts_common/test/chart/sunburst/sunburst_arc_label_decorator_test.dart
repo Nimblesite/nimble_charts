@@ -234,8 +234,7 @@ void main() {
       final decorator = SunburstArcLabelDecorator(
         outerRingArcLabelPosition: ArcLabelPosition.inside,
         insideLabelStyleSpec: const TextStyleSpec(fontSize: 10),
-      )
-        ..decorate(
+      )..decorate(
           [arcElements],
           canvas,
           graphicsFactory,
@@ -282,8 +281,7 @@ void main() {
         innerRingLeafArcLabelPosition: ArcLabelPosition.outside,
         outerRingArcLabelPosition: ArcLabelPosition.outside,
         outsideLabelStyleSpec: const TextStyleSpec(fontSize: 10),
-      )
-        ..decorate(
+      )..decorate(
           [arcElements],
           canvas,
           graphicsFactory,
@@ -347,8 +345,7 @@ void main() {
           fontFamily: 'outsideFont',
           color: outsideColor,
         ),
-      )
-        ..decorate(
+      )..decorate(
           [arcElements],
           canvas,
           graphicsFactory,

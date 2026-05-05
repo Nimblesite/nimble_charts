@@ -97,8 +97,6 @@ class FakeTextElement implements TextElement {
       );
 }
 
-
-
 class FakeArcRendererElement extends ArcRendererElement<String> {
   FakeArcRendererElement(this.labelAccessor, this.data)
       : super(
@@ -210,8 +208,7 @@ void main() {
       final decorator = ArcLabelDecorator(
         labelPosition: ArcLabelPosition.inside,
         insideLabelStyleSpec: const TextStyleSpec(fontSize: 10),
-      )
-        ..decorate(
+      )..decorate(
           [arcElements],
           canvas,
           graphicsFactory,
@@ -249,8 +246,7 @@ void main() {
       final decorator = ArcLabelDecorator(
         labelPosition: ArcLabelPosition.outside,
         outsideLabelStyleSpec: const TextStyleSpec(fontSize: 10),
-      )
-        ..decorate(
+      )..decorate(
           [arcElements],
           canvas,
           graphicsFactory,
@@ -311,8 +307,7 @@ void main() {
           fontFamily: 'outsideFont',
           color: outsideColor,
         ),
-      )
-        ..decorate(
+      )..decorate(
           [arcElements],
           canvas,
           graphicsFactory,

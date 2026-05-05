@@ -108,8 +108,7 @@ void main() {
         handleSize: handleSize ?? const Rectangle<int>(0, 0, 10, 20),
         handlePosition: handlePosition,
       ),
-    )
-      ..attachTo(chart);
+    )..attachTo(chart);
 
     // Mock out chart layout by assigning bounds to the layout view.
     tester = SliderTester<num>(behavior)
@@ -127,8 +126,7 @@ void main() {
     List<DatumDetails<num>>? respondWithDetails,
   }) {
     if (forPoint != null) {
-      when(chart.pointWithinRenderer(forPoint))
-          .thenReturn(isWithinRenderer);
+      when(chart.pointWithinRenderer(forPoint)).thenReturn(isWithinRenderer);
       when(chart.getNearestDatumDetailPerSeries(forPoint, true))
           .thenReturn(respondWithDetails ?? <DatumDetails<num>>[]);
     }
@@ -215,22 +213,19 @@ void main() {
       chart.lastGestureListener!.onDragStart!(startPoint);
       expect(tester.domainCenterPoint, equals(startPoint));
       expect(tester.domainValue, equals(5.0));
-      expect(
-          tester.handleBounds, equals(const Rectangle<int>(95, 90, 10, 20)));
+      expect(tester.handleBounds, equals(const Rectangle<int>(95, 90, 10, 20)));
 
       // Drag to first update point.
       chart.lastGestureListener!.onDragUpdate!(updatePoint1, 1);
       expect(tester.domainCenterPoint, equals(updatePoint1));
       expect(tester.domainValue, equals(2.5));
-      expect(
-          tester.handleBounds, equals(const Rectangle<int>(45, 90, 10, 20)));
+      expect(tester.handleBounds, equals(const Rectangle<int>(45, 90, 10, 20)));
 
       // Drag to second update point.
       chart.lastGestureListener!.onDragUpdate!(updatePoint2, 1);
       expect(tester.domainCenterPoint, equals(updatePoint2));
       expect(tester.domainValue, equals(5.0));
-      expect(
-          tester.handleBounds, equals(const Rectangle<int>(95, 90, 10, 20)));
+      expect(tester.handleBounds, equals(const Rectangle<int>(95, 90, 10, 20)));
 
       // Drag the point to the end point.
       chart.lastGestureListener!.onDragUpdate!(endPoint, 1);
@@ -357,22 +352,19 @@ void main() {
       chart.lastGestureListener!.onDragStart!(startPoint);
       expect(tester.domainCenterPoint, equals(startPoint));
       expect(tester.domainValue, equals(5.0));
-      expect(
-          tester.handleBounds, equals(const Rectangle<int>(95, 90, 10, 20)));
+      expect(tester.handleBounds, equals(const Rectangle<int>(95, 90, 10, 20)));
 
       // Drag to first update point.
       chart.lastGestureListener!.onDragUpdate!(updatePoint1, 1);
       expect(tester.domainCenterPoint, equals(updatePoint1));
       expect(tester.domainValue, equals(2.5));
-      expect(
-          tester.handleBounds, equals(const Rectangle<int>(45, 90, 10, 20)));
+      expect(tester.handleBounds, equals(const Rectangle<int>(45, 90, 10, 20)));
 
       // Drag to second update point.
       chart.lastGestureListener!.onDragUpdate!(updatePoint2, 1);
       expect(tester.domainCenterPoint, equals(updatePoint2));
       expect(tester.domainValue, equals(5.0));
-      expect(
-          tester.handleBounds, equals(const Rectangle<int>(95, 90, 10, 20)));
+      expect(tester.handleBounds, equals(const Rectangle<int>(95, 90, 10, 20)));
 
       // Drag the point to the end point.
       chart.lastGestureListener!.onDragUpdate!(endPoint, 1);
@@ -430,22 +422,19 @@ void main() {
       chart.lastGestureListener!.onDragStart!(startPoint);
       expect(tester.domainCenterPoint, equals(startPoint));
       expect(tester.domainValue, equals(5.0));
-      expect(
-          tester.handleBounds, equals(const Rectangle<int>(95, 90, 10, 20)));
+      expect(tester.handleBounds, equals(const Rectangle<int>(95, 90, 10, 20)));
 
       // Drag to first update point.
       chart.lastGestureListener!.onDragUpdate!(updatePoint1, 1);
       expect(tester.domainCenterPoint, equals(updatePoint1));
       expect(tester.domainValue, equals(2.5));
-      expect(
-          tester.handleBounds, equals(const Rectangle<int>(45, 90, 10, 20)));
+      expect(tester.handleBounds, equals(const Rectangle<int>(45, 90, 10, 20)));
 
       // Drag to second update point.
       chart.lastGestureListener!.onDragUpdate!(updatePoint2, 1);
       expect(tester.domainCenterPoint, equals(updatePoint2));
       expect(tester.domainValue, equals(5.0));
-      expect(
-          tester.handleBounds, equals(const Rectangle<int>(95, 90, 10, 20)));
+      expect(tester.handleBounds, equals(const Rectangle<int>(95, 90, 10, 20)));
 
       // Drag the point to the end point.
       chart.lastGestureListener!.onDragUpdate!(endPoint, 1);
@@ -502,23 +491,20 @@ void main() {
       chart.lastGestureListener!.onDragStart!(startPoint);
       expect(tester.domainCenterPoint, equals(startPoint));
       expect(tester.domainValue, equals(5.0));
-      expect(
-          tester.handleBounds, equals(const Rectangle<int>(95, 90, 10, 20)));
+      expect(tester.handleBounds, equals(const Rectangle<int>(95, 90, 10, 20)));
 
       // Drag the point to the end point.
       chart.lastGestureListener!.onDragUpdate!(endPoint, 1);
       expect(tester.domainCenterPoint, equals(startPoint));
       expect(tester.domainValue, equals(5.0));
-      expect(
-          tester.handleBounds, equals(const Rectangle<int>(95, 90, 10, 20)));
+      expect(tester.handleBounds, equals(const Rectangle<int>(95, 90, 10, 20)));
 
       // Simulate onDragEnd.
       chart.lastGestureListener!.onDragEnd!(endPoint, 1, 1);
 
       expect(tester.domainCenterPoint, equals(startPoint));
       expect(tester.domainValue, equals(5.0));
-      expect(
-          tester.handleBounds, equals(const Rectangle<int>(95, 90, 10, 20)));
+      expect(tester.handleBounds, equals(const Rectangle<int>(95, 90, 10, 20)));
     });
 
     test('can snap to datum', () {
@@ -562,23 +548,20 @@ void main() {
       chart.lastGestureListener!.onDragStart!(startPoint);
       expect(tester.domainCenterPoint, equals(startPoint));
       expect(tester.domainValue, equals(5.0));
-      expect(
-          tester.handleBounds, equals(const Rectangle<int>(95, 90, 10, 20)));
+      expect(tester.handleBounds, equals(const Rectangle<int>(95, 90, 10, 20)));
 
       // Drag to first update point. The slider should follow the mouse during
       // each drag update.
       chart.lastGestureListener!.onDragUpdate!(updatePoint1, 1);
       expect(tester.domainCenterPoint, equals(updatePoint1));
       expect(tester.domainValue, equals(2.5));
-      expect(
-          tester.handleBounds, equals(const Rectangle<int>(45, 90, 10, 20)));
+      expect(tester.handleBounds, equals(const Rectangle<int>(45, 90, 10, 20)));
 
       // Drag to second update point.
       chart.lastGestureListener!.onDragUpdate!(updatePoint2, 1);
       expect(tester.domainCenterPoint, equals(updatePoint2));
       expect(tester.domainValue, equals(5.0));
-      expect(
-          tester.handleBounds, equals(const Rectangle<int>(95, 90, 10, 20)));
+      expect(tester.handleBounds, equals(const Rectangle<int>(95, 90, 10, 20)));
 
       // Drag the point to the end point.
       chart.lastGestureListener!.onDragUpdate!(endPoint, 1);
@@ -592,8 +575,7 @@ void main() {
 
       expect(tester.domainCenterPoint, equals(const Point<int>(90, 100)));
       expect(tester.domainValue, equals(4.5));
-      expect(
-          tester.handleBounds, equals(const Rectangle<int>(85, 90, 10, 20)));
+      expect(tester.handleBounds, equals(const Rectangle<int>(85, 90, 10, 20)));
     });
   });
 
@@ -613,22 +595,19 @@ void main() {
       // Verify initial position.
       expect(tester.domainCenterPoint, equals(const Point(20, 100)));
       expect(tester.domainValue, equals(1.0));
-      expect(
-          tester.handleBounds, equals(const Rectangle<int>(15, 90, 10, 20)));
+      expect(tester.handleBounds, equals(const Rectangle<int>(15, 90, 10, 20)));
 
       // Move to first domain value.
       slider.moveSliderToDomain(2);
       expect(tester.domainCenterPoint, equals(const Point(40, 100)));
       expect(tester.domainValue, equals(2.0));
-      expect(
-          tester.handleBounds, equals(const Rectangle<int>(35, 90, 10, 20)));
+      expect(tester.handleBounds, equals(const Rectangle<int>(35, 90, 10, 20)));
 
       // Move to second domain value.
       slider.moveSliderToDomain(5);
       expect(tester.domainCenterPoint, equals(const Point(100, 100)));
       expect(tester.domainValue, equals(5.0));
-      expect(
-          tester.handleBounds, equals(const Rectangle<int>(95, 90, 10, 20)));
+      expect(tester.handleBounds, equals(const Rectangle<int>(95, 90, 10, 20)));
 
       // Move to third domain value.
       slider.moveSliderToDomain(7.5);
@@ -638,8 +617,7 @@ void main() {
           tester.handleBounds, equals(const Rectangle<int>(145, 90, 10, 20)));
     });
 
-    test(
-        'can set domain and measure position when handle position is manual',
+    test('can set domain and measure position when handle position is manual',
         () {
       // Setup chart matches point with single domain single series.
       final slider = makeBehavior(SelectionTrigger.tapAndDrag,
@@ -663,8 +641,7 @@ void main() {
       slider.moveSliderToDomain(2, measure: 5);
       expect(tester.domainCenterPoint, equals(const Point(40, 100)));
       expect(tester.domainValue, equals(2.0));
-      expect(
-          tester.handleBounds, equals(const Rectangle<int>(35, 90, 10, 20)));
+      expect(tester.handleBounds, equals(const Rectangle<int>(35, 90, 10, 20)));
 
       // Move to second domain value.
       slider.moveSliderToDomain(5, measure: 7);
