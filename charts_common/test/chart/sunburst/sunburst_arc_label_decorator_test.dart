@@ -205,7 +205,7 @@ void main() {
         equals(100 - decorator.outsideLabelStyleSpec.fontSize! ~/ 2),
       );
 
-      // For arc 'C', forced inside and ellipsed since it is not the on the
+      // For arc 'C', forced inside and ellipsized since it is not the on the
       // outer most ring.
       expect(captured[6].maxWidth, equals(10 - decorator.labelPadding));
       expect(captured[6].textDirection, equals(TextDirection.center));

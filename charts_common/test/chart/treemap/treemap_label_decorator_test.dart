@@ -383,6 +383,7 @@ void main() {
       );
     });
 
+    // cspell:disable
     test(
         'label can not fit in a new single line, no rotation, rtl, with '
         'multiline, the first long word in the label should be cutting into '
@@ -426,6 +427,7 @@ void main() {
         equals(decorator.labelPadding + _defaultLineHeight.toInt()),
       );
     });
+    // cspell:enable
 
     test(
         'label can not fit in a new single line or even the box, with '
