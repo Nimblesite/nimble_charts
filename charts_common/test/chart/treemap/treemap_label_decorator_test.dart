@@ -13,22 +13,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@Tags(['skip-file'])
-library;
-
-import 'package:test/test.dart';
-
-void main() {}
-/*
-
 import 'dart:math' show Rectangle, pi;
 
-import 'package:meta/meta.dart' show required;
 import 'package:mockito/mockito.dart';
-import 'package:nimble_charts_common/src/chart/common/chart_canvas.dart'
-    show ChartCanvas;
-import 'package:nimble_charts_common/src/chart/common/processed_series.dart'
-    show ImmutableSeries;
 import 'package:nimble_charts_common/src/chart/treemap/treemap_label_decorator.dart'
     show TreeMapLabelDecorator;
 import 'package:nimble_charts_common/src/chart/treemap/treemap_renderer_element.dart'
@@ -45,7 +32,7 @@ import 'package:nimble_charts_common/src/common/text_style.dart' show TextStyle;
 import 'package:nimble_charts_common/src/data/series.dart' show AccessorFn;
 import 'package:test/test.dart';
 
-class MockCanvas extends Mock implements ChartCanvas {}
+import '../../mox.mocks.dart';
 
 /// A fake [GraphicsFactory] that returns [FakeTextStyle] and [FakeTextElement].
 class FakeGraphicsFactory extends GraphicsFactory {
@@ -62,19 +49,19 @@ class FakeGraphicsFactory extends GraphicsFactory {
 /// Stores [TextStyle] properties for test to verify.
 class FakeTextStyle implements TextStyle {
   @override
-  Color color;
+  Color? color;
 
   @override
-  int fontSize;
+  int? fontSize;
 
   @override
-  String fontFamily;
+  String? fontFamily;
 
   @override
-  String fontWeight;
+  String? fontWeight;
 
   @override
-  double lineHeight;
+  double? lineHeight;
 }
 
 /// Fake [TextElement] which returns text length as [horizontalSliceWidth].
@@ -88,85 +75,83 @@ class FakeTextElement implements TextElement {
   String get text {
     if (maxWidthStrategy == MaxWidthStrategy.ellipsize) {
       var width = measureTextWidth(_text);
-      const ellipsis = '…';
+      const ellipsis = '\u2026';
       final ellipsisWidth = measureTextWidth(ellipsis);
-      if (width <= maxWidth || width <= ellipsisWidth) {
+      if (width <= maxWidth! || width <= ellipsisWidth) {
         return _text;
       } else {
         var len = _text.length;
         var ellipsizedText = _text;
-        while (width >= maxWidth - ellipsisWidth && len-- > 0) {
+        while (width >= maxWidth! - ellipsisWidth && len-- > 0) {
           ellipsizedText = ellipsizedText.substring(0, len);
           width = measureTextWidth(ellipsizedText);
         }
-        return ellipsizedText + ellipsis;
+        return '$ellipsizedText$ellipsis';
       }
     }
     return _text;
   }
 
   @override
-  TextStyle textStyle;
+  TextStyle? textStyle;
 
   @override
-  int maxWidth;
+  int? maxWidth;
 
   @override
-  MaxWidthStrategy maxWidthStrategy;
+  MaxWidthStrategy? maxWidthStrategy;
 
   @override
-  TextDirection textDirection;
+  TextDirection textDirection = TextDirection.ltr;
 
-  double opacity;
+  @override
+  double? opacity;
 
   @override
   TextMeasurement get measurement => TextMeasurement(
         horizontalSliceWidth: _text.length.toDouble(),
-        verticalSliceWidth: textStyle.fontSize.toDouble(),
-        baseline: textStyle.fontSize.toDouble(),
+        verticalSliceWidth: (textStyle?.fontSize ?? 12).toDouble(),
+        baseline: (textStyle?.fontSize ?? 12).toDouble(),
       );
 
   double measureTextWidth(String text) => text.length.toDouble();
 }
 
-class MockLinePaint extends Mock implements LineStyle {}
-
 class FakeTreeMapRendererElement extends TreeMapRendererElement<String> {
   FakeTreeMapRendererElement(
     this.labelAccessor,
     this.data, {
-    required Rectangle<num> @Tags(['skip-file'])
-library;
-import 'package:test/test.dart';
-/*?*/ super.boundingRect,
+    required super.boundingRect,
     required super.index,
     required super.isLeaf,
   }) : super(
-          series: MockImmutableSeries<String>(),
+          series: _createMock(labelAccessor, data),
           domain: '',
           measure: 0,
-        ) {
-    when(_series.labelAccessorFn).thenReturn(labelAccessor);
-    when(_series.data).thenReturn(data);
+        );
+
+  static MockImmutableSeries<String> _createMock(
+    AccessorFn<String>? labelAccessor,
+    List<String> data,
+  ) {
+    final mock = MockImmutableSeries<String>();
+    when(mock.labelAccessorFn).thenReturn(labelAccessor);
+    when(mock.data).thenReturn(data);
+    return mock;
   }
-  final _series = MockImmutableSeries<String>();
-  final AccessorFn<String> labelAccessor;
+
+  final AccessorFn<String>? labelAccessor;
   final List<String> data;
-
-  @override
-  ImmutableSeries<String> get series => _series;
 }
-
-class MockImmutableSeries<D> extends Mock implements ImmutableSeries<D> {}
 
 const _defaultFontSize = 12;
 const _defaultLineHeight = 12.0;
 const _90DegreeClockwise = pi / 2;
 
 void main() {
-  ChartCanvas canvas;
-  GraphicsFactory graphicsFactory;
-  Rectangle<int> drawBounds;
+  late MockCanvas canvas;
+  late GraphicsFactory graphicsFactory;
+  late Rectangle<int> drawBounds;
 
   setUpAll(() {
     canvas = MockCanvas();
@@ -184,15 +169,14 @@ void main() {
         index: 0,
         isLeaf: false,
       );
-      final decorator = TreeMapLabelDecorator();
-
-      decorator.decorate(
-        renderElement,
-        canvas,
-        graphicsFactory,
-        drawBounds: drawBounds,
-        animationPercent: 1,
-      );
+      final decorator = TreeMapLabelDecorator()
+        ..decorate(
+          renderElement,
+          canvas,
+          graphicsFactory,
+          drawBounds: drawBounds,
+          animationPercent: 1,
+        );
 
       final captured =
           verify(canvas.drawText(captureAny, captureAny, captureAny)).captured;
@@ -217,16 +201,15 @@ void main() {
         isLeaf: false,
       );
 
-      final decorator = TreeMapLabelDecorator();
-
-      decorator.decorate(
-        renderElement,
-        canvas,
-        graphicsFactory,
-        drawBounds: drawBounds,
-        animationPercent: 1,
-        rtl: true,
-      );
+      final decorator = TreeMapLabelDecorator()
+        ..decorate(
+          renderElement,
+          canvas,
+          graphicsFactory,
+          drawBounds: drawBounds,
+          animationPercent: 1,
+          rtl: true,
+        );
 
       final captured =
           verify(canvas.drawText(captureAny, captureAny, captureAny)).captured;
@@ -251,16 +234,15 @@ void main() {
         isLeaf: false,
       );
 
-      final decorator = TreeMapLabelDecorator();
-
-      decorator.decorate(
-        renderElement,
-        canvas,
-        graphicsFactory,
-        drawBounds: drawBounds,
-        animationPercent: 1,
-        renderVertically: true,
-      );
+      final decorator = TreeMapLabelDecorator()
+        ..decorate(
+          renderElement,
+          canvas,
+          graphicsFactory,
+          drawBounds: drawBounds,
+          animationPercent: 1,
+          renderVertically: true,
+        );
 
       final captured = verify(
         canvas.drawText(
@@ -294,17 +276,16 @@ void main() {
         isLeaf: false,
       );
 
-      final decorator = TreeMapLabelDecorator();
-
-      decorator.decorate(
-        renderElement,
-        canvas,
-        graphicsFactory,
-        drawBounds: drawBounds,
-        animationPercent: 1,
-        rtl: true,
-        renderVertically: true,
-      );
+      final decorator = TreeMapLabelDecorator()
+        ..decorate(
+          renderElement,
+          canvas,
+          graphicsFactory,
+          drawBounds: drawBounds,
+          animationPercent: 1,
+          rtl: true,
+          renderVertically: true,
+        );
 
       final captured = verify(
         canvas.drawText(
@@ -341,15 +322,14 @@ void main() {
         isLeaf: false,
       );
 
-      final decorator = TreeMapLabelDecorator();
-
-      decorator.decorate(
-        renderElement,
-        canvas,
-        graphicsFactory,
-        drawBounds: drawBounds,
-        animationPercent: 1,
-      );
+      final decorator = TreeMapLabelDecorator()
+        ..decorate(
+          renderElement,
+          canvas,
+          graphicsFactory,
+          drawBounds: drawBounds,
+          animationPercent: 1,
+        );
 
       final captured =
           verify(canvas.drawText(captureAny, captureAny, captureAny)).captured;
@@ -374,16 +354,15 @@ void main() {
         isLeaf: true,
       );
 
-      final decorator = TreeMapLabelDecorator(enableMultiline: true);
-
-      decorator.decorate(
-        renderElement,
-        canvas,
-        graphicsFactory,
-        drawBounds: drawBounds,
-        animationPercent: 1,
-        renderMultiline: renderElement.isLeaf,
-      );
+      final decorator = TreeMapLabelDecorator(enableMultiline: true)
+        ..decorate(
+          renderElement,
+          canvas,
+          graphicsFactory,
+          drawBounds: drawBounds,
+          animationPercent: 1,
+          renderMultiline: renderElement.isLeaf,
+        );
 
       final captured =
           verify(canvas.drawText(captureAny, captureAny, captureAny)).captured;
@@ -404,31 +383,31 @@ void main() {
       );
     });
 
+    // cspell:disable
     test(
         'label can not fit in a new single line, no rotation, rtl, with '
         'multiline, the first long word in the label should be cutting into '
         'two pieces', () {
       final data = ['A'];
       final renderElement = FakeTreeMapRendererElement(
-        (_) => 'ThisLabelistoolongforasinglelinethereforeitwillbeellipsizedwith' // cspell:ignore ThisLabelistoolongforasinglelinethereforeitwillbeellipsizedwith
-            'ellipsisattheendofthenewtruncated label', // cspell:ignore ellipsisattheendofthenewtruncated
+        (_) => 'ThisLabelistoolongforasinglelinethereforeitwillbeellipsizedwith'
+            'ellipsisattheendofthenewtruncated label',
         data,
         boundingRect: drawBounds,
         index: 0,
         isLeaf: true,
       );
 
-      final decorator = TreeMapLabelDecorator(enableMultiline: true);
-
-      decorator.decorate(
-        renderElement,
-        canvas,
-        graphicsFactory,
-        drawBounds: drawBounds,
-        animationPercent: 1,
-        rtl: true,
-        renderMultiline: renderElement.isLeaf,
-      );
+      final decorator = TreeMapLabelDecorator(enableMultiline: true)
+        ..decorate(
+          renderElement,
+          canvas,
+          graphicsFactory,
+          drawBounds: drawBounds,
+          animationPercent: 1,
+          rtl: true,
+          renderMultiline: renderElement.isLeaf,
+        );
 
       final captured =
           verify(canvas.drawText(captureAny, captureAny, captureAny)).captured;
@@ -436,18 +415,19 @@ void main() {
       // First line.
       expect(
           captured[0].text,
-          'ThisLabelistoolongforasinglelinethereforeitwillbeellipsizedwithelli' // cspell:ignore ThisLabelistoolongforasinglelinethereforeitwillbeellipsizedwithelli
-          'psisattheendofthenewtrunc'); cspell:ignore psisattheendofthenewtrunc
+          'ThisLabelistoolongforasinglelinethereforeitwillbeellipsizedwithelli'
+          'psisattheendofthenewtrunc');
       expect(captured[1], equals(drawBounds.width - decorator.labelPadding));
       expect(captured[2], equals(decorator.labelPadding));
       // Second line.
-      expect(captured[3].text, 'ated label'); cspell:ignore ated label
+      expect(captured[3].text, 'ated label');
       expect(captured[4], equals(drawBounds.width - decorator.labelPadding));
       expect(
         captured[5],
         equals(decorator.labelPadding + _defaultLineHeight.toInt()),
       );
     });
+    // cspell:enable
 
     test(
         'label can not fit in a new single line or even the box, with '
@@ -468,17 +448,16 @@ void main() {
         isLeaf: true,
       );
 
-      final decorator = TreeMapLabelDecorator(enableMultiline: true);
-
-      decorator.decorate(
-        renderElement,
-        canvas,
-        graphicsFactory,
-        drawBounds: drawBounds,
-        animationPercent: 1,
-        renderVertically: true,
-        renderMultiline: renderElement.isLeaf,
-      );
+      final decorator = TreeMapLabelDecorator(enableMultiline: true)
+        ..decorate(
+          renderElement,
+          canvas,
+          graphicsFactory,
+          drawBounds: drawBounds,
+          animationPercent: 1,
+          renderVertically: true,
+          renderMultiline: renderElement.isLeaf,
+        );
 
       final captured = verify(
         canvas.drawText(
@@ -521,8 +500,8 @@ void main() {
     });
 
     test(
-        'label can not fit in a new single line, with rotation, rtl, multiline',
-        () {
+        'label can not fit in a new single line, with rotation, rtl, '
+        'multiline', () {
       final data = ['A'];
       final renderElement = FakeTreeMapRendererElement(
         (_) => 'This Label is too long for a single line therefore it will be '
@@ -533,18 +512,17 @@ void main() {
         isLeaf: true,
       );
 
-      final decorator = TreeMapLabelDecorator(enableMultiline: true);
-
-      decorator.decorate(
-        renderElement,
-        canvas,
-        graphicsFactory,
-        drawBounds: drawBounds,
-        animationPercent: 1,
-        renderVertically: true,
-        rtl: true,
-        renderMultiline: renderElement.isLeaf,
-      );
+      final decorator = TreeMapLabelDecorator(enableMultiline: true)
+        ..decorate(
+          renderElement,
+          canvas,
+          graphicsFactory,
+          drawBounds: drawBounds,
+          animationPercent: 1,
+          renderVertically: true,
+          rtl: true,
+          renderMultiline: renderElement.isLeaf,
+        );
 
       final captured = verify(
         canvas.drawText(
@@ -578,19 +556,17 @@ void main() {
   });
 
   group('Null and empty label scenarios', () {
-    test('Skip label if label is null', () {
+    test('Skip label if label accessor does not exist', () {
       final data = ['A'];
       final renderElement = FakeTreeMapRendererElement(
-        (_) => null,
+        null,
         data,
         boundingRect: drawBounds,
         index: 0,
         isLeaf: true,
       );
 
-      final decorator = TreeMapLabelDecorator();
-
-      decorator.decorate(
+      TreeMapLabelDecorator().decorate(
         renderElement,
         canvas,
         graphicsFactory,
@@ -611,9 +587,7 @@ void main() {
         isLeaf: true,
       );
 
-      final decorator = TreeMapLabelDecorator();
-
-      decorator.decorate(
+      TreeMapLabelDecorator().decorate(
         renderElement,
         canvas,
         graphicsFactory,
@@ -625,5 +599,3 @@ void main() {
     });
   });
 }
-
-*/
